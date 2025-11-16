@@ -1,0 +1,16 @@
+diff --git a/node_modules/keystone-nightwatch-e2e/index.js b/node_modules/keystone-nightwatch-e2e/index.js
+index 617f313..c90fcf7 100644
+--- a/node_modules/keystone-nightwatch-e2e/index.js
++++ b/node_modules/keystone-nightwatch-e2e/index.js
+@@ -102,11 +102,7 @@ function runNightwatch (done) {
+ 					if (argv.env === 'default' && argv['selenium-in-background']) {
+ 						process.env.KNE_SELENIUM_START_PROCESS = false;
+ 						runSeleniumInBackground(cb);
+-					} else if (argv.env === 'default') {
+-						process.env.KNE_SELENIUM_START_PROCESS = true;
+-						cb();
+ 					} else {
+-						process.env.KNE_SELENIUM_START_PROCESS = false;
+ 						cb();
+ 					}
+ 				},

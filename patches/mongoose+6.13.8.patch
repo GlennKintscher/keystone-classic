@@ -1,0 +1,22 @@
+diff --git a/node_modules/mongoose/lib/helpers/query/wrapThunk.js b/node_modules/mongoose/lib/helpers/query/wrapThunk.js
+index cf5506b..388b928 100644
+--- a/node_modules/mongoose/lib/helpers/query/wrapThunk.js
++++ b/node_modules/mongoose/lib/helpers/query/wrapThunk.js
+@@ -15,17 +15,6 @@ const MongooseError = require('../../error/mongooseError');
+ 
+ module.exports = function wrapThunk(fn) {
+   return function _wrappedThunk(cb) {
+-    if (this._executionStack != null) {
+-      let str = this.toString();
+-      if (str.length > 60) {
+-        str = str.slice(0, 60) + '...';
+-      }
+-      const err = new MongooseError('Query was already executed: ' + str);
+-      err.originalStack = this._executionStack;
+-      return cb(err);
+-    }
+-    this._executionStack = new Error().stack;
+-
+     fn.call(this, cb);
+   };
+ };
