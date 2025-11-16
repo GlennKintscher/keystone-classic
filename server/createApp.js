@@ -148,8 +148,8 @@ module.exports = function createApp (keystone, express) {
 	if (typeof keystone.get('pre:error') === 'function') {
 		keystone.get('pre:error')(app);
 	}
-	app.use(function (req, res, next) {
-		keystone.callHook('pre:error', req, res, next);
+	app.use(function (error, req, res, next) {
+		keystone.callHook('pre:error', error, req, res, next);
 	});
 	require('./bindErrorHandlers')(keystone, app);
 

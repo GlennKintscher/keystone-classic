@@ -46,7 +46,9 @@ datetime.prototype.getInputFromData = function (data) {
 	var dateValue = this.getValueFromData(data, '_date');
 	var timeValue = this.getValueFromData(data, '_time');
 	var tzOffsetValue = this.getValueFromData(data, '_tzOffset');
-	if (dateValue && timeValue) {
+	if (dateValue === '' && timeValue === '') {
+		return null;
+	} else if (dateValue && timeValue) {
 		var combined = dateValue + ' ' + timeValue;
 		if (typeof tzOffsetValue !== 'undefined') {
 			combined += ' ' + tzOffsetValue;
