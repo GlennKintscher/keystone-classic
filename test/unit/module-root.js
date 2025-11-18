@@ -26,18 +26,10 @@ describe('Keystone "module root" setting', function () {
 	describe('custom with relative path', function () {
 		var customPath = '../..';
 
-		before(function () {
-			keystone.set('module root', customPath);
-		});
-
-		it('should return the custom configured path', function () {
-			demand(keystone.get('module root')).to.be(path.resolve(__dirname, customPath));
-		});
-
-		it('should be used by keystone.getPath() to resolve relative paths', function () {
-			var viewsPath = 'relative/path/to/views'
-			keystone.set('views', viewsPath);
-			demand(keystone.getPath('views')).to.be(path.resolve(__dirname, customPath, viewsPath));
+		it('should throw an error when setting a relative path', function () {
+			demand(function () {
+				keystone.set('module root', customPath);
+			}).to.throw(/The 'module root' option must be an absolute path \(e\.g\. using path\.resolve\)/);
 		});
 	});
 

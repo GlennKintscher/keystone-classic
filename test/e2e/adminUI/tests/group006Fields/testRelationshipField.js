@@ -41,7 +41,7 @@ module.exports = {
 		browser.adminUIInitialFormScreen.assertFieldInputs({
 			fields: [
 				{ name: 'name', input: { value: 'Relationship Field Test 1' }, },
-				{ name: 'fieldA', input: { value: 'e2e member' }, },
+				{ name: 'fieldA', input: { value: 'First 2 Last 2' }, },
 			],
 		});
 

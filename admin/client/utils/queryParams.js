@@ -1,4 +1,3 @@
-import assign from 'object-assign';
 import blacklist from 'blacklist';
 import isEqual from 'lodash/isEqual';
 
@@ -45,7 +44,7 @@ export function createPageQueryParams (page, defaultValue) {
  */
 export function updateQueryParams (params, location) {
 	if (!location) return;
-	const newParams = assign({}, location.query);
+	const newParams = Object.assign({}, location.query);
 	// Stringify nested objects inside the parameters
 	Object.keys(params).forEach(i => {
 		if (params[i]) {

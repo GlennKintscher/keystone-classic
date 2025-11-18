@@ -59,7 +59,7 @@ module.exports = function createDynamicRouter (keystone) {
 			keystone.set('signin url', '/' + keystone.get('admin path') + '/signin');
 		}
 		if (!keystone.nativeApp || !keystone.get('session')) {
-			router.all('*route', keystone.session.persist);
+			router.all('{*route}', keystone.session.persist);
 		}
 		router.all('/signin', SigninRoute);
 		router.all('/signout', SignoutRoute);
@@ -77,9 +77,6 @@ module.exports = function createDynamicRouter (keystone) {
 		router.get('/api/cloudinary/get', require('../api/cloudinary').get);
 		router.get('/api/cloudinary/autocomplete', require('../api/cloudinary').autocomplete);
 		router.post('/api/cloudinary/upload', require('../api/cloudinary').upload);
-	}
-	if (keystone.get('s3 config')) {
-		router.post('/api/s3/upload', require('../api/s3').upload);
 	}
 
 	// #5: Core Lists API
@@ -99,7 +96,7 @@ module.exports = function createDynamicRouter (keystone) {
 	router.post('/api/:list/:id/sortOrder/:sortOrder/:newOrder', initList, require('../api/item/sortOrder'));
 
 	// #6: List Routes
-	router.all(/\/:(?<list>.+)(\/(?<page>[0-9]{1,5}))?/, IndexRoute);
+	router.all(/\/(?<list>.+)(\/(?<page>[0-9]{1,5}))?/, IndexRoute);
 	router.all('/:list/:item', IndexRoute);
 
 	// TODO: catch 404s and errors with Admin-UI specific handlers

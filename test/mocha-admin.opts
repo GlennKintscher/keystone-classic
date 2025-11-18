@@ -1,4 +1,3 @@
 admin/**/*.test.js
---require @babel/polyfill
 --reporter spec
 --compilers js:@babel/register

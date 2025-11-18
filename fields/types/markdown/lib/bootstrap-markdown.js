@@ -17,7 +17,6 @@
 * limitations under the License.
 * ========================================================== */
 
-var $ = require('jquery');
 var marked = require('marked');
 
 /* MARKDOWN CLASS DEFINITION

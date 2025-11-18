@@ -1,5 +1,4 @@
 var _ = require('lodash');
-var assign = require('object-assign');
 var ensureCallback = require('keystone-storage-namefunctions/ensureCallback');
 var FieldType = require('../Type');
 var keystone = require('../../../');
@@ -50,7 +49,7 @@ function cloudinaryimage (list, path, options) {
 		options.generateFilename = nameFunctions.originalFilename;
 		options.whenExists = 'overwrite';
 	}
-	options = assign({}, DEFAULT_OPTIONS, options);
+	options = Object.assign({}, DEFAULT_OPTIONS, options);
 	options.generateFilename = ensureCallback(options.generateFilename);
 
 	cloudinaryimage.super_.call(this, list, path, options);
@@ -167,7 +166,7 @@ cloudinaryimage.prototype.addToSchema = function (schema) {
 		if (width) options.width = width;
 		if (height) options.height = height;
 		if (typeof other === 'object') {
-			assign(options, other);
+			Object.assign(options, other);
 		}
 		return options;
 	};
