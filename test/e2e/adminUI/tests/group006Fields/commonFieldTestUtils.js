@@ -10,7 +10,15 @@ module.exports = {
 		browser.adminUISigninScreen.signin();
 	},
 	after: function (browser) {
-		browser.adminUIApp.signout();
-		browser.end();
+		try {
+			browser.adminUIApp.signout();
+		} catch (e) {
+			console.error("Error during signout:", e);
+		}
+		try {
+			browser.end();
+		} catch (e) {
+			console.error("Error during browser end:", e);
+		}
 	}
 };

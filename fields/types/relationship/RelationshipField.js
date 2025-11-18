@@ -3,7 +3,6 @@ import Field from '../Field';
 import { listsByKey } from '../../../admin/client/utils/lists';
 import React from 'react';
 import Select from 'react-select';
-import xhr from 'xhr';
 import {
 	Button,
 	FormInput,
@@ -108,14 +107,14 @@ module.exports = Field.create({
 			value: null,
 		});
 		async.map(values, (value, done) => {
-			xhr({
-				url: Keystone.adminPath + '/api/' + this.props.refList.path + '/' + value + '?basic',
-				responseType: 'json',
-			}, (err, resp, data) => {
-				if (err || !data) return done(err);
-				this.cacheItem(data);
-				done(err, data);
-			});
+			fetch(Keystone.adminPath + '/api/' + this.props.refList.path + '/' + value + '?basic')
+				.then((resp) => resp.json())
+				.then((data) => {
+					if (!data) return done(new Error('No data'));
+					this.cacheItem(data);
+					done(null, data);
+				})
+				.catch((err) => done(err));
 		}, (err, expanded) => {
 			if (!this.__isMounted) return;
 			if (this.props.onValuesLoaded && typeof this.props.onValuesLoaded === 'function') {
@@ -133,20 +132,19 @@ module.exports = Field.create({
 		// NOTE: this seems like the wrong way to add options to the Select
 		this.loadOptionsCallback = callback;
 		const filters = this.buildFilters();
-		xhr({
-			url: Keystone.adminPath + '/api/' + this.props.refList.path + '?basic&search=' + input + '&' + filters,
-			responseType: 'json',
-		}, (err, resp, data) => {
-			if (err) {
+		fetch(Keystone.adminPath + '/api/' + this.props.refList.path + '?basic&search=' + input + '&' + filters)
+			.then((resp) => resp.json())
+			.then((data) => {
+				data.results.forEach(this.cacheItem);
+				callback(null, {
+					options: data.results,
+					complete: data.results.length === data.count,
+				});
+			})
+			.catch((err) => {
 				console.error('Error loading items:', err);
-				return callback(null, []);
-			}
-			data.results.forEach(this.cacheItem);
-			callback(null, {
-				options: data.results,
-				complete: data.results.length === data.count,
+				callback(null, []);
 			});
-		});
 	},
 	valueChanged (value) {
 		this.props.onChange({

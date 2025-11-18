@@ -9,7 +9,7 @@ import {
 	ResponsiveText,
 } from '../../../elemental';
 
-import { Fields } from 'FieldTypes';
+import { Fields } from '../../../../../../fields';
 import { fade } from '../../../../utils/color';
 import theme from '../../../../theme';
 

@@ -14,7 +14,7 @@ var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
 
 module.exports = function (req, res) {
 
-	var baby = require('babyparse');
+	var papaparse = require('papaparse');
 	var keystone = req.keystone;
 
 	var filters = req.list.processFilters(req.query.q);
@@ -87,7 +87,7 @@ module.exports = function (req, res) {
 			res.attachment(req.list.path + '-' + moment().format('YYYYMMDD-HHMMSS') + '.csv');
 			res.setHeader('Content-Type', 'application/octet-stream');
 
-			var content = baby.unparse(data, {
+			var content = papaparse.unparse(data, {
 				delimiter: keystone.get('csv field delimiter') || ',',
 			});
 

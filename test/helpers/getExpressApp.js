@@ -1,6 +1,5 @@
 var keystone = require('../../index.js');
 var mongoose = require('./getMongooseConnection.js');
-var methodOverride = require('method-override');
 var express = require('express');
 
 function getExpressApp() {
@@ -15,7 +14,6 @@ function getExpressApp() {
 	app.use(express.urlencoded({
 		extended: true
 	}));
-	app.use(methodOverride());
 
 	return app;
 }

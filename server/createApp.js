@@ -1,10 +1,3 @@
-var compression = require('compression');
-var favicon = require('serve-favicon');
-var methodOverride = require('method-override');
-var morgan = require('morgan');
-
-var language = require('../lib/middleware/language');
-
 module.exports = function createApp (keystone, express) {
 
 	if (!keystone.app) {
@@ -15,8 +8,6 @@ module.exports = function createApp (keystone, express) {
 	}
 
 	var app = keystone.app;
-	require('./initLetsEncrypt')(keystone, app);
-	require('./initSslRedirect')(keystone, app);
 
 	keystone.initDatabaseConfig();
 	keystone.initExpressSession(keystone.mongoose);
@@ -24,11 +15,10 @@ module.exports = function createApp (keystone, express) {
 	require('./initTrustProxy')(keystone, app);
 	require('./initViewEngine')(keystone, app);
 	require('./initViewLocals')(keystone, app);
-	require('./bindIPRestrictions')(keystone, app);
 
 	// Compress response bodies
 	if (keystone.get('compress')) {
-		app.use(compression());
+		throw new Error('Not supported anymore. Please use a reverse proxy such as NGINX to handle compression.');
 	}
 
 	// Pre static config
@@ -41,17 +31,12 @@ module.exports = function createApp (keystone, express) {
 
 	// Serve static assets
 
-	if (keystone.get('favicon')) {
-		app.use(favicon(keystone.getPath('favicon')));
-	}
-
 	// unless the headless option is set (which disables the Admin UI),
 	// bind the Admin UI's Static Router for public resources
 	if (!keystone.get('headless')) {
 		app.use('/' + keystone.get('admin path'), require('../admin/server').createStaticRouter(keystone));
 	}
 
-	require('./bindLessMiddleware')(keystone, app);
 	require('./bindSassMiddleware')(keystone, app);
 	require('./bindStylusMiddleware')(keystone, app);
 	require('./bindStaticMiddleware')(keystone, app);
@@ -61,20 +46,7 @@ module.exports = function createApp (keystone, express) {
 	app.use(function (req, res, next) {
 		keystone.callHook('pre:logger', req, res, next);
 	});
-	// Bind default logger (morgan)
-	if (keystone.get('logger')) {
-		var loggerOptions = keystone.get('logger options');
-		var hasOwnProperty = Object.prototype.hasOwnProperty;
-		if (loggerOptions && typeof loggerOptions.tokens === 'object') {
-			for (var key in loggerOptions.tokens) {
-				if (hasOwnProperty.call(loggerOptions.tokens, key) && typeof loggerOptions.tokens[key] === 'function') {
-					morgan.token(key, loggerOptions.tokens[key]);
-				}
-			}
-		}
 
-		app.use(morgan(keystone.get('logger'), loggerOptions));
-	}
 	// Bind custom logging middleware
 	if (keystone.get('logging middleware')) {
 		app.use(keystone.get('logging middleware'));
@@ -101,13 +73,6 @@ module.exports = function createApp (keystone, express) {
 	});
 
 	require('./bindBodyParser')(keystone, app);
-	app.use(methodOverride());
-
-	// Set language preferences
-	var languageOptions = keystone.get('language options') || {};
-	if (!languageOptions.disable) {
-		app.use(language(keystone));
-	}
 
 	// Add 'X-Frame-Options' to response header for ClickJacking protection
 	if (keystone.get('frame guard')) {

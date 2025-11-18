@@ -2,7 +2,6 @@ var _ = require('lodash');
 var FieldType = require('../Type');
 var util = require('util');
 var utils = require('keystone-utils');
-var displayName = require('display-name');
 
 /**
  * Name FieldType Constructor
@@ -39,7 +38,7 @@ name.prototype.addToSchema = function (schema) {
 	}, this.path + '.');
 
 	schema.virtual(paths.full).get(function () {
-		return displayName(this.get(paths.first), this.get(paths.last));
+		return [this.get(paths.first), this.get(paths.last)].filter(Boolean).join(' ');
 	});
 
 	schema.virtual(paths.full).set(function (value) {

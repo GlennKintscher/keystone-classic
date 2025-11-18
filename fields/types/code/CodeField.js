@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import CodeMirror from 'codemirror';
 import Field from '../Field';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { FormInput } from '../../../admin/client/App/elemental';
 import classnames from 'classnames';
 
+const CodeMirror = window.codemirror;
 /**
  * TODO:
  * - Remove dependency on lodash

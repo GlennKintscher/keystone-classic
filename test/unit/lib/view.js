@@ -1,6 +1,5 @@
 var demand = require('must');
 var request = require('supertest');
-var methodOverride = require('method-override');
 var express = require('express');
 var keystone = require('../../../index.js');
 
@@ -10,7 +9,6 @@ var getApp = function () {
 	app.use(express.urlencoded({
 		extended: true,
 	}));
-	app.use(methodOverride());
 	return app;
 };
 

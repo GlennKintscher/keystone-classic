@@ -1,4 +1,3 @@
-var assign = require('object-assign');
 var FieldType = require('../Type');
 var TextType = require('../text/TextType');
 var util = require('util');
@@ -16,7 +15,7 @@ function code (list, path, options) {
 	this.lang = options.lang || options.language;
 	this._properties = ['editor', 'height', 'lang'];
 	this.codemirror = options.codemirror || {};
-	this.editor = assign({ mode: this.lang }, this.codemirror);
+	this.editor = Object.assign({ mode: this.lang }, this.codemirror);
 	code.super_.call(this, list, path, options);
 }
 code.properName = 'Code';

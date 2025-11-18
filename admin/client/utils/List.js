@@ -5,8 +5,6 @@
 
 const listToArray = require('list-to-array');
 const qs = require('qs');
-const xhr = require('xhr');
-const assign = require('object-assign');
 // Filters for truthy elements in an array
 const truthy = (i) => i;
 
@@ -79,7 +77,7 @@ function buildQueryString (options) {
  */
 const List = function (options) {
 	// TODO these options are possibly unused
-	assign(this, options);
+	Object.assign(this, options);
 	this.columns = getColumns(this);
 	this.expandedDefaultColumns = this.expandColumns(this.defaultColumns);
 	this.defaultColumnPaths = this.expandedDefaultColumns.map(i => i.path).join(',');
@@ -92,24 +90,19 @@ const List = function (options) {
  * @param  {Function} callback Called after the API call
  */
 List.prototype.createItem = function (formData, callback) {
-	xhr({
-		url: `${Keystone.adminPath}/api/${this.path}/create`,
-		responseType: 'json',
+	fetch(`${Keystone.adminPath}/api/${this.path}/create`, {
 		method: 'POST',
-		headers: assign({}, Keystone.csrf.header),
+		headers: Object.assign({}, Keystone.csrf.header),
 		body: formData,
-	}, (err, resp, data) => {
-		if (err) callback(err);
-		if (resp.statusCode === 200) {
-			callback(null, data);
-		} else {
-			// NOTE: xhr callback will be called with an Error if
-			//  there is an error in the browser that prevents
-			//  sending the request. A HTTP 500 response is not
-			//  going to cause an error to be returned.
-			callback(data, null);
-		}
-	});
+	})
+		.then((resp) => {
+			if (resp.status === 200) {
+				return resp.json().then((data) => callback(null, data));
+			} else {
+				return resp.json().then((data) => callback(data, null));
+			}
+		})
+		.catch((err) => callback(err));
 };
 
 /**
@@ -120,20 +113,19 @@ List.prototype.createItem = function (formData, callback) {
  * @param  {Function} callback Called after the API call
  */
 List.prototype.updateItem = function (id, formData, callback) {
-	xhr({
-		url: `${Keystone.adminPath}/api/${this.path}/${id}`,
-		responseType: 'json',
+	fetch(`${Keystone.adminPath}/api/${this.path}/${id}`, {
 		method: 'POST',
-		headers: assign({}, Keystone.csrf.header),
+		headers: Object.assign({}, Keystone.csrf.header),
 		body: formData,
-	}, (err, resp, data) => {
-		if (err) return callback(err);
-		if (resp.statusCode === 200) {
-			callback(null, data);
-		} else {
-			callback(data);
-		}
-	});
+	})
+		.then((resp) => {
+			if (resp.status === 200) {
+				return resp.json().then((data) => callback(null, data));
+			} else {
+				return resp.json().then((data) => callback(data));
+			}
+		})
+		.catch((err) => callback(err));
 };
 
 List.prototype.expandColumns = function (input) {
@@ -229,18 +221,15 @@ List.prototype.loadItem = function (itemId, options, callback) {
 	let url = Keystone.adminPath + '/api/' + this.path + '/' + itemId;
 	const query = qs.stringify(options);
 	if (query.length) url += '?' + query;
-	xhr({
-		url: url,
-		responseType: 'json',
-	}, (err, resp, data) => {
-		if (err) return callback(err);
-		// Pass the data as result or error, depending on the statusCode
-		if (resp.statusCode === 200) {
-			callback(null, data);
-		} else {
-			callback(data);
-		}
-	});
+	fetch(url)
+		.then((resp) => {
+			if (resp.status === 200) {
+				return resp.json().then((data) => callback(null, data));
+			} else {
+				return resp.json().then((data) => callback(data));
+			}
+		})
+		.catch((err) => callback(err));
 };
 
 /**
@@ -252,18 +241,15 @@ List.prototype.loadItem = function (itemId, options, callback) {
  */
 List.prototype.loadItems = function (options, callback) {
 	const url = Keystone.adminPath + '/api/' + this.path + buildQueryString(options);
-	xhr({
-		url: url,
-		responseType: 'json',
-	}, (err, resp, data) => {
-		if (err) callback(err);
-		// Pass the data as result or error, depending on the statusCode
-		if (resp.statusCode === 200) {
-			callback(null, data);
-		} else {
-			callback(data);
-		}
-	});
+	fetch(url)
+		.then((resp) => {
+			if (resp.status === 200) {
+				return resp.json().then((data) => callback(null, data));
+			} else {
+				return resp.json().then((data) => callback(data));
+			}
+		})
+		.catch((err) => callback(err));
 };
 
 /**
@@ -306,45 +292,43 @@ List.prototype.deleteItem = function (itemId, callback) {
  */
 List.prototype.deleteItems = function (itemIds, callback) {
 	const url = Keystone.adminPath + '/api/' + this.path + '/delete';
-	xhr({
-		url: url,
+	fetch(url, {
 		method: 'POST',
-		headers: assign({}, Keystone.csrf.header),
-		json: {
-			ids: itemIds,
+		headers: {
+			'Content-Type': 'application/json',
+			...Keystone.csrf.header,
 		},
-	}, (err, resp, body) => {
-		if (err) return callback(err);
-		// Pass the body as result or error, depending on the statusCode
-		if (resp.statusCode === 200) {
-			callback(null, body);
-		} else {
-			callback(body);
-		}
-	});
+		body: JSON.stringify({
+			ids: itemIds,
+		}),
+	})
+		.then((resp) => {
+			if (resp.status === 200) {
+				return resp.json().then((body) => callback(null, body));
+			} else {
+				return resp.json().then((body) => callback(body));
+			}
+		})
+		.catch((err) => callback(err));
 };
 
 List.prototype.reorderItems = function (item, oldSortOrder, newSortOrder, pageOptions, callback) {
 	const url = Keystone.adminPath + '/api/' + this.path + '/' + item.id + '/sortOrder/' + oldSortOrder + '/' + newSortOrder + '/' + buildQueryString(pageOptions);
-	xhr({
-		url: url,
+	fetch(url, {
 		method: 'POST',
-		headers: assign({}, Keystone.csrf.header),
-	}, (err, resp, body) => {
-		if (err) return callback(err);
-		try {
-			body = JSON.parse(body);
-		} catch (e) {
-			console.log('Error parsing results json:', e, body);
-			return callback(e);
-		}
-		// Pass the body as result or error, depending on the statusCode
-		if (resp.statusCode === 200) {
-			callback(null, body);
-		} else {
-			callback(body);
-		}
-	});
+		headers: Object.assign({}, Keystone.csrf.header),
+	})
+		.then((resp) => {
+			if (resp.status === 200) {
+				return resp.json().then((body) => callback(null, body));
+			} else {
+				return resp.json().then((body) => callback(body));
+			}
+		})
+		.catch((err) => {
+			console.log('Error parsing results json:', err);
+			callback(err);
+		});
 };
 
 

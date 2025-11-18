@@ -2,7 +2,6 @@ import _ from 'lodash';
 import async from 'async';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import xhr from 'xhr';
 
 import {
 	FormField,
@@ -65,14 +64,14 @@ var RelationshipFilter = React.createClass({
 	populateValue (value) {
 		async.map(value, (id, next) => {
 			if (this._itemsCache[id]) return next(null, this._itemsCache[id]);
-			xhr({
-				url: Keystone.adminPath + '/api/' + this.props.field.refList.path + '/' + id + '?basic',
-				responseType: 'json',
-			}, (err, resp, data) => {
-				if (err || !data) return next(err);
-				this.cacheItem(data);
-				next(err, data);
-			});
+			fetch(Keystone.adminPath + '/api/' + this.props.field.refList.path + '/' + id + '?basic')
+				.then((resp) => resp.json())
+				.then((data) => {
+					if (!data) return next(new Error('No data'));
+					this.cacheItem(data);
+					next(null, data);
+				})
+				.catch((err) => next(err));
 		}, (err, items) => {
 			if (err) {
 				// TODO: Handle errors better
@@ -106,28 +105,26 @@ var RelationshipFilter = React.createClass({
 	loadSearchResults (thenPopulateValue) {
 		const searchString = this.state.searchString;
 		const filters = this.buildFilters();
-		xhr({
-			url: Keystone.adminPath + '/api/' + this.props.field.refList.path + '?basic&search=' + searchString + '&' + filters,
-			responseType: 'json',
-		}, (err, resp, data) => {
-			if (err) {
+		fetch(Keystone.adminPath + '/api/' + this.props.field.refList.path + '?basic&search=' + searchString + '&' + filters)
+			.then((resp) => resp.json())
+			.then((data) => {
+				data.results.forEach(this.cacheItem);
+				if (thenPopulateValue) {
+					this.populateValue(this.props.filter.value);
+				}
+				if (searchString !== this.state.searchString) return;
+				this.setState({
+					searchIsLoading: false,
+					searchResults: data.results,
+				}, this.updateHeight);
+			})
+			.catch((err) => {
 				// TODO: Handle errors better
 				console.error('Error loading items:', err);
 				this.setState({
 					searchIsLoading: false,
 				});
-				return;
-			}
-			data.results.forEach(this.cacheItem);
-			if (thenPopulateValue) {
-				this.populateValue(this.props.filter.value);
-			}
-			if (searchString !== this.state.searchString) return;
-			this.setState({
-				searchIsLoading: false,
-				searchResults: data.results,
-			}, this.updateHeight);
-		});
+			});
 	},
 	updateHeight () {
 		if (this.props.onHeightChange) {

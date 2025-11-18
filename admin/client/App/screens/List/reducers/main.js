@@ -15,10 +15,6 @@ import {
 	DRAG_MOVE_ITEM,
 } from '../constants';
 
-import {
-	DELETE_ITEM,
-} from '../../Item/constants';
-
 const initialState = {
 	loadingRef: null,
 	loadCounter: 0,
@@ -125,20 +121,6 @@ function lists (state = initialState, action) {
 				ready: true,
 				error: action.err,
 				loadCounter: 0,
-			});
-		case DELETE_ITEM:
-			const newItems = {
-				results: state.items.results.filter((el) => (el.id !== action.id)),
-				count: state.items.count - 1,
-			};
-			const newCachedList = state.data[state.currentList.id];
-			newCachedList.items = newItems;
-			return assign({}, state, {
-				items: newItems,
-				data: {
-					...state.data,
-					[state.currentList.id]: newCachedList,
-				},
 			});
 		case SET_CURRENT_PAGE:
 			console.log(action.index);

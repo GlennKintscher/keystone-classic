@@ -30,7 +30,6 @@ var Keystone = function () {
 		'name': 'Keystone',
 		'brand': 'Keystone',
 		'admin path': 'keystone',
-		'compress': true,
 		'headless': false,
 		'logger': ':method :url :status :response-time ms',
 		'auto update': false,
@@ -61,7 +60,6 @@ var Keystone = function () {
 	this.set('cookie secret', process.env.COOKIE_SECRET);
 	this.set('cookie signin', (this.get('env') === 'development') ? true : false);
 
-	this.set('embedly api key', process.env.EMBEDLY_API_KEY || process.env.EMBEDLY_APIKEY);
 	this.set('mandrill api key', process.env.MANDRILL_API_KEY || process.env.MANDRILL_APIKEY);
 	this.set('mandrill username', process.env.MANDRILL_USERNAME);
 	this.set('google api key', process.env.GOOGLE_BROWSER_KEY);
@@ -87,7 +85,7 @@ var Keystone = function () {
 
 	// init mongoose
 	this.set('mongoose', require('mongoose'));
-	this.mongoose.Promise = require('es6-promise').Promise;
+	this.mongoose.Promise = Promise;
 
 	// Attach middleware packages, bound to this instance
 	this.middleware = {
@@ -151,7 +149,6 @@ var keystone = module.exports = new Keystone();
 keystone.Admin = {
 	Server: require('./admin/server'),
 };
-keystone.Email = require('./lib/email');
 keystone.Field = require('./fields/types/Type');
 keystone.Field.Types = require('./lib/fieldTypes');
 keystone.Keystone = Keystone;

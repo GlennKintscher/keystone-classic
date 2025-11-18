@@ -2,10 +2,8 @@
  * The actual Sign In view, with the login form
  */
 
-import assign from "object-assign";
 import classnames from "classnames";
 import React from "react";
-import xhr from "xhr";
 
 import Alert from "./components/Alert";
 import Brand from "./components/Brand";
@@ -48,18 +46,20 @@ var SigninView = React.createClass({
 			);
 		}
 
-		xhr(
-			{
-				url: `${Keystone.adminPath}/api/session/signin`,
-				method: "post",
-				json: {
-					email: this.state.email,
-					password: this.state.password
-				},
-				headers: assign({}, Keystone.csrf.header)
+		fetch(`${Keystone.adminPath}/api/session/signin`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				...Keystone.csrf.header
 			},
-			(err, resp, body) => {
-				if (err || (body && body.error)) {
+			body: JSON.stringify({
+				email: this.state.email,
+				password: this.state.password
+			})
+		})
+			.then((resp) => resp.json())
+			.then((body) => {
+				if (body && body.error) {
 					return body.error === "invalid csrf"
 						? this.displayError(
 								"Something went wrong; please refresh your browser and try again."
@@ -77,8 +77,12 @@ var SigninView = React.createClass({
 							: Keystone.adminPath;
 					}
 				}
-			}
-		);
+			})
+			.catch(() => {
+				this.displayError(
+					"The email and password you entered are not valid."
+				);
+			});
 	},
 	/**
 	 * Display an error message

@@ -7,6 +7,7 @@ var moment = require('moment');
 var mongoose = require('mongoose');
 var path = require('path');
 var keystoneNightwatchE2e = require('keystone-nightwatch-e2e');
+var keystoneNightwatchE2eGlobals = require('keystone-nightwatch-e2e/globals');
 
 // Set app-specific env for nightwatch session
 process.env.KNE_TEST_PATHS = 'test/e2e/adminUI/tests';
@@ -62,6 +63,8 @@ function checkKeystoneReady (done) {
 function runE2E (options, done) {
 	console.log([moment().format('HH:mm:ss:SSS')] + ' e2e: starting tests...');
 
+	keystoneNightwatchE2eGlobals.abortOnAssertionFailure = false;
+	keystoneNightwatchE2eGlobals.waitForConditionTimeout = 2000;
 	keystoneNightwatchE2e.startE2E(options, done);
 }
 

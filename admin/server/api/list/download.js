@@ -3,10 +3,9 @@ TODO: Needs Review and Spec
 */
 
 var moment = require('moment');
-var assign = require('object-assign');
 
 module.exports = function (req, res, next) {
-	var baby = require('babyparse');
+	var papaparse = require('papaparse');
 	var keystone = req.keystone;
 
 	var format = req.params.format.split('.')[1]; // json or csv
@@ -17,10 +16,10 @@ module.exports = function (req, res, next) {
 		catch (e) { /* */ }
 	}
 	if (typeof filters === 'object') {
-		assign(where, req.list.addFiltersToQuery(filters));
+		Object.assign(where, req.list.addFiltersToQuery(filters));
 	}
 	if (req.query.search) {
-		assign(where, req.list.addSearchToQuery(req.query.search));
+		Object.assign(where, req.list.addSearchToQuery(req.query.search));
 	}
 	var query = req.list.model.find(where);
 	if (req.query.populate) {
@@ -55,7 +54,7 @@ module.exports = function (req, res, next) {
 				});
 				res.attachment(req.list.path + '-' + moment().format('YYYYMMDD-HHMMSS') + '.csv');
 				res.setHeader('Content-Type', 'application/octet-stream');
-				var content = baby.unparse({
+				var content = papaparse.unparse({
 					data: data,
 					fields: fields,
 				}, {
