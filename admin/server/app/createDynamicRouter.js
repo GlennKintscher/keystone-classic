@@ -60,7 +60,7 @@ module.exports = function createDynamicRouter (keystone) {
 			keystone.set('signin url', '/' + keystone.get('admin path') + '/signin');
 		}
 		if (!keystone.nativeApp || !keystone.get('session')) {
-			router.all('*', keystone.session.persist);
+			router.all('*route', keystone.session.persist);
 		}
 		router.all('/signin', SigninRoute);
 		router.all('/signout', SignoutRoute);
@@ -89,7 +89,7 @@ module.exports = function createDynamicRouter (keystone) {
 	// lists
 	router.all('/api/counts', require('../api/counts'));
 	router.get('/api/:list', initList, require('../api/list/get'));
-	router.get('/api/:list/:format(export.csv|export.json)', initList, require('../api/list/download'));
+	router.get(/\/api\/(?<list>.+)\/(?<format>(export.csv|export.json))/, initList, require('../api/list/download'));
 	router.post('/api/:list/create', initList, require('../api/list/create'));
 	router.post('/api/:list/update', initList, require('../api/list/update'));
 	router.post('/api/:list/delete', initList, require('../api/list/delete'));
@@ -100,7 +100,7 @@ module.exports = function createDynamicRouter (keystone) {
 	router.post('/api/:list/:id/sortOrder/:sortOrder/:newOrder', initList, require('../api/item/sortOrder'));
 
 	// #6: List Routes
-	router.all('/:list/:page([0-9]{1,5})?', IndexRoute);
+	router.all(/\/:(?<list>.+)\/(?<page>[0-9]{1,5})?/, IndexRoute);
 	router.all('/:list/:item', IndexRoute);
 
 	// TODO: catch 404s and errors with Admin-UI specific handlers

@@ -52,7 +52,7 @@ describe('List "track" option', function () {
 		}
 
 		// route to simulate use of updateHandler()
-		app.post('/using-update-handler/:id?', function (req, res) {
+		app.post('/using-update-handler{/:id}', function (req, res) {
 			getItem(req.params.id, function (item) {
 				req.user = req.params.id ? dummyUser2 : dummyUser1;
 				var updateHandler = item.getUpdateHandler(req);
@@ -67,7 +67,7 @@ describe('List "track" option', function () {
 		});
 
 		// route to simulate use of .save()
-		app.post('/using-save/:id?', function (req, res) {
+		app.post('/using-save{/:id}', function (req, res) {
 			getItem(req.params.id, function (item) {
 				item._req_user = req.params.id ? dummyUser2 : dummyUser1;
 				item.set(req.body);
