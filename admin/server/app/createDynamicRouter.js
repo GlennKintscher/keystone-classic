@@ -1,4 +1,3 @@
-var bodyParser = require('body-parser');
 var express = require('express');
 
 var uploads = require('../../../lib/uploads');
@@ -16,8 +15,8 @@ module.exports = function createDynamicRouter (keystone) {
 	var SignoutRoute = require('../routes/signout');
 
 	// Use bodyParser and multer to parse request bodies and file uploads
-	router.use(bodyParser.json({}));
-	router.use(bodyParser.urlencoded({ extended: true }));
+	router.use(express.json({}));
+	router.use(express.urlencoded({ extended: true }));
 	uploads.configure(router);
 
 	// Bind the request to the keystone instance
@@ -100,7 +99,7 @@ module.exports = function createDynamicRouter (keystone) {
 	router.post('/api/:list/:id/sortOrder/:sortOrder/:newOrder', initList, require('../api/item/sortOrder'));
 
 	// #6: List Routes
-	router.all(/\/:(?<list>.+)\/(?<page>[0-9]{1,5})?/, IndexRoute);
+	router.all(/\/:(?<list>.+)(\/(?<page>[0-9]{1,5}))?/, IndexRoute);
 	router.all('/:list/:item', IndexRoute);
 
 	// TODO: catch 404s and errors with Admin-UI specific handlers
