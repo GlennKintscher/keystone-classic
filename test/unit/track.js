@@ -33,18 +33,18 @@ describe('List "track" option', function () {
 
 		function getItem(id, done) {
 			if (id) {
-				Test.model.findById(id).exec(function (err, found) {
-					if (err) {
-						throw err;
-					}
+				Test.model.findById(id).exec()
+					.then(function (found) {
+						if (!found) {
+							throw new Error('test document not found')
+						}
 
-					if (!found) {
-						throw new Error('test document not found')
-					}
-
-					item = found;
-					done(item);
-				});
+						item = found;
+						done(item);
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			} else {
 				item = new Test.model();
 				done(item);
@@ -71,47 +71,42 @@ describe('List "track" option', function () {
 			getItem(req.params.id, function (item) {
 				item._req_user = req.params.id ? dummyUser2 : dummyUser1;
 				item.set(req.body);
-				item.save(function (err, data) {
-					if (err) {
-						res.send('BAD');
-					} else {
-						res.send('GOOD');
-					}
-				});
+				item.save()
+					.then(function () { res.send('GOOD'); })
+					.catch(function () { res.send('BAD'); });
 			});
 		});
 
 		tasks.push(function (done) {
-			User.model.remove({}, function (err) {
-				if (err) {
-					throw err;
-				}
-				done();
-			});
+			User.model.deleteMany().exec()
+				.then(function () {
+					done();
+				})
+				.catch(function (error) {
+					throw error;
+				});
 		});
 
 		tasks.push(function (done) {
 			dummyUser1 = new User.model({
 				'name': 'John Doe'
-			}).save(function (err, data) {
-				if (err) {
-					throw err;
-				}
-				dummyUser1 = data;
-				done();
-			});
+			}).save()
+				.then(function (data) {
+					dummyUser1 = data;
+					done();
+				})
+				.catch(function (err) { throw err; });
 		});
 
 		tasks.push(function (done) {
 			dummyUser2 = new User.model({
 				'name': 'Jane Doe'
-			}).save(function (err, data) {
-				if (err) {
-					throw err;
-				}
-				dummyUser2 = data;
-				done();
-			});
+			}).save()
+				.then(function (data) {
+					dummyUser2 = data;
+					done();
+				})
+				.catch(function (err) { throw err; });
 		});
 
 		async.series(tasks, function (err) {
@@ -187,13 +182,14 @@ describe('List "track" option', function () {
 
 			after(function (done) {
 				// post test cleanup
-				Test.model.remove({}, function (err) {
-					if (err) {
-						throw err;
-					}
-					removeModel(testModelName);
-					done();
-				});
+				Test.model.deleteMany().exec()
+					.then(function () {
+						removeModel(testModelName);
+						done();
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			});
 
 			it('should have all the default fields', function () {
@@ -269,13 +265,14 @@ describe('List "track" option', function () {
 
 			after(function (done) {
 				// post test cleanup
-				Test.model.remove({}, function (err) {
-					if (err) {
-						throw err;
-					}
-					removeModel(testModelName);
-					done();
-				});
+				Test.model.deleteMany().exec()
+					.then(function () {
+						removeModel(testModelName);
+						done();
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			});
 
 			it('should have all the default fields', function () {
@@ -362,13 +359,14 @@ describe('List "track" option', function () {
 
 			after(function (done) {
 				// post test cleanup
-				Test.model.remove({}, function (err) {
-					if (err) {
-						throw err;
-					}
-					removeModel(testModelName);
-					done();
-				});
+				Test.model.deleteMany().exec()
+					.then(function () {
+						removeModel(testModelName);
+						done();
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			});
 
 			it('should have all the default fields', function () {
@@ -439,13 +437,14 @@ describe('List "track" option', function () {
 
 			after(function (done) {
 				// post test cleanup
-				Test.model.remove({}, function (err) {
-					if (err) {
-						throw err;
-					}
-					removeModel(testModelName);
-					done();
-				});
+				Test.model.deleteMany().exec()
+					.then(function () {
+						removeModel(testModelName);
+						done();
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			});
 
 			it('should have all the default fields', function () {
@@ -526,13 +525,14 @@ describe('List "track" option', function () {
 
 			after(function (done) {
 				// post test cleanup
-				Test.model.remove({}, function (err) {
-					if (err) {
-						throw err;
-					}
-					removeModel(testModelName);
-					done();
-				});
+				Test.model.deleteMany().exec()
+					.then(function () {
+						removeModel(testModelName);
+						done();
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			});
 
 			it('should no have any of the default fields', function () {
@@ -621,13 +621,14 @@ describe('List "track" option', function () {
 
 			after(function (done) {
 				// post test cleanup
-				Test.model.remove({}, function (err) {
-					if (err) {
-						throw err;
-					}
-					removeModel(testModelName);
-					done();
-				});
+				Test.model.deleteMany().exec()
+					.then(function () {
+						removeModel(testModelName);
+						done();
+					})
+					.catch(function (error) {
+						throw error;
+					});
 			});
 
 			it('should no have any of the default fields', function () {

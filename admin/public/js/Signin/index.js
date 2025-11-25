@@ -4139,183 +4139,6 @@
     }
   });
 
-  // node_modules/fbjs/lib/emptyFunction.js
-  var require_emptyFunction = __commonJS({
-    "node_modules/fbjs/lib/emptyFunction.js"(exports, module) {
-      "use strict";
-      function makeEmptyFunction(arg) {
-        return function() {
-          return arg;
-        };
-      }
-      var emptyFunction = function emptyFunction2() {
-      };
-      emptyFunction.thatReturns = makeEmptyFunction;
-      emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-      emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-      emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-      emptyFunction.thatReturnsThis = function() {
-        return this;
-      };
-      emptyFunction.thatReturnsArgument = function(arg) {
-        return arg;
-      };
-      module.exports = emptyFunction;
-    }
-  });
-
-  // node_modules/fbjs/lib/warning.js
-  var require_warning = __commonJS({
-    "node_modules/fbjs/lib/warning.js"(exports, module) {
-      "use strict";
-      var emptyFunction = require_emptyFunction();
-      var warning = emptyFunction;
-      if (true) {
-        printWarning = function printWarning2(format) {
-          for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            args[_key - 1] = arguments[_key];
-          }
-          var argIndex = 0;
-          var message = "Warning: " + format.replace(/%s/g, function() {
-            return args[argIndex++];
-          });
-          if (typeof console !== "undefined") {
-            console.error(message);
-          }
-          try {
-            throw new Error(message);
-          } catch (x) {
-          }
-        };
-        warning = function warning2(condition, format) {
-          if (format === void 0) {
-            throw new Error("`warning(condition, format, ...args)` requires a warning message argument");
-          }
-          if (format.indexOf("Failed Composite propType: ") === 0) {
-            return;
-          }
-          if (!condition) {
-            for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-              args[_key2 - 2] = arguments[_key2];
-            }
-            printWarning.apply(void 0, [format].concat(args));
-          }
-        };
-      }
-      var printWarning;
-      module.exports = warning;
-    }
-  });
-
-  // node_modules/react/lib/ReactNoopUpdateQueue.js
-  var require_ReactNoopUpdateQueue = __commonJS({
-    "node_modules/react/lib/ReactNoopUpdateQueue.js"(exports, module) {
-      "use strict";
-      var warning = require_warning();
-      function warnNoop(publicInstance, callerName) {
-        if (true) {
-          var constructor = publicInstance.constructor;
-          true ? warning(false, "%s(...): Can only update a mounted or mounting component. This usually means you called %s() on an unmounted component. This is a no-op. Please check the code for the %s component.", callerName, callerName, constructor && (constructor.displayName || constructor.name) || "ReactClass") : void 0;
-        }
-      }
-      var ReactNoopUpdateQueue = {
-        /**
-         * Checks whether or not this composite component is mounted.
-         * @param {ReactClass} publicInstance The instance we want to test.
-         * @return {boolean} True if mounted, false otherwise.
-         * @protected
-         * @final
-         */
-        isMounted: function(publicInstance) {
-          return false;
-        },
-        /**
-         * Enqueue a callback that will be executed after all the pending updates
-         * have processed.
-         *
-         * @param {ReactClass} publicInstance The instance to use as `this` context.
-         * @param {?function} callback Called after state is updated.
-         * @internal
-         */
-        enqueueCallback: function(publicInstance, callback) {
-        },
-        /**
-         * Forces an update. This should only be invoked when it is known with
-         * certainty that we are **not** in a DOM transaction.
-         *
-         * You may want to call this when you know that some deeper aspect of the
-         * component's state has changed but `setState` was not called.
-         *
-         * This will not invoke `shouldComponentUpdate`, but it will invoke
-         * `componentWillUpdate` and `componentDidUpdate`.
-         *
-         * @param {ReactClass} publicInstance The instance that should rerender.
-         * @internal
-         */
-        enqueueForceUpdate: function(publicInstance) {
-          warnNoop(publicInstance, "forceUpdate");
-        },
-        /**
-         * Replaces all of the state. Always use this or `setState` to mutate state.
-         * You should treat `this.state` as immutable.
-         *
-         * There is no guarantee that `this.state` will be immediately updated, so
-         * accessing `this.state` after calling this method may return the old value.
-         *
-         * @param {ReactClass} publicInstance The instance that should rerender.
-         * @param {object} completeState Next state.
-         * @internal
-         */
-        enqueueReplaceState: function(publicInstance, completeState) {
-          warnNoop(publicInstance, "replaceState");
-        },
-        /**
-         * Sets a subset of the state. This only exists because _pendingState is
-         * internal. This provides a merging strategy that is not available to deep
-         * properties which is confusing. TODO: Expose pendingState or don't use it
-         * during the merge.
-         *
-         * @param {ReactClass} publicInstance The instance that should rerender.
-         * @param {object} partialState Next partial state to be merged with state.
-         * @internal
-         */
-        enqueueSetState: function(publicInstance, partialState) {
-          warnNoop(publicInstance, "setState");
-        }
-      };
-      module.exports = ReactNoopUpdateQueue;
-    }
-  });
-
-  // node_modules/react/lib/canDefineProperty.js
-  var require_canDefineProperty = __commonJS({
-    "node_modules/react/lib/canDefineProperty.js"(exports, module) {
-      "use strict";
-      var canDefineProperty = false;
-      if (true) {
-        try {
-          Object.defineProperty({}, "x", { get: function() {
-          } });
-          canDefineProperty = true;
-        } catch (x) {
-        }
-      }
-      module.exports = canDefineProperty;
-    }
-  });
-
-  // node_modules/fbjs/lib/emptyObject.js
-  var require_emptyObject = __commonJS({
-    "node_modules/fbjs/lib/emptyObject.js"(exports, module) {
-      "use strict";
-      var emptyObject = {};
-      if (true) {
-        Object.freeze(emptyObject);
-      }
-      module.exports = emptyObject;
-    }
-  });
-
   // node_modules/fbjs/lib/invariant.js
   var require_invariant = __commonJS({
     "node_modules/fbjs/lib/invariant.js"(exports, module) {
@@ -4348,121 +4171,6 @@
         }
       }
       module.exports = invariant;
-    }
-  });
-
-  // node_modules/react/lib/lowPriorityWarning.js
-  var require_lowPriorityWarning = __commonJS({
-    "node_modules/react/lib/lowPriorityWarning.js"(exports, module) {
-      "use strict";
-      var lowPriorityWarning = function() {
-      };
-      if (true) {
-        printWarning = function(format) {
-          for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            args[_key - 1] = arguments[_key];
-          }
-          var argIndex = 0;
-          var message = "Warning: " + format.replace(/%s/g, function() {
-            return args[argIndex++];
-          });
-          if (typeof console !== "undefined") {
-            console.warn(message);
-          }
-          try {
-            throw new Error(message);
-          } catch (x) {
-          }
-        };
-        lowPriorityWarning = function(condition, format) {
-          if (format === void 0) {
-            throw new Error("`warning(condition, format, ...args)` requires a warning message argument");
-          }
-          if (!condition) {
-            for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-              args[_key2 - 2] = arguments[_key2];
-            }
-            printWarning.apply(void 0, [format].concat(args));
-          }
-        };
-      }
-      var printWarning;
-      module.exports = lowPriorityWarning;
-    }
-  });
-
-  // node_modules/react/lib/ReactBaseClasses.js
-  var require_ReactBaseClasses = __commonJS({
-    "node_modules/react/lib/ReactBaseClasses.js"(exports, module) {
-      "use strict";
-      var _prodInvariant = require_reactProdInvariant();
-      var _assign = require_object_assign();
-      var ReactNoopUpdateQueue = require_ReactNoopUpdateQueue();
-      var canDefineProperty = require_canDefineProperty();
-      var emptyObject = require_emptyObject();
-      var invariant = require_invariant();
-      var lowPriorityWarning = require_lowPriorityWarning();
-      function ReactComponent(props, context, updater) {
-        this.props = props;
-        this.context = context;
-        this.refs = emptyObject;
-        this.updater = updater || ReactNoopUpdateQueue;
-      }
-      ReactComponent.prototype.isReactComponent = {};
-      ReactComponent.prototype.setState = function(partialState, callback) {
-        !(typeof partialState === "object" || typeof partialState === "function" || partialState == null) ? true ? invariant(false, "setState(...): takes an object of state variables to update or a function which returns an object of state variables.") : _prodInvariant("85") : void 0;
-        this.updater.enqueueSetState(this, partialState);
-        if (callback) {
-          this.updater.enqueueCallback(this, callback, "setState");
-        }
-      };
-      ReactComponent.prototype.forceUpdate = function(callback) {
-        this.updater.enqueueForceUpdate(this);
-        if (callback) {
-          this.updater.enqueueCallback(this, callback, "forceUpdate");
-        }
-      };
-      if (true) {
-        deprecatedAPIs = {
-          isMounted: ["isMounted", "Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks."],
-          replaceState: ["replaceState", "Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236)."]
-        };
-        defineDeprecationWarning = function(methodName, info) {
-          if (canDefineProperty) {
-            Object.defineProperty(ReactComponent.prototype, methodName, {
-              get: function() {
-                lowPriorityWarning(false, "%s(...) is deprecated in plain JavaScript React classes. %s", info[0], info[1]);
-                return void 0;
-              }
-            });
-          }
-        };
-        for (fnName in deprecatedAPIs) {
-          if (deprecatedAPIs.hasOwnProperty(fnName)) {
-            defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
-          }
-        }
-      }
-      var deprecatedAPIs;
-      var defineDeprecationWarning;
-      var fnName;
-      function ReactPureComponent(props, context, updater) {
-        this.props = props;
-        this.context = context;
-        this.refs = emptyObject;
-        this.updater = updater || ReactNoopUpdateQueue;
-      }
-      function ComponentDummy() {
-      }
-      ComponentDummy.prototype = ReactComponent.prototype;
-      ReactPureComponent.prototype = new ComponentDummy();
-      ReactPureComponent.prototype.constructor = ReactPureComponent;
-      _assign(ReactPureComponent.prototype, ReactComponent.prototype);
-      ReactPureComponent.prototype.isPureReactComponent = true;
-      module.exports = {
-        Component: ReactComponent,
-        PureComponent: ReactPureComponent
-      };
     }
   });
 
@@ -4555,6 +4263,91 @@
         current: null
       };
       module.exports = ReactCurrentOwner;
+    }
+  });
+
+  // node_modules/fbjs/lib/emptyFunction.js
+  var require_emptyFunction = __commonJS({
+    "node_modules/fbjs/lib/emptyFunction.js"(exports, module) {
+      "use strict";
+      function makeEmptyFunction(arg) {
+        return function() {
+          return arg;
+        };
+      }
+      var emptyFunction = function emptyFunction2() {
+      };
+      emptyFunction.thatReturns = makeEmptyFunction;
+      emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+      emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+      emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+      emptyFunction.thatReturnsThis = function() {
+        return this;
+      };
+      emptyFunction.thatReturnsArgument = function(arg) {
+        return arg;
+      };
+      module.exports = emptyFunction;
+    }
+  });
+
+  // node_modules/fbjs/lib/warning.js
+  var require_warning = __commonJS({
+    "node_modules/fbjs/lib/warning.js"(exports, module) {
+      "use strict";
+      var emptyFunction = require_emptyFunction();
+      var warning = emptyFunction;
+      if (true) {
+        printWarning = function printWarning2(format) {
+          for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            args[_key - 1] = arguments[_key];
+          }
+          var argIndex = 0;
+          var message = "Warning: " + format.replace(/%s/g, function() {
+            return args[argIndex++];
+          });
+          if (typeof console !== "undefined") {
+            console.error(message);
+          }
+          try {
+            throw new Error(message);
+          } catch (x) {
+          }
+        };
+        warning = function warning2(condition, format) {
+          if (format === void 0) {
+            throw new Error("`warning(condition, format, ...args)` requires a warning message argument");
+          }
+          if (format.indexOf("Failed Composite propType: ") === 0) {
+            return;
+          }
+          if (!condition) {
+            for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+              args[_key2 - 2] = arguments[_key2];
+            }
+            printWarning.apply(void 0, [format].concat(args));
+          }
+        };
+      }
+      var printWarning;
+      module.exports = warning;
+    }
+  });
+
+  // node_modules/react/lib/canDefineProperty.js
+  var require_canDefineProperty = __commonJS({
+    "node_modules/react/lib/canDefineProperty.js"(exports, module) {
+      "use strict";
+      var canDefineProperty = false;
+      if (true) {
+        try {
+          Object.defineProperty({}, "x", { get: function() {
+          } });
+          canDefineProperty = true;
+        } catch (x) {
+        }
+      }
+      module.exports = canDefineProperty;
     }
   });
 
@@ -5064,6 +4857,709 @@
     }
   });
 
+  // node_modules/react/lib/ReactNoopUpdateQueue.js
+  var require_ReactNoopUpdateQueue = __commonJS({
+    "node_modules/react/lib/ReactNoopUpdateQueue.js"(exports, module) {
+      "use strict";
+      var warning = require_warning();
+      function warnNoop(publicInstance, callerName) {
+        if (true) {
+          var constructor = publicInstance.constructor;
+          true ? warning(false, "%s(...): Can only update a mounted or mounting component. This usually means you called %s() on an unmounted component. This is a no-op. Please check the code for the %s component.", callerName, callerName, constructor && (constructor.displayName || constructor.name) || "ReactClass") : void 0;
+        }
+      }
+      var ReactNoopUpdateQueue = {
+        /**
+         * Checks whether or not this composite component is mounted.
+         * @param {ReactClass} publicInstance The instance we want to test.
+         * @return {boolean} True if mounted, false otherwise.
+         * @protected
+         * @final
+         */
+        isMounted: function(publicInstance) {
+          return false;
+        },
+        /**
+         * Enqueue a callback that will be executed after all the pending updates
+         * have processed.
+         *
+         * @param {ReactClass} publicInstance The instance to use as `this` context.
+         * @param {?function} callback Called after state is updated.
+         * @internal
+         */
+        enqueueCallback: function(publicInstance, callback) {
+        },
+        /**
+         * Forces an update. This should only be invoked when it is known with
+         * certainty that we are **not** in a DOM transaction.
+         *
+         * You may want to call this when you know that some deeper aspect of the
+         * component's state has changed but `setState` was not called.
+         *
+         * This will not invoke `shouldComponentUpdate`, but it will invoke
+         * `componentWillUpdate` and `componentDidUpdate`.
+         *
+         * @param {ReactClass} publicInstance The instance that should rerender.
+         * @internal
+         */
+        enqueueForceUpdate: function(publicInstance) {
+          warnNoop(publicInstance, "forceUpdate");
+        },
+        /**
+         * Replaces all of the state. Always use this or `setState` to mutate state.
+         * You should treat `this.state` as immutable.
+         *
+         * There is no guarantee that `this.state` will be immediately updated, so
+         * accessing `this.state` after calling this method may return the old value.
+         *
+         * @param {ReactClass} publicInstance The instance that should rerender.
+         * @param {object} completeState Next state.
+         * @internal
+         */
+        enqueueReplaceState: function(publicInstance, completeState) {
+          warnNoop(publicInstance, "replaceState");
+        },
+        /**
+         * Sets a subset of the state. This only exists because _pendingState is
+         * internal. This provides a merging strategy that is not available to deep
+         * properties which is confusing. TODO: Expose pendingState or don't use it
+         * during the merge.
+         *
+         * @param {ReactClass} publicInstance The instance that should rerender.
+         * @param {object} partialState Next partial state to be merged with state.
+         * @internal
+         */
+        enqueueSetState: function(publicInstance, partialState) {
+          warnNoop(publicInstance, "setState");
+        }
+      };
+      module.exports = ReactNoopUpdateQueue;
+    }
+  });
+
+  // node_modules/fbjs/lib/emptyObject.js
+  var require_emptyObject = __commonJS({
+    "node_modules/fbjs/lib/emptyObject.js"(exports, module) {
+      "use strict";
+      var emptyObject = {};
+      if (true) {
+        Object.freeze(emptyObject);
+      }
+      module.exports = emptyObject;
+    }
+  });
+
+  // node_modules/react/lib/ReactComponent.js
+  var require_ReactComponent = __commonJS({
+    "node_modules/react/lib/ReactComponent.js"(exports, module) {
+      "use strict";
+      var _prodInvariant = require_reactProdInvariant();
+      var ReactNoopUpdateQueue = require_ReactNoopUpdateQueue();
+      var canDefineProperty = require_canDefineProperty();
+      var emptyObject = require_emptyObject();
+      var invariant = require_invariant();
+      var warning = require_warning();
+      function ReactComponent(props, context, updater) {
+        this.props = props;
+        this.context = context;
+        this.refs = emptyObject;
+        this.updater = updater || ReactNoopUpdateQueue;
+      }
+      ReactComponent.prototype.isReactComponent = {};
+      ReactComponent.prototype.setState = function(partialState, callback) {
+        !(typeof partialState === "object" || typeof partialState === "function" || partialState == null) ? true ? invariant(false, "setState(...): takes an object of state variables to update or a function which returns an object of state variables.") : _prodInvariant("85") : void 0;
+        this.updater.enqueueSetState(this, partialState);
+        if (callback) {
+          this.updater.enqueueCallback(this, callback, "setState");
+        }
+      };
+      ReactComponent.prototype.forceUpdate = function(callback) {
+        this.updater.enqueueForceUpdate(this);
+        if (callback) {
+          this.updater.enqueueCallback(this, callback, "forceUpdate");
+        }
+      };
+      if (true) {
+        deprecatedAPIs = {
+          isMounted: ["isMounted", "Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks."],
+          replaceState: ["replaceState", "Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236)."]
+        };
+        defineDeprecationWarning = function(methodName, info) {
+          if (canDefineProperty) {
+            Object.defineProperty(ReactComponent.prototype, methodName, {
+              get: function() {
+                true ? warning(false, "%s(...) is deprecated in plain JavaScript React classes. %s", info[0], info[1]) : void 0;
+                return void 0;
+              }
+            });
+          }
+        };
+        for (fnName in deprecatedAPIs) {
+          if (deprecatedAPIs.hasOwnProperty(fnName)) {
+            defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
+          }
+        }
+      }
+      var deprecatedAPIs;
+      var defineDeprecationWarning;
+      var fnName;
+      module.exports = ReactComponent;
+    }
+  });
+
+  // node_modules/react/lib/ReactPureComponent.js
+  var require_ReactPureComponent = __commonJS({
+    "node_modules/react/lib/ReactPureComponent.js"(exports, module) {
+      "use strict";
+      var _assign = require_object_assign();
+      var ReactComponent = require_ReactComponent();
+      var ReactNoopUpdateQueue = require_ReactNoopUpdateQueue();
+      var emptyObject = require_emptyObject();
+      function ReactPureComponent(props, context, updater) {
+        this.props = props;
+        this.context = context;
+        this.refs = emptyObject;
+        this.updater = updater || ReactNoopUpdateQueue;
+      }
+      function ComponentDummy() {
+      }
+      ComponentDummy.prototype = ReactComponent.prototype;
+      ReactPureComponent.prototype = new ComponentDummy();
+      ReactPureComponent.prototype.constructor = ReactPureComponent;
+      _assign(ReactPureComponent.prototype, ReactComponent.prototype);
+      ReactPureComponent.prototype.isPureReactComponent = true;
+      module.exports = ReactPureComponent;
+    }
+  });
+
+  // node_modules/react/lib/ReactPropTypeLocationNames.js
+  var require_ReactPropTypeLocationNames = __commonJS({
+    "node_modules/react/lib/ReactPropTypeLocationNames.js"(exports, module) {
+      "use strict";
+      var ReactPropTypeLocationNames = {};
+      if (true) {
+        ReactPropTypeLocationNames = {
+          prop: "prop",
+          context: "context",
+          childContext: "child context"
+        };
+      }
+      module.exports = ReactPropTypeLocationNames;
+    }
+  });
+
+  // node_modules/react/lib/ReactClass.js
+  var require_ReactClass = __commonJS({
+    "node_modules/react/lib/ReactClass.js"(exports, module) {
+      "use strict";
+      var _prodInvariant = require_reactProdInvariant();
+      var _assign = require_object_assign();
+      var ReactComponent = require_ReactComponent();
+      var ReactElement = require_ReactElement();
+      var ReactPropTypeLocationNames = require_ReactPropTypeLocationNames();
+      var ReactNoopUpdateQueue = require_ReactNoopUpdateQueue();
+      var emptyObject = require_emptyObject();
+      var invariant = require_invariant();
+      var warning = require_warning();
+      var MIXINS_KEY = "mixins";
+      function identity(fn) {
+        return fn;
+      }
+      var injectedMixins = [];
+      var ReactClassInterface = {
+        /**
+         * An array of Mixin objects to include when defining your component.
+         *
+         * @type {array}
+         * @optional
+         */
+        mixins: "DEFINE_MANY",
+        /**
+         * An object containing properties and methods that should be defined on
+         * the component's constructor instead of its prototype (static methods).
+         *
+         * @type {object}
+         * @optional
+         */
+        statics: "DEFINE_MANY",
+        /**
+         * Definition of prop types for this component.
+         *
+         * @type {object}
+         * @optional
+         */
+        propTypes: "DEFINE_MANY",
+        /**
+         * Definition of context types for this component.
+         *
+         * @type {object}
+         * @optional
+         */
+        contextTypes: "DEFINE_MANY",
+        /**
+         * Definition of context types this component sets for its children.
+         *
+         * @type {object}
+         * @optional
+         */
+        childContextTypes: "DEFINE_MANY",
+        // ==== Definition methods ====
+        /**
+         * Invoked when the component is mounted. Values in the mapping will be set on
+         * `this.props` if that prop is not specified (i.e. using an `in` check).
+         *
+         * This method is invoked before `getInitialState` and therefore cannot rely
+         * on `this.state` or use `this.setState`.
+         *
+         * @return {object}
+         * @optional
+         */
+        getDefaultProps: "DEFINE_MANY_MERGED",
+        /**
+         * Invoked once before the component is mounted. The return value will be used
+         * as the initial value of `this.state`.
+         *
+         *   getInitialState: function() {
+         *     return {
+         *       isOn: false,
+         *       fooBaz: new BazFoo()
+         *     }
+         *   }
+         *
+         * @return {object}
+         * @optional
+         */
+        getInitialState: "DEFINE_MANY_MERGED",
+        /**
+         * @return {object}
+         * @optional
+         */
+        getChildContext: "DEFINE_MANY_MERGED",
+        /**
+         * Uses props from `this.props` and state from `this.state` to render the
+         * structure of the component.
+         *
+         * No guarantees are made about when or how often this method is invoked, so
+         * it must not have side effects.
+         *
+         *   render: function() {
+         *     var name = this.props.name;
+         *     return <div>Hello, {name}!</div>;
+         *   }
+         *
+         * @return {ReactComponent}
+         * @nosideeffects
+         * @required
+         */
+        render: "DEFINE_ONCE",
+        // ==== Delegate methods ====
+        /**
+         * Invoked when the component is initially created and about to be mounted.
+         * This may have side effects, but any external subscriptions or data created
+         * by this method must be cleaned up in `componentWillUnmount`.
+         *
+         * @optional
+         */
+        componentWillMount: "DEFINE_MANY",
+        /**
+         * Invoked when the component has been mounted and has a DOM representation.
+         * However, there is no guarantee that the DOM node is in the document.
+         *
+         * Use this as an opportunity to operate on the DOM when the component has
+         * been mounted (initialized and rendered) for the first time.
+         *
+         * @param {DOMElement} rootNode DOM element representing the component.
+         * @optional
+         */
+        componentDidMount: "DEFINE_MANY",
+        /**
+         * Invoked before the component receives new props.
+         *
+         * Use this as an opportunity to react to a prop transition by updating the
+         * state using `this.setState`. Current props are accessed via `this.props`.
+         *
+         *   componentWillReceiveProps: function(nextProps, nextContext) {
+         *     this.setState({
+         *       likesIncreasing: nextProps.likeCount > this.props.likeCount
+         *     });
+         *   }
+         *
+         * NOTE: There is no equivalent `componentWillReceiveState`. An incoming prop
+         * transition may cause a state change, but the opposite is not true. If you
+         * need it, you are probably looking for `componentWillUpdate`.
+         *
+         * @param {object} nextProps
+         * @optional
+         */
+        componentWillReceiveProps: "DEFINE_MANY",
+        /**
+         * Invoked while deciding if the component should be updated as a result of
+         * receiving new props, state and/or context.
+         *
+         * Use this as an opportunity to `return false` when you're certain that the
+         * transition to the new props/state/context will not require a component
+         * update.
+         *
+         *   shouldComponentUpdate: function(nextProps, nextState, nextContext) {
+         *     return !equal(nextProps, this.props) ||
+         *       !equal(nextState, this.state) ||
+         *       !equal(nextContext, this.context);
+         *   }
+         *
+         * @param {object} nextProps
+         * @param {?object} nextState
+         * @param {?object} nextContext
+         * @return {boolean} True if the component should update.
+         * @optional
+         */
+        shouldComponentUpdate: "DEFINE_ONCE",
+        /**
+         * Invoked when the component is about to update due to a transition from
+         * `this.props`, `this.state` and `this.context` to `nextProps`, `nextState`
+         * and `nextContext`.
+         *
+         * Use this as an opportunity to perform preparation before an update occurs.
+         *
+         * NOTE: You **cannot** use `this.setState()` in this method.
+         *
+         * @param {object} nextProps
+         * @param {?object} nextState
+         * @param {?object} nextContext
+         * @param {ReactReconcileTransaction} transaction
+         * @optional
+         */
+        componentWillUpdate: "DEFINE_MANY",
+        /**
+         * Invoked when the component's DOM representation has been updated.
+         *
+         * Use this as an opportunity to operate on the DOM when the component has
+         * been updated.
+         *
+         * @param {object} prevProps
+         * @param {?object} prevState
+         * @param {?object} prevContext
+         * @param {DOMElement} rootNode DOM element representing the component.
+         * @optional
+         */
+        componentDidUpdate: "DEFINE_MANY",
+        /**
+         * Invoked when the component is about to be removed from its parent and have
+         * its DOM representation destroyed.
+         *
+         * Use this as an opportunity to deallocate any external resources.
+         *
+         * NOTE: There is no `componentDidUnmount` since your component will have been
+         * destroyed by that point.
+         *
+         * @optional
+         */
+        componentWillUnmount: "DEFINE_MANY",
+        // ==== Advanced methods ====
+        /**
+         * Updates the component's currently mounted DOM representation.
+         *
+         * By default, this implements React's rendering and reconciliation algorithm.
+         * Sophisticated clients may wish to override this.
+         *
+         * @param {ReactReconcileTransaction} transaction
+         * @internal
+         * @overridable
+         */
+        updateComponent: "OVERRIDE_BASE"
+      };
+      var RESERVED_SPEC_KEYS = {
+        displayName: function(Constructor, displayName) {
+          Constructor.displayName = displayName;
+        },
+        mixins: function(Constructor, mixins) {
+          if (mixins) {
+            for (var i = 0; i < mixins.length; i++) {
+              mixSpecIntoComponent(Constructor, mixins[i]);
+            }
+          }
+        },
+        childContextTypes: function(Constructor, childContextTypes) {
+          if (true) {
+            validateTypeDef(Constructor, childContextTypes, "childContext");
+          }
+          Constructor.childContextTypes = _assign({}, Constructor.childContextTypes, childContextTypes);
+        },
+        contextTypes: function(Constructor, contextTypes) {
+          if (true) {
+            validateTypeDef(Constructor, contextTypes, "context");
+          }
+          Constructor.contextTypes = _assign({}, Constructor.contextTypes, contextTypes);
+        },
+        /**
+         * Special case getDefaultProps which should move into statics but requires
+         * automatic merging.
+         */
+        getDefaultProps: function(Constructor, getDefaultProps) {
+          if (Constructor.getDefaultProps) {
+            Constructor.getDefaultProps = createMergedResultFunction(Constructor.getDefaultProps, getDefaultProps);
+          } else {
+            Constructor.getDefaultProps = getDefaultProps;
+          }
+        },
+        propTypes: function(Constructor, propTypes) {
+          if (true) {
+            validateTypeDef(Constructor, propTypes, "prop");
+          }
+          Constructor.propTypes = _assign({}, Constructor.propTypes, propTypes);
+        },
+        statics: function(Constructor, statics) {
+          mixStaticSpecIntoComponent(Constructor, statics);
+        },
+        autobind: function() {
+        }
+      };
+      function validateTypeDef(Constructor, typeDef, location) {
+        for (var propName in typeDef) {
+          if (typeDef.hasOwnProperty(propName)) {
+            true ? warning(typeof typeDef[propName] === "function", "%s: %s type `%s` is invalid; it must be a function, usually from React.PropTypes.", Constructor.displayName || "ReactClass", ReactPropTypeLocationNames[location], propName) : void 0;
+          }
+        }
+      }
+      function validateMethodOverride(isAlreadyDefined, name) {
+        var specPolicy = ReactClassInterface.hasOwnProperty(name) ? ReactClassInterface[name] : null;
+        if (ReactClassMixin.hasOwnProperty(name)) {
+          !(specPolicy === "OVERRIDE_BASE") ? true ? invariant(false, "ReactClassInterface: You are attempting to override `%s` from your class specification. Ensure that your method names do not overlap with React methods.", name) : _prodInvariant("73", name) : void 0;
+        }
+        if (isAlreadyDefined) {
+          !(specPolicy === "DEFINE_MANY" || specPolicy === "DEFINE_MANY_MERGED") ? true ? invariant(false, "ReactClassInterface: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.", name) : _prodInvariant("74", name) : void 0;
+        }
+      }
+      function mixSpecIntoComponent(Constructor, spec) {
+        if (!spec) {
+          if (true) {
+            var typeofSpec = typeof spec;
+            var isMixinValid = typeofSpec === "object" && spec !== null;
+            true ? warning(isMixinValid, "%s: You're attempting to include a mixin that is either null or not an object. Check the mixins included by the component, as well as any mixins they include themselves. Expected object but got %s.", Constructor.displayName || "ReactClass", spec === null ? null : typeofSpec) : void 0;
+          }
+          return;
+        }
+        !(typeof spec !== "function") ? true ? invariant(false, "ReactClass: You're attempting to use a component class or function as a mixin. Instead, just use a regular object.") : _prodInvariant("75") : void 0;
+        !!ReactElement.isValidElement(spec) ? true ? invariant(false, "ReactClass: You're attempting to use a component as a mixin. Instead, just use a regular object.") : _prodInvariant("76") : void 0;
+        var proto = Constructor.prototype;
+        var autoBindPairs = proto.__reactAutoBindPairs;
+        if (spec.hasOwnProperty(MIXINS_KEY)) {
+          RESERVED_SPEC_KEYS.mixins(Constructor, spec.mixins);
+        }
+        for (var name in spec) {
+          if (!spec.hasOwnProperty(name)) {
+            continue;
+          }
+          if (name === MIXINS_KEY) {
+            continue;
+          }
+          var property = spec[name];
+          var isAlreadyDefined = proto.hasOwnProperty(name);
+          validateMethodOverride(isAlreadyDefined, name);
+          if (RESERVED_SPEC_KEYS.hasOwnProperty(name)) {
+            RESERVED_SPEC_KEYS[name](Constructor, property);
+          } else {
+            var isReactClassMethod = ReactClassInterface.hasOwnProperty(name);
+            var isFunction = typeof property === "function";
+            var shouldAutoBind = isFunction && !isReactClassMethod && !isAlreadyDefined && spec.autobind !== false;
+            if (shouldAutoBind) {
+              autoBindPairs.push(name, property);
+              proto[name] = property;
+            } else {
+              if (isAlreadyDefined) {
+                var specPolicy = ReactClassInterface[name];
+                !(isReactClassMethod && (specPolicy === "DEFINE_MANY_MERGED" || specPolicy === "DEFINE_MANY")) ? true ? invariant(false, "ReactClass: Unexpected spec policy %s for key %s when mixing in component specs.", specPolicy, name) : _prodInvariant("77", specPolicy, name) : void 0;
+                if (specPolicy === "DEFINE_MANY_MERGED") {
+                  proto[name] = createMergedResultFunction(proto[name], property);
+                } else if (specPolicy === "DEFINE_MANY") {
+                  proto[name] = createChainedFunction(proto[name], property);
+                }
+              } else {
+                proto[name] = property;
+                if (true) {
+                  if (typeof property === "function" && spec.displayName) {
+                    proto[name].displayName = spec.displayName + "_" + name;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      function mixStaticSpecIntoComponent(Constructor, statics) {
+        if (!statics) {
+          return;
+        }
+        for (var name in statics) {
+          var property = statics[name];
+          if (!statics.hasOwnProperty(name)) {
+            continue;
+          }
+          var isReserved = name in RESERVED_SPEC_KEYS;
+          !!isReserved ? true ? invariant(false, 'ReactClass: You are attempting to define a reserved property, `%s`, that shouldn\'t be on the "statics" key. Define it as an instance property instead; it will still be accessible on the constructor.', name) : _prodInvariant("78", name) : void 0;
+          var isInherited = name in Constructor;
+          !!isInherited ? true ? invariant(false, "ReactClass: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.", name) : _prodInvariant("79", name) : void 0;
+          Constructor[name] = property;
+        }
+      }
+      function mergeIntoWithNoDuplicateKeys(one, two) {
+        !(one && two && typeof one === "object" && typeof two === "object") ? true ? invariant(false, "mergeIntoWithNoDuplicateKeys(): Cannot merge non-objects.") : _prodInvariant("80") : void 0;
+        for (var key in two) {
+          if (two.hasOwnProperty(key)) {
+            !(one[key] === void 0) ? true ? invariant(false, "mergeIntoWithNoDuplicateKeys(): Tried to merge two objects with the same key: `%s`. This conflict may be due to a mixin; in particular, this may be caused by two getInitialState() or getDefaultProps() methods returning objects with clashing keys.", key) : _prodInvariant("81", key) : void 0;
+            one[key] = two[key];
+          }
+        }
+        return one;
+      }
+      function createMergedResultFunction(one, two) {
+        return function mergedResult() {
+          var a = one.apply(this, arguments);
+          var b = two.apply(this, arguments);
+          if (a == null) {
+            return b;
+          } else if (b == null) {
+            return a;
+          }
+          var c = {};
+          mergeIntoWithNoDuplicateKeys(c, a);
+          mergeIntoWithNoDuplicateKeys(c, b);
+          return c;
+        };
+      }
+      function createChainedFunction(one, two) {
+        return function chainedFunction() {
+          one.apply(this, arguments);
+          two.apply(this, arguments);
+        };
+      }
+      function bindAutoBindMethod(component, method) {
+        var boundMethod = method.bind(component);
+        if (true) {
+          boundMethod.__reactBoundContext = component;
+          boundMethod.__reactBoundMethod = method;
+          boundMethod.__reactBoundArguments = null;
+          var componentName = component.constructor.displayName;
+          var _bind = boundMethod.bind;
+          boundMethod.bind = function(newThis) {
+            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+              args[_key - 1] = arguments[_key];
+            }
+            if (newThis !== component && newThis !== null) {
+              true ? warning(false, "bind(): React component methods may only be bound to the component instance. See %s", componentName) : void 0;
+            } else if (!args.length) {
+              true ? warning(false, "bind(): You are binding a component method to the component. React does this for you automatically in a high-performance way, so you can safely remove this call. See %s", componentName) : void 0;
+              return boundMethod;
+            }
+            var reboundMethod = _bind.apply(boundMethod, arguments);
+            reboundMethod.__reactBoundContext = component;
+            reboundMethod.__reactBoundMethod = method;
+            reboundMethod.__reactBoundArguments = args;
+            return reboundMethod;
+          };
+        }
+        return boundMethod;
+      }
+      function bindAutoBindMethods(component) {
+        var pairs = component.__reactAutoBindPairs;
+        for (var i = 0; i < pairs.length; i += 2) {
+          var autoBindKey = pairs[i];
+          var method = pairs[i + 1];
+          component[autoBindKey] = bindAutoBindMethod(component, method);
+        }
+      }
+      var ReactClassMixin = {
+        /**
+         * TODO: This will be deprecated because state should always keep a consistent
+         * type signature and the only use case for this, is to avoid that.
+         */
+        replaceState: function(newState, callback) {
+          this.updater.enqueueReplaceState(this, newState);
+          if (callback) {
+            this.updater.enqueueCallback(this, callback, "replaceState");
+          }
+        },
+        /**
+         * Checks whether or not this composite component is mounted.
+         * @return {boolean} True if mounted, false otherwise.
+         * @protected
+         * @final
+         */
+        isMounted: function() {
+          return this.updater.isMounted(this);
+        }
+      };
+      var ReactClassComponent = function() {
+      };
+      _assign(ReactClassComponent.prototype, ReactComponent.prototype, ReactClassMixin);
+      var ReactClass = {
+        /**
+         * Creates a composite component class given a class specification.
+         * See https://facebook.github.io/react/docs/top-level-api.html#react.createclass
+         *
+         * @param {object} spec Class specification (which must define `render`).
+         * @return {function} Component constructor function.
+         * @public
+         */
+        createClass: function(spec) {
+          var Constructor = identity(function(props, context, updater) {
+            if (true) {
+              true ? warning(this instanceof Constructor, "Something is calling a React component directly. Use a factory or JSX instead. See: https://fb.me/react-legacyfactory") : void 0;
+            }
+            if (this.__reactAutoBindPairs.length) {
+              bindAutoBindMethods(this);
+            }
+            this.props = props;
+            this.context = context;
+            this.refs = emptyObject;
+            this.updater = updater || ReactNoopUpdateQueue;
+            this.state = null;
+            var initialState = this.getInitialState ? this.getInitialState() : null;
+            if (true) {
+              if (initialState === void 0 && this.getInitialState._isMockFunction) {
+                initialState = null;
+              }
+            }
+            !(typeof initialState === "object" && !Array.isArray(initialState)) ? true ? invariant(false, "%s.getInitialState(): must return an object or null", Constructor.displayName || "ReactCompositeComponent") : _prodInvariant("82", Constructor.displayName || "ReactCompositeComponent") : void 0;
+            this.state = initialState;
+          });
+          Constructor.prototype = new ReactClassComponent();
+          Constructor.prototype.constructor = Constructor;
+          Constructor.prototype.__reactAutoBindPairs = [];
+          injectedMixins.forEach(mixSpecIntoComponent.bind(null, Constructor));
+          mixSpecIntoComponent(Constructor, spec);
+          if (Constructor.getDefaultProps) {
+            Constructor.defaultProps = Constructor.getDefaultProps();
+          }
+          if (true) {
+            if (Constructor.getDefaultProps) {
+              Constructor.getDefaultProps.isReactClassApproved = {};
+            }
+            if (Constructor.prototype.getInitialState) {
+              Constructor.prototype.getInitialState.isReactClassApproved = {};
+            }
+          }
+          !Constructor.prototype.render ? true ? invariant(false, "createClass(...): Class specification must implement a `render` method.") : _prodInvariant("83") : void 0;
+          if (true) {
+            true ? warning(!Constructor.prototype.componentShouldUpdate, "%s has a method called componentShouldUpdate(). Did you mean shouldComponentUpdate()? The name is phrased as a question because the function is expected to return a value.", spec.displayName || "A component") : void 0;
+            true ? warning(!Constructor.prototype.componentWillRecieveProps, "%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?", spec.displayName || "A component") : void 0;
+          }
+          for (var methodName in ReactClassInterface) {
+            if (!Constructor.prototype[methodName]) {
+              Constructor.prototype[methodName] = null;
+            }
+          }
+          return Constructor;
+        },
+        injection: {
+          injectMixin: function(mixin) {
+            injectedMixins.push(mixin);
+          }
+        }
+      };
+      module.exports = ReactClass;
+    }
+  });
+
   // node_modules/react/lib/ReactComponentTreeHook.js
   var require_ReactComponentTreeHook = __commonJS({
     "node_modules/react/lib/ReactComponentTreeHook.js"(exports, module) {
@@ -5075,14 +5571,7 @@
       function isNative(fn) {
         var funcToString = Function.prototype.toString;
         var hasOwnProperty = Object.prototype.hasOwnProperty;
-        var reIsNative = RegExp("^" + funcToString.call(
-          hasOwnProperty
-          // Strip regex characters so we can use it for regex
-        ).replace(
-          /[\\^$.*+?()[\]{}|]/g,
-          "\\$&"
-          // Remove hasOwnProperty from the template to make it generic
-        ).replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
+        var reIsNative = RegExp("^" + funcToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
         try {
           var source = funcToString.call(fn);
           return reIsNative.test(source);
@@ -5348,63 +5837,9 @@
           return item ? item.updateCount : 0;
         },
         getRootIDs,
-        getRegisteredIDs: getItemIDs,
-        pushNonStandardWarningStack: function(isCreatingElement, currentSource) {
-          if (typeof console.reactStack !== "function") {
-            return;
-          }
-          var stack = [];
-          var currentOwner = ReactCurrentOwner.current;
-          var id = currentOwner && currentOwner._debugID;
-          try {
-            if (isCreatingElement) {
-              stack.push({
-                name: id ? ReactComponentTreeHook.getDisplayName(id) : null,
-                fileName: currentSource ? currentSource.fileName : null,
-                lineNumber: currentSource ? currentSource.lineNumber : null
-              });
-            }
-            while (id) {
-              var element = ReactComponentTreeHook.getElement(id);
-              var parentID = ReactComponentTreeHook.getParentID(id);
-              var ownerID = ReactComponentTreeHook.getOwnerID(id);
-              var ownerName = ownerID ? ReactComponentTreeHook.getDisplayName(ownerID) : null;
-              var source = element && element._source;
-              stack.push({
-                name: ownerName,
-                fileName: source ? source.fileName : null,
-                lineNumber: source ? source.lineNumber : null
-              });
-              id = parentID;
-            }
-          } catch (err) {
-          }
-          console.reactStack(stack);
-        },
-        popNonStandardWarningStack: function() {
-          if (typeof console.reactStackEnd !== "function") {
-            return;
-          }
-          console.reactStackEnd();
-        }
+        getRegisteredIDs: getItemIDs
       };
       module.exports = ReactComponentTreeHook;
-    }
-  });
-
-  // node_modules/react/lib/ReactPropTypeLocationNames.js
-  var require_ReactPropTypeLocationNames = __commonJS({
-    "node_modules/react/lib/ReactPropTypeLocationNames.js"(exports, module) {
-      "use strict";
-      var ReactPropTypeLocationNames = {};
-      if (true) {
-        ReactPropTypeLocationNames = {
-          prop: "prop",
-          context: "context",
-          childContext: "child context"
-        };
-      }
-      module.exports = ReactPropTypeLocationNames;
     }
   });
 
@@ -5475,22 +5910,12 @@
       var canDefineProperty = require_canDefineProperty();
       var getIteratorFn = require_getIteratorFn();
       var warning = require_warning();
-      var lowPriorityWarning = require_lowPriorityWarning();
       function getDeclarationErrorAddendum() {
         if (ReactCurrentOwner.current) {
           var name = ReactCurrentOwner.current.getName();
           if (name) {
             return " Check the render method of `" + name + "`.";
           }
-        }
-        return "";
-      }
-      function getSourceInfoErrorAddendum(elementProps) {
-        if (elementProps !== null && elementProps !== void 0 && elementProps.__source !== void 0) {
-          var source = elementProps.__source;
-          var fileName = source.fileName.replace(/^.*[\\\/]/, "");
-          var lineNumber = source.lineNumber;
-          return " Check your code at " + fileName + ":" + lineNumber + ".";
         }
         return "";
       }
@@ -5574,17 +5999,8 @@
               if (type === void 0 || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
                 info += " You likely forgot to export your component from the file it's defined in.";
               }
-              var sourceInfo = getSourceInfoErrorAddendum(props);
-              if (sourceInfo) {
-                info += sourceInfo;
-              } else {
-                info += getDeclarationErrorAddendum();
-              }
-              info += ReactComponentTreeHook.getCurrentStackAddendum();
-              var currentSource = props !== null && props !== void 0 && props.__source !== void 0 ? props.__source : null;
-              ReactComponentTreeHook.pushNonStandardWarningStack(true, currentSource);
+              info += getDeclarationErrorAddendum();
               true ? warning(false, "React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", type == null ? type : typeof type, info) : void 0;
-              ReactComponentTreeHook.popNonStandardWarningStack();
             }
           }
           var element = ReactElement.createElement.apply(this, arguments);
@@ -5607,7 +6023,7 @@
               Object.defineProperty(validatedFactory, "type", {
                 enumerable: false,
                 get: function() {
-                  lowPriorityWarning(false, "Factory.type is deprecated. Access the class directly before passing it to createFactory.");
+                  true ? warning(false, "Factory.type is deprecated. Access the class directly before passing it to createFactory.") : void 0;
                   Object.defineProperty(this, "type", {
                     value: type
                   });
@@ -5781,718 +6197,317 @@
     }
   });
 
-  // node_modules/react-is/cjs/react-is.development.js
-  var require_react_is_development = __commonJS({
-    "node_modules/react-is/cjs/react-is.development.js"(exports) {
-      "use strict";
-      if (true) {
-        (function() {
-          "use strict";
-          var hasSymbol = typeof Symbol === "function" && Symbol.for;
-          var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103;
-          var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106;
-          var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107;
-          var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108;
-          var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114;
-          var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109;
-          var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110;
-          var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111;
-          var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111;
-          var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112;
-          var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113;
-          var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120;
-          var REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115;
-          var REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116;
-          var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121;
-          var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117;
-          var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118;
-          var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
-          function isValidElementType(type) {
-            return typeof type === "string" || typeof type === "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-            type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-          }
-          function typeOf(object) {
-            if (typeof object === "object" && object !== null) {
-              var $$typeof = object.$$typeof;
-              switch ($$typeof) {
-                case REACT_ELEMENT_TYPE:
-                  var type = object.type;
-                  switch (type) {
-                    case REACT_ASYNC_MODE_TYPE:
-                    case REACT_CONCURRENT_MODE_TYPE:
-                    case REACT_FRAGMENT_TYPE:
-                    case REACT_PROFILER_TYPE:
-                    case REACT_STRICT_MODE_TYPE:
-                    case REACT_SUSPENSE_TYPE:
-                      return type;
-                    default:
-                      var $$typeofType = type && type.$$typeof;
-                      switch ($$typeofType) {
-                        case REACT_CONTEXT_TYPE:
-                        case REACT_FORWARD_REF_TYPE:
-                        case REACT_LAZY_TYPE:
-                        case REACT_MEMO_TYPE:
-                        case REACT_PROVIDER_TYPE:
-                          return $$typeofType;
-                        default:
-                          return $$typeof;
-                      }
-                  }
-                case REACT_PORTAL_TYPE:
-                  return $$typeof;
-              }
-            }
-            return void 0;
-          }
-          var AsyncMode = REACT_ASYNC_MODE_TYPE;
-          var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-          var ContextConsumer = REACT_CONTEXT_TYPE;
-          var ContextProvider = REACT_PROVIDER_TYPE;
-          var Element = REACT_ELEMENT_TYPE;
-          var ForwardRef = REACT_FORWARD_REF_TYPE;
-          var Fragment = REACT_FRAGMENT_TYPE;
-          var Lazy = REACT_LAZY_TYPE;
-          var Memo = REACT_MEMO_TYPE;
-          var Portal2 = REACT_PORTAL_TYPE;
-          var Profiler = REACT_PROFILER_TYPE;
-          var StrictMode = REACT_STRICT_MODE_TYPE;
-          var Suspense = REACT_SUSPENSE_TYPE;
-          var hasWarnedAboutDeprecatedIsAsyncMode = false;
-          function isAsyncMode(object) {
-            {
-              if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-                hasWarnedAboutDeprecatedIsAsyncMode = true;
-                console["warn"]("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.");
-              }
-            }
-            return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-          }
-          function isConcurrentMode(object) {
-            return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-          }
-          function isContextConsumer(object) {
-            return typeOf(object) === REACT_CONTEXT_TYPE;
-          }
-          function isContextProvider(object) {
-            return typeOf(object) === REACT_PROVIDER_TYPE;
-          }
-          function isElement(object) {
-            return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-          }
-          function isForwardRef(object) {
-            return typeOf(object) === REACT_FORWARD_REF_TYPE;
-          }
-          function isFragment(object) {
-            return typeOf(object) === REACT_FRAGMENT_TYPE;
-          }
-          function isLazy(object) {
-            return typeOf(object) === REACT_LAZY_TYPE;
-          }
-          function isMemo(object) {
-            return typeOf(object) === REACT_MEMO_TYPE;
-          }
-          function isPortal(object) {
-            return typeOf(object) === REACT_PORTAL_TYPE;
-          }
-          function isProfiler(object) {
-            return typeOf(object) === REACT_PROFILER_TYPE;
-          }
-          function isStrictMode(object) {
-            return typeOf(object) === REACT_STRICT_MODE_TYPE;
-          }
-          function isSuspense(object) {
-            return typeOf(object) === REACT_SUSPENSE_TYPE;
-          }
-          exports.AsyncMode = AsyncMode;
-          exports.ConcurrentMode = ConcurrentMode;
-          exports.ContextConsumer = ContextConsumer;
-          exports.ContextProvider = ContextProvider;
-          exports.Element = Element;
-          exports.ForwardRef = ForwardRef;
-          exports.Fragment = Fragment;
-          exports.Lazy = Lazy;
-          exports.Memo = Memo;
-          exports.Portal = Portal2;
-          exports.Profiler = Profiler;
-          exports.StrictMode = StrictMode;
-          exports.Suspense = Suspense;
-          exports.isAsyncMode = isAsyncMode;
-          exports.isConcurrentMode = isConcurrentMode;
-          exports.isContextConsumer = isContextConsumer;
-          exports.isContextProvider = isContextProvider;
-          exports.isElement = isElement;
-          exports.isForwardRef = isForwardRef;
-          exports.isFragment = isFragment;
-          exports.isLazy = isLazy;
-          exports.isMemo = isMemo;
-          exports.isPortal = isPortal;
-          exports.isProfiler = isProfiler;
-          exports.isStrictMode = isStrictMode;
-          exports.isSuspense = isSuspense;
-          exports.isValidElementType = isValidElementType;
-          exports.typeOf = typeOf;
-        })();
-      }
-    }
-  });
-
-  // node_modules/react-is/index.js
-  var require_react_is = __commonJS({
-    "node_modules/react-is/index.js"(exports, module) {
-      "use strict";
-      if (false) {
-        module.exports = null;
-      } else {
-        module.exports = require_react_is_development();
-      }
-    }
-  });
-
-  // node_modules/prop-types/lib/ReactPropTypesSecret.js
-  var require_ReactPropTypesSecret2 = __commonJS({
-    "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
-      "use strict";
-      var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-      module.exports = ReactPropTypesSecret;
-    }
-  });
-
-  // node_modules/prop-types/lib/has.js
-  var require_has = __commonJS({
-    "node_modules/prop-types/lib/has.js"(exports, module) {
-      module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
-    }
-  });
-
-  // node_modules/prop-types/checkPropTypes.js
-  var require_checkPropTypes = __commonJS({
-    "node_modules/prop-types/checkPropTypes.js"(exports, module) {
-      "use strict";
-      var printWarning = function() {
-      };
-      if (true) {
-        ReactPropTypesSecret = require_ReactPropTypesSecret2();
-        loggedTypeFailures = {};
-        has = require_has();
-        printWarning = function(text) {
-          var message = "Warning: " + text;
-          if (typeof console !== "undefined") {
-            console.error(message);
-          }
-          try {
-            throw new Error(message);
-          } catch (x) {
-          }
-        };
-      }
-      var ReactPropTypesSecret;
-      var loggedTypeFailures;
-      var has;
-      function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-        if (true) {
-          for (var typeSpecName in typeSpecs) {
-            if (has(typeSpecs, typeSpecName)) {
-              var error;
-              try {
-                if (typeof typeSpecs[typeSpecName] !== "function") {
-                  var err = Error(
-                    (componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
-                  );
-                  err.name = "Invariant Violation";
-                  throw err;
-                }
-                error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
-              } catch (ex) {
-                error = ex;
-              }
-              if (error && !(error instanceof Error)) {
-                printWarning(
-                  (componentName || "React class") + ": type specification of " + location + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
-                );
-              }
-              if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-                loggedTypeFailures[error.message] = true;
-                var stack = getStack ? getStack() : "";
-                printWarning(
-                  "Failed " + location + " type: " + error.message + (stack != null ? stack : "")
-                );
-              }
-            }
-          }
-        }
-      }
-      checkPropTypes.resetWarningCache = function() {
-        if (true) {
-          loggedTypeFailures = {};
-        }
-      };
-      module.exports = checkPropTypes;
-    }
-  });
-
-  // node_modules/prop-types/factoryWithTypeCheckers.js
-  var require_factoryWithTypeCheckers = __commonJS({
-    "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
-      "use strict";
-      var ReactIs = require_react_is();
-      var assign = require_object_assign();
-      var ReactPropTypesSecret = require_ReactPropTypesSecret2();
-      var has = require_has();
-      var checkPropTypes = require_checkPropTypes();
-      var printWarning = function() {
-      };
-      if (true) {
-        printWarning = function(text) {
-          var message = "Warning: " + text;
-          if (typeof console !== "undefined") {
-            console.error(message);
-          }
-          try {
-            throw new Error(message);
-          } catch (x) {
-          }
-        };
-      }
-      function emptyFunctionThatReturnsNull() {
-        return null;
-      }
-      module.exports = function(isValidElement, throwOnDirectAccess) {
-        var ITERATOR_SYMBOL = typeof Symbol === "function" && Symbol.iterator;
-        var FAUX_ITERATOR_SYMBOL = "@@iterator";
-        function getIteratorFn(maybeIterable) {
-          var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-          if (typeof iteratorFn === "function") {
-            return iteratorFn;
-          }
-        }
-        var ANONYMOUS = "<<anonymous>>";
-        var ReactPropTypes = {
-          array: createPrimitiveTypeChecker("array"),
-          bigint: createPrimitiveTypeChecker("bigint"),
-          bool: createPrimitiveTypeChecker("boolean"),
-          func: createPrimitiveTypeChecker("function"),
-          number: createPrimitiveTypeChecker("number"),
-          object: createPrimitiveTypeChecker("object"),
-          string: createPrimitiveTypeChecker("string"),
-          symbol: createPrimitiveTypeChecker("symbol"),
-          any: createAnyTypeChecker(),
-          arrayOf: createArrayOfTypeChecker,
-          element: createElementTypeChecker(),
-          elementType: createElementTypeTypeChecker(),
-          instanceOf: createInstanceTypeChecker,
-          node: createNodeChecker(),
-          objectOf: createObjectOfTypeChecker,
-          oneOf: createEnumTypeChecker,
-          oneOfType: createUnionTypeChecker,
-          shape: createShapeTypeChecker,
-          exact: createStrictShapeTypeChecker
-        };
-        function is(x, y) {
-          if (x === y) {
-            return x !== 0 || 1 / x === 1 / y;
-          } else {
-            return x !== x && y !== y;
-          }
-        }
-        function PropTypeError(message, data) {
-          this.message = message;
-          this.data = data && typeof data === "object" ? data : {};
-          this.stack = "";
-        }
-        PropTypeError.prototype = Error.prototype;
-        function createChainableTypeChecker(validate) {
-          if (true) {
-            var manualPropTypeCallCache = {};
-            var manualPropTypeWarningCount = 0;
-          }
-          function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-            componentName = componentName || ANONYMOUS;
-            propFullName = propFullName || propName;
-            if (secret !== ReactPropTypesSecret) {
-              if (throwOnDirectAccess) {
-                var err = new Error(
-                  "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
-                );
-                err.name = "Invariant Violation";
-                throw err;
-              } else if (typeof console !== "undefined") {
-                var cacheKey = componentName + ":" + propName;
-                if (!manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
-                manualPropTypeWarningCount < 3) {
-                  printWarning(
-                    "You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
-                  );
-                  manualPropTypeCallCache[cacheKey] = true;
-                  manualPropTypeWarningCount++;
-                }
-              }
-            }
-            if (props[propName] == null) {
-              if (isRequired) {
-                if (props[propName] === null) {
-                  return new PropTypeError("The " + location + " `" + propFullName + "` is marked as required " + ("in `" + componentName + "`, but its value is `null`."));
-                }
-                return new PropTypeError("The " + location + " `" + propFullName + "` is marked as required in " + ("`" + componentName + "`, but its value is `undefined`."));
-              }
-              return null;
-            } else {
-              return validate(props, propName, componentName, location, propFullName);
-            }
-          }
-          var chainedCheckType = checkType.bind(null, false);
-          chainedCheckType.isRequired = checkType.bind(null, true);
-          return chainedCheckType;
-        }
-        function createPrimitiveTypeChecker(expectedType) {
-          function validate(props, propName, componentName, location, propFullName, secret) {
-            var propValue = props[propName];
-            var propType = getPropType(propValue);
-            if (propType !== expectedType) {
-              var preciseType = getPreciseType(propValue);
-              return new PropTypeError(
-                "Invalid " + location + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."),
-                { expectedType }
-              );
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createAnyTypeChecker() {
-          return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-        }
-        function createArrayOfTypeChecker(typeChecker) {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (typeof typeChecker !== "function") {
-              return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside arrayOf.");
-            }
-            var propValue = props[propName];
-            if (!Array.isArray(propValue)) {
-              var propType = getPropType(propValue);
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
-            }
-            for (var i = 0; i < propValue.length; i++) {
-              var error = typeChecker(propValue, i, componentName, location, propFullName + "[" + i + "]", ReactPropTypesSecret);
-              if (error instanceof Error) {
-                return error;
-              }
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createElementTypeChecker() {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName];
-            if (!isValidElement(propValue)) {
-              var propType = getPropType(propValue);
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createElementTypeTypeChecker() {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName];
-            if (!ReactIs.isValidElementType(propValue)) {
-              var propType = getPropType(propValue);
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement type."));
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createInstanceTypeChecker(expectedClass) {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (!(props[propName] instanceof expectedClass)) {
-              var expectedClassName = expectedClass.name || ANONYMOUS;
-              var actualClassName = getClassName(props[propName]);
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + actualClassName + "` supplied to `" + componentName + "`, expected ") + ("instance of `" + expectedClassName + "`."));
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createEnumTypeChecker(expectedValues) {
-          if (!Array.isArray(expectedValues)) {
-            if (true) {
-              if (arguments.length > 1) {
-                printWarning(
-                  "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
-                );
-              } else {
-                printWarning("Invalid argument supplied to oneOf, expected an array.");
-              }
-            }
-            return emptyFunctionThatReturnsNull;
-          }
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName];
-            for (var i = 0; i < expectedValues.length; i++) {
-              if (is(propValue, expectedValues[i])) {
-                return null;
-              }
-            }
-            var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-              var type = getPreciseType(value);
-              if (type === "symbol") {
-                return String(value);
-              }
-              return value;
-            });
-            return new PropTypeError("Invalid " + location + " `" + propFullName + "` of value `" + String(propValue) + "` " + ("supplied to `" + componentName + "`, expected one of " + valuesString + "."));
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createObjectOfTypeChecker(typeChecker) {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (typeof typeChecker !== "function") {
-              return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
-            }
-            var propValue = props[propName];
-            var propType = getPropType(propValue);
-            if (propType !== "object") {
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an object."));
-            }
-            for (var key in propValue) {
-              if (has(propValue, key)) {
-                var error = typeChecker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
-                if (error instanceof Error) {
-                  return error;
-                }
-              }
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createUnionTypeChecker(arrayOfTypeCheckers) {
-          if (!Array.isArray(arrayOfTypeCheckers)) {
-            true ? printWarning("Invalid argument supplied to oneOfType, expected an instance of array.") : void 0;
-            return emptyFunctionThatReturnsNull;
-          }
-          for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-            var checker = arrayOfTypeCheckers[i];
-            if (typeof checker !== "function") {
-              printWarning(
-                "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i + "."
-              );
-              return emptyFunctionThatReturnsNull;
-            }
-          }
-          function validate(props, propName, componentName, location, propFullName) {
-            var expectedTypes = [];
-            for (var i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
-              var checker2 = arrayOfTypeCheckers[i2];
-              var checkerResult = checker2(props, propName, componentName, location, propFullName, ReactPropTypesSecret);
-              if (checkerResult == null) {
-                return null;
-              }
-              if (checkerResult.data && has(checkerResult.data, "expectedType")) {
-                expectedTypes.push(checkerResult.data.expectedType);
-              }
-            }
-            var expectedTypesMessage = expectedTypes.length > 0 ? ", expected one of type [" + expectedTypes.join(", ") + "]" : "";
-            return new PropTypeError("Invalid " + location + " `" + propFullName + "` supplied to " + ("`" + componentName + "`" + expectedTypesMessage + "."));
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createNodeChecker() {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (!isNode(props[propName])) {
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` supplied to " + ("`" + componentName + "`, expected a ReactNode."));
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function invalidValidatorError(componentName, location, propFullName, key, type) {
-          return new PropTypeError(
-            (componentName || "React class") + ": " + location + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
-          );
-        }
-        function createShapeTypeChecker(shapeTypes) {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName];
-            var propType = getPropType(propValue);
-            if (propType !== "object") {
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
-            }
-            for (var key in shapeTypes) {
-              var checker = shapeTypes[key];
-              if (typeof checker !== "function") {
-                return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-              }
-              var error = checker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
-              if (error) {
-                return error;
-              }
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function createStrictShapeTypeChecker(shapeTypes) {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName];
-            var propType = getPropType(propValue);
-            if (propType !== "object") {
-              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
-            }
-            var allKeys = assign({}, props[propName], shapeTypes);
-            for (var key in allKeys) {
-              var checker = shapeTypes[key];
-              if (has(shapeTypes, key) && typeof checker !== "function") {
-                return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
-              }
-              if (!checker) {
-                return new PropTypeError(
-                  "Invalid " + location + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + "\nValid keys: " + JSON.stringify(Object.keys(shapeTypes), null, "  ")
-                );
-              }
-              var error = checker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
-              if (error) {
-                return error;
-              }
-            }
-            return null;
-          }
-          return createChainableTypeChecker(validate);
-        }
-        function isNode(propValue) {
-          switch (typeof propValue) {
-            case "number":
-            case "string":
-            case "undefined":
-              return true;
-            case "boolean":
-              return !propValue;
-            case "object":
-              if (Array.isArray(propValue)) {
-                return propValue.every(isNode);
-              }
-              if (propValue === null || isValidElement(propValue)) {
-                return true;
-              }
-              var iteratorFn = getIteratorFn(propValue);
-              if (iteratorFn) {
-                var iterator = iteratorFn.call(propValue);
-                var step;
-                if (iteratorFn !== propValue.entries) {
-                  while (!(step = iterator.next()).done) {
-                    if (!isNode(step.value)) {
-                      return false;
-                    }
-                  }
-                } else {
-                  while (!(step = iterator.next()).done) {
-                    var entry = step.value;
-                    if (entry) {
-                      if (!isNode(entry[1])) {
-                        return false;
-                      }
-                    }
-                  }
-                }
-              } else {
-                return false;
-              }
-              return true;
-            default:
-              return false;
-          }
-        }
-        function isSymbol(propType, propValue) {
-          if (propType === "symbol") {
-            return true;
-          }
-          if (!propValue) {
-            return false;
-          }
-          if (propValue["@@toStringTag"] === "Symbol") {
-            return true;
-          }
-          if (typeof Symbol === "function" && propValue instanceof Symbol) {
-            return true;
-          }
-          return false;
-        }
-        function getPropType(propValue) {
-          var propType = typeof propValue;
-          if (Array.isArray(propValue)) {
-            return "array";
-          }
-          if (propValue instanceof RegExp) {
-            return "object";
-          }
-          if (isSymbol(propType, propValue)) {
-            return "symbol";
-          }
-          return propType;
-        }
-        function getPreciseType(propValue) {
-          if (typeof propValue === "undefined" || propValue === null) {
-            return "" + propValue;
-          }
-          var propType = getPropType(propValue);
-          if (propType === "object") {
-            if (propValue instanceof Date) {
-              return "date";
-            } else if (propValue instanceof RegExp) {
-              return "regexp";
-            }
-          }
-          return propType;
-        }
-        function getPostfixForTypeWarning(value) {
-          var type = getPreciseType(value);
-          switch (type) {
-            case "array":
-            case "object":
-              return "an " + type;
-            case "boolean":
-            case "date":
-            case "regexp":
-              return "a " + type;
-            default:
-              return type;
-          }
-        }
-        function getClassName(propValue) {
-          if (!propValue.constructor || !propValue.constructor.name) {
-            return ANONYMOUS;
-          }
-          return propValue.constructor.name;
-        }
-        ReactPropTypes.checkPropTypes = checkPropTypes;
-        ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
-        ReactPropTypes.PropTypes = ReactPropTypes;
-        return ReactPropTypes;
-      };
-    }
-  });
-
-  // node_modules/prop-types/factory.js
-  var require_factory = __commonJS({
-    "node_modules/prop-types/factory.js"(exports, module) {
-      "use strict";
-      var factory = require_factoryWithTypeCheckers();
-      module.exports = function(isValidElement) {
-        var throwOnDirectAccess = false;
-        return factory(isValidElement, throwOnDirectAccess);
-      };
-    }
-  });
-
   // node_modules/react/lib/ReactPropTypes.js
   var require_ReactPropTypes = __commonJS({
     "node_modules/react/lib/ReactPropTypes.js"(exports, module) {
       "use strict";
-      var _require = require_ReactElement();
-      var isValidElement = _require.isValidElement;
-      var factory = require_factory();
-      module.exports = factory(isValidElement);
+      var ReactElement = require_ReactElement();
+      var ReactPropTypeLocationNames = require_ReactPropTypeLocationNames();
+      var ReactPropTypesSecret = require_ReactPropTypesSecret();
+      var emptyFunction = require_emptyFunction();
+      var getIteratorFn = require_getIteratorFn();
+      var warning = require_warning();
+      var ANONYMOUS = "<<anonymous>>";
+      var ReactPropTypes = {
+        array: createPrimitiveTypeChecker("array"),
+        bool: createPrimitiveTypeChecker("boolean"),
+        func: createPrimitiveTypeChecker("function"),
+        number: createPrimitiveTypeChecker("number"),
+        object: createPrimitiveTypeChecker("object"),
+        string: createPrimitiveTypeChecker("string"),
+        symbol: createPrimitiveTypeChecker("symbol"),
+        any: createAnyTypeChecker(),
+        arrayOf: createArrayOfTypeChecker,
+        element: createElementTypeChecker(),
+        instanceOf: createInstanceTypeChecker,
+        node: createNodeChecker(),
+        objectOf: createObjectOfTypeChecker,
+        oneOf: createEnumTypeChecker,
+        oneOfType: createUnionTypeChecker,
+        shape: createShapeTypeChecker
+      };
+      function is(x, y) {
+        if (x === y) {
+          return x !== 0 || 1 / x === 1 / y;
+        } else {
+          return x !== x && y !== y;
+        }
+      }
+      function PropTypeError(message) {
+        this.message = message;
+        this.stack = "";
+      }
+      PropTypeError.prototype = Error.prototype;
+      function createChainableTypeChecker(validate) {
+        if (true) {
+          var manualPropTypeCallCache = {};
+        }
+        function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+          componentName = componentName || ANONYMOUS;
+          propFullName = propFullName || propName;
+          if (true) {
+            if (secret !== ReactPropTypesSecret && typeof console !== "undefined") {
+              var cacheKey = componentName + ":" + propName;
+              if (!manualPropTypeCallCache[cacheKey]) {
+                true ? warning(false, "You are manually calling a React.PropTypes validation function for the `%s` prop on `%s`. This is deprecated and will not work in production with the next major version. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details.", propFullName, componentName) : void 0;
+                manualPropTypeCallCache[cacheKey] = true;
+              }
+            }
+          }
+          if (props[propName] == null) {
+            var locationName = ReactPropTypeLocationNames[location];
+            if (isRequired) {
+              if (props[propName] === null) {
+                return new PropTypeError("The " + locationName + " `" + propFullName + "` is marked as required " + ("in `" + componentName + "`, but its value is `null`."));
+              }
+              return new PropTypeError("The " + locationName + " `" + propFullName + "` is marked as required in " + ("`" + componentName + "`, but its value is `undefined`."));
+            }
+            return null;
+          } else {
+            return validate(props, propName, componentName, location, propFullName);
+          }
+        }
+        var chainedCheckType = checkType.bind(null, false);
+        chainedCheckType.isRequired = checkType.bind(null, true);
+        return chainedCheckType;
+      }
+      function createPrimitiveTypeChecker(expectedType) {
+        function validate(props, propName, componentName, location, propFullName, secret) {
+          var propValue = props[propName];
+          var propType = getPropType(propValue);
+          if (propType !== expectedType) {
+            var locationName = ReactPropTypeLocationNames[location];
+            var preciseType = getPreciseType(propValue);
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createAnyTypeChecker() {
+        return createChainableTypeChecker(emptyFunction.thatReturns(null));
+      }
+      function createArrayOfTypeChecker(typeChecker) {
+        function validate(props, propName, componentName, location, propFullName) {
+          if (typeof typeChecker !== "function") {
+            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside arrayOf.");
+          }
+          var propValue = props[propName];
+          if (!Array.isArray(propValue)) {
+            var locationName = ReactPropTypeLocationNames[location];
+            var propType = getPropType(propValue);
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
+          }
+          for (var i = 0; i < propValue.length; i++) {
+            var error = typeChecker(propValue, i, componentName, location, propFullName + "[" + i + "]", ReactPropTypesSecret);
+            if (error instanceof Error) {
+              return error;
+            }
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createElementTypeChecker() {
+        function validate(props, propName, componentName, location, propFullName) {
+          var propValue = props[propName];
+          if (!ReactElement.isValidElement(propValue)) {
+            var locationName = ReactPropTypeLocationNames[location];
+            var propType = getPropType(propValue);
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createInstanceTypeChecker(expectedClass) {
+        function validate(props, propName, componentName, location, propFullName) {
+          if (!(props[propName] instanceof expectedClass)) {
+            var locationName = ReactPropTypeLocationNames[location];
+            var expectedClassName = expectedClass.name || ANONYMOUS;
+            var actualClassName = getClassName(props[propName]);
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of type " + ("`" + actualClassName + "` supplied to `" + componentName + "`, expected ") + ("instance of `" + expectedClassName + "`."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createEnumTypeChecker(expectedValues) {
+        if (!Array.isArray(expectedValues)) {
+          true ? warning(false, "Invalid argument supplied to oneOf, expected an instance of array.") : void 0;
+          return emptyFunction.thatReturnsNull;
+        }
+        function validate(props, propName, componentName, location, propFullName) {
+          var propValue = props[propName];
+          for (var i = 0; i < expectedValues.length; i++) {
+            if (is(propValue, expectedValues[i])) {
+              return null;
+            }
+          }
+          var locationName = ReactPropTypeLocationNames[location];
+          var valuesString = JSON.stringify(expectedValues);
+          return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of value `" + propValue + "` " + ("supplied to `" + componentName + "`, expected one of " + valuesString + "."));
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createObjectOfTypeChecker(typeChecker) {
+        function validate(props, propName, componentName, location, propFullName) {
+          if (typeof typeChecker !== "function") {
+            return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
+          }
+          var propValue = props[propName];
+          var propType = getPropType(propValue);
+          if (propType !== "object") {
+            var locationName = ReactPropTypeLocationNames[location];
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an object."));
+          }
+          for (var key in propValue) {
+            if (propValue.hasOwnProperty(key)) {
+              var error = typeChecker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
+              if (error instanceof Error) {
+                return error;
+              }
+            }
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createUnionTypeChecker(arrayOfTypeCheckers) {
+        if (!Array.isArray(arrayOfTypeCheckers)) {
+          true ? warning(false, "Invalid argument supplied to oneOfType, expected an instance of array.") : void 0;
+          return emptyFunction.thatReturnsNull;
+        }
+        function validate(props, propName, componentName, location, propFullName) {
+          for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+            var checker = arrayOfTypeCheckers[i];
+            if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+              return null;
+            }
+          }
+          var locationName = ReactPropTypeLocationNames[location];
+          return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` supplied to " + ("`" + componentName + "`."));
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createNodeChecker() {
+        function validate(props, propName, componentName, location, propFullName) {
+          if (!isNode(props[propName])) {
+            var locationName = ReactPropTypeLocationNames[location];
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` supplied to " + ("`" + componentName + "`, expected a ReactNode."));
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function createShapeTypeChecker(shapeTypes) {
+        function validate(props, propName, componentName, location, propFullName) {
+          var propValue = props[propName];
+          var propType = getPropType(propValue);
+          if (propType !== "object") {
+            var locationName = ReactPropTypeLocationNames[location];
+            return new PropTypeError("Invalid " + locationName + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
+          }
+          for (var key in shapeTypes) {
+            var checker = shapeTypes[key];
+            if (!checker) {
+              continue;
+            }
+            var error = checker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
+            if (error) {
+              return error;
+            }
+          }
+          return null;
+        }
+        return createChainableTypeChecker(validate);
+      }
+      function isNode(propValue) {
+        switch (typeof propValue) {
+          case "number":
+          case "string":
+          case "undefined":
+            return true;
+          case "boolean":
+            return !propValue;
+          case "object":
+            if (Array.isArray(propValue)) {
+              return propValue.every(isNode);
+            }
+            if (propValue === null || ReactElement.isValidElement(propValue)) {
+              return true;
+            }
+            var iteratorFn = getIteratorFn(propValue);
+            if (iteratorFn) {
+              var iterator = iteratorFn.call(propValue);
+              var step;
+              if (iteratorFn !== propValue.entries) {
+                while (!(step = iterator.next()).done) {
+                  if (!isNode(step.value)) {
+                    return false;
+                  }
+                }
+              } else {
+                while (!(step = iterator.next()).done) {
+                  var entry = step.value;
+                  if (entry) {
+                    if (!isNode(entry[1])) {
+                      return false;
+                    }
+                  }
+                }
+              }
+            } else {
+              return false;
+            }
+            return true;
+          default:
+            return false;
+        }
+      }
+      function isSymbol(propType, propValue) {
+        if (propType === "symbol") {
+          return true;
+        }
+        if (propValue["@@toStringTag"] === "Symbol") {
+          return true;
+        }
+        if (typeof Symbol === "function" && propValue instanceof Symbol) {
+          return true;
+        }
+        return false;
+      }
+      function getPropType(propValue) {
+        var propType = typeof propValue;
+        if (Array.isArray(propValue)) {
+          return "array";
+        }
+        if (propValue instanceof RegExp) {
+          return "object";
+        }
+        if (isSymbol(propType, propValue)) {
+          return "symbol";
+        }
+        return propType;
+      }
+      function getPreciseType(propValue) {
+        var propType = getPropType(propValue);
+        if (propType === "object") {
+          if (propValue instanceof Date) {
+            return "date";
+          } else if (propValue instanceof RegExp) {
+            return "regexp";
+          }
+        }
+        return propType;
+      }
+      function getClassName(propValue) {
+        if (!propValue.constructor || !propValue.constructor.name) {
+          return ANONYMOUS;
+        }
+        return propValue.constructor.name;
+      }
+      module.exports = ReactPropTypes;
     }
   });
 
@@ -6500,680 +6515,7 @@
   var require_ReactVersion = __commonJS({
     "node_modules/react/lib/ReactVersion.js"(exports, module) {
       "use strict";
-      module.exports = "15.7.0";
-    }
-  });
-
-  // node_modules/create-react-class/factory.js
-  var require_factory2 = __commonJS({
-    "node_modules/create-react-class/factory.js"(exports, module) {
-      "use strict";
-      var _assign = require_object_assign();
-      var emptyObject = require_emptyObject();
-      var _invariant = require_invariant();
-      if (true) {
-        warning = require_warning();
-      }
-      var warning;
-      var MIXINS_KEY = "mixins";
-      function identity(fn) {
-        return fn;
-      }
-      var ReactPropTypeLocationNames;
-      if (true) {
-        ReactPropTypeLocationNames = {
-          prop: "prop",
-          context: "context",
-          childContext: "child context"
-        };
-      } else {
-        ReactPropTypeLocationNames = {};
-      }
-      function factory(ReactComponent, isValidElement, ReactNoopUpdateQueue) {
-        var injectedMixins = [];
-        var ReactClassInterface = {
-          /**
-           * An array of Mixin objects to include when defining your component.
-           *
-           * @type {array}
-           * @optional
-           */
-          mixins: "DEFINE_MANY",
-          /**
-           * An object containing properties and methods that should be defined on
-           * the component's constructor instead of its prototype (static methods).
-           *
-           * @type {object}
-           * @optional
-           */
-          statics: "DEFINE_MANY",
-          /**
-           * Definition of prop types for this component.
-           *
-           * @type {object}
-           * @optional
-           */
-          propTypes: "DEFINE_MANY",
-          /**
-           * Definition of context types for this component.
-           *
-           * @type {object}
-           * @optional
-           */
-          contextTypes: "DEFINE_MANY",
-          /**
-           * Definition of context types this component sets for its children.
-           *
-           * @type {object}
-           * @optional
-           */
-          childContextTypes: "DEFINE_MANY",
-          // ==== Definition methods ====
-          /**
-           * Invoked when the component is mounted. Values in the mapping will be set on
-           * `this.props` if that prop is not specified (i.e. using an `in` check).
-           *
-           * This method is invoked before `getInitialState` and therefore cannot rely
-           * on `this.state` or use `this.setState`.
-           *
-           * @return {object}
-           * @optional
-           */
-          getDefaultProps: "DEFINE_MANY_MERGED",
-          /**
-           * Invoked once before the component is mounted. The return value will be used
-           * as the initial value of `this.state`.
-           *
-           *   getInitialState: function() {
-           *     return {
-           *       isOn: false,
-           *       fooBaz: new BazFoo()
-           *     }
-           *   }
-           *
-           * @return {object}
-           * @optional
-           */
-          getInitialState: "DEFINE_MANY_MERGED",
-          /**
-           * @return {object}
-           * @optional
-           */
-          getChildContext: "DEFINE_MANY_MERGED",
-          /**
-           * Uses props from `this.props` and state from `this.state` to render the
-           * structure of the component.
-           *
-           * No guarantees are made about when or how often this method is invoked, so
-           * it must not have side effects.
-           *
-           *   render: function() {
-           *     var name = this.props.name;
-           *     return <div>Hello, {name}!</div>;
-           *   }
-           *
-           * @return {ReactComponent}
-           * @required
-           */
-          render: "DEFINE_ONCE",
-          // ==== Delegate methods ====
-          /**
-           * Invoked when the component is initially created and about to be mounted.
-           * This may have side effects, but any external subscriptions or data created
-           * by this method must be cleaned up in `componentWillUnmount`.
-           *
-           * @optional
-           */
-          componentWillMount: "DEFINE_MANY",
-          /**
-           * Invoked when the component has been mounted and has a DOM representation.
-           * However, there is no guarantee that the DOM node is in the document.
-           *
-           * Use this as an opportunity to operate on the DOM when the component has
-           * been mounted (initialized and rendered) for the first time.
-           *
-           * @param {DOMElement} rootNode DOM element representing the component.
-           * @optional
-           */
-          componentDidMount: "DEFINE_MANY",
-          /**
-           * Invoked before the component receives new props.
-           *
-           * Use this as an opportunity to react to a prop transition by updating the
-           * state using `this.setState`. Current props are accessed via `this.props`.
-           *
-           *   componentWillReceiveProps: function(nextProps, nextContext) {
-           *     this.setState({
-           *       likesIncreasing: nextProps.likeCount > this.props.likeCount
-           *     });
-           *   }
-           *
-           * NOTE: There is no equivalent `componentWillReceiveState`. An incoming prop
-           * transition may cause a state change, but the opposite is not true. If you
-           * need it, you are probably looking for `componentWillUpdate`.
-           *
-           * @param {object} nextProps
-           * @optional
-           */
-          componentWillReceiveProps: "DEFINE_MANY",
-          /**
-           * Invoked while deciding if the component should be updated as a result of
-           * receiving new props, state and/or context.
-           *
-           * Use this as an opportunity to `return false` when you're certain that the
-           * transition to the new props/state/context will not require a component
-           * update.
-           *
-           *   shouldComponentUpdate: function(nextProps, nextState, nextContext) {
-           *     return !equal(nextProps, this.props) ||
-           *       !equal(nextState, this.state) ||
-           *       !equal(nextContext, this.context);
-           *   }
-           *
-           * @param {object} nextProps
-           * @param {?object} nextState
-           * @param {?object} nextContext
-           * @return {boolean} True if the component should update.
-           * @optional
-           */
-          shouldComponentUpdate: "DEFINE_ONCE",
-          /**
-           * Invoked when the component is about to update due to a transition from
-           * `this.props`, `this.state` and `this.context` to `nextProps`, `nextState`
-           * and `nextContext`.
-           *
-           * Use this as an opportunity to perform preparation before an update occurs.
-           *
-           * NOTE: You **cannot** use `this.setState()` in this method.
-           *
-           * @param {object} nextProps
-           * @param {?object} nextState
-           * @param {?object} nextContext
-           * @param {ReactReconcileTransaction} transaction
-           * @optional
-           */
-          componentWillUpdate: "DEFINE_MANY",
-          /**
-           * Invoked when the component's DOM representation has been updated.
-           *
-           * Use this as an opportunity to operate on the DOM when the component has
-           * been updated.
-           *
-           * @param {object} prevProps
-           * @param {?object} prevState
-           * @param {?object} prevContext
-           * @param {DOMElement} rootNode DOM element representing the component.
-           * @optional
-           */
-          componentDidUpdate: "DEFINE_MANY",
-          /**
-           * Invoked when the component is about to be removed from its parent and have
-           * its DOM representation destroyed.
-           *
-           * Use this as an opportunity to deallocate any external resources.
-           *
-           * NOTE: There is no `componentDidUnmount` since your component will have been
-           * destroyed by that point.
-           *
-           * @optional
-           */
-          componentWillUnmount: "DEFINE_MANY",
-          /**
-           * Replacement for (deprecated) `componentWillMount`.
-           *
-           * @optional
-           */
-          UNSAFE_componentWillMount: "DEFINE_MANY",
-          /**
-           * Replacement for (deprecated) `componentWillReceiveProps`.
-           *
-           * @optional
-           */
-          UNSAFE_componentWillReceiveProps: "DEFINE_MANY",
-          /**
-           * Replacement for (deprecated) `componentWillUpdate`.
-           *
-           * @optional
-           */
-          UNSAFE_componentWillUpdate: "DEFINE_MANY",
-          // ==== Advanced methods ====
-          /**
-           * Updates the component's currently mounted DOM representation.
-           *
-           * By default, this implements React's rendering and reconciliation algorithm.
-           * Sophisticated clients may wish to override this.
-           *
-           * @param {ReactReconcileTransaction} transaction
-           * @internal
-           * @overridable
-           */
-          updateComponent: "OVERRIDE_BASE"
-        };
-        var ReactClassStaticInterface = {
-          /**
-           * This method is invoked after a component is instantiated and when it
-           * receives new props. Return an object to update state in response to
-           * prop changes. Return null to indicate no change to state.
-           *
-           * If an object is returned, its keys will be merged into the existing state.
-           *
-           * @return {object || null}
-           * @optional
-           */
-          getDerivedStateFromProps: "DEFINE_MANY_MERGED"
-        };
-        var RESERVED_SPEC_KEYS = {
-          displayName: function(Constructor, displayName) {
-            Constructor.displayName = displayName;
-          },
-          mixins: function(Constructor, mixins) {
-            if (mixins) {
-              for (var i = 0; i < mixins.length; i++) {
-                mixSpecIntoComponent(Constructor, mixins[i]);
-              }
-            }
-          },
-          childContextTypes: function(Constructor, childContextTypes) {
-            if (true) {
-              validateTypeDef(Constructor, childContextTypes, "childContext");
-            }
-            Constructor.childContextTypes = _assign(
-              {},
-              Constructor.childContextTypes,
-              childContextTypes
-            );
-          },
-          contextTypes: function(Constructor, contextTypes) {
-            if (true) {
-              validateTypeDef(Constructor, contextTypes, "context");
-            }
-            Constructor.contextTypes = _assign(
-              {},
-              Constructor.contextTypes,
-              contextTypes
-            );
-          },
-          /**
-           * Special case getDefaultProps which should move into statics but requires
-           * automatic merging.
-           */
-          getDefaultProps: function(Constructor, getDefaultProps) {
-            if (Constructor.getDefaultProps) {
-              Constructor.getDefaultProps = createMergedResultFunction(
-                Constructor.getDefaultProps,
-                getDefaultProps
-              );
-            } else {
-              Constructor.getDefaultProps = getDefaultProps;
-            }
-          },
-          propTypes: function(Constructor, propTypes) {
-            if (true) {
-              validateTypeDef(Constructor, propTypes, "prop");
-            }
-            Constructor.propTypes = _assign({}, Constructor.propTypes, propTypes);
-          },
-          statics: function(Constructor, statics) {
-            mixStaticSpecIntoComponent(Constructor, statics);
-          },
-          autobind: function() {
-          }
-        };
-        function validateTypeDef(Constructor, typeDef, location) {
-          for (var propName in typeDef) {
-            if (typeDef.hasOwnProperty(propName)) {
-              if (true) {
-                warning(
-                  typeof typeDef[propName] === "function",
-                  "%s: %s type `%s` is invalid; it must be a function, usually from React.PropTypes.",
-                  Constructor.displayName || "ReactClass",
-                  ReactPropTypeLocationNames[location],
-                  propName
-                );
-              }
-            }
-          }
-        }
-        function validateMethodOverride(isAlreadyDefined, name) {
-          var specPolicy = ReactClassInterface.hasOwnProperty(name) ? ReactClassInterface[name] : null;
-          if (ReactClassMixin.hasOwnProperty(name)) {
-            _invariant(
-              specPolicy === "OVERRIDE_BASE",
-              "ReactClassInterface: You are attempting to override `%s` from your class specification. Ensure that your method names do not overlap with React methods.",
-              name
-            );
-          }
-          if (isAlreadyDefined) {
-            _invariant(
-              specPolicy === "DEFINE_MANY" || specPolicy === "DEFINE_MANY_MERGED",
-              "ReactClassInterface: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.",
-              name
-            );
-          }
-        }
-        function mixSpecIntoComponent(Constructor, spec) {
-          if (!spec) {
-            if (true) {
-              var typeofSpec = typeof spec;
-              var isMixinValid = typeofSpec === "object" && spec !== null;
-              if (true) {
-                warning(
-                  isMixinValid,
-                  "%s: You're attempting to include a mixin that is either null or not an object. Check the mixins included by the component, as well as any mixins they include themselves. Expected object but got %s.",
-                  Constructor.displayName || "ReactClass",
-                  spec === null ? null : typeofSpec
-                );
-              }
-            }
-            return;
-          }
-          _invariant(
-            typeof spec !== "function",
-            "ReactClass: You're attempting to use a component class or function as a mixin. Instead, just use a regular object."
-          );
-          _invariant(
-            !isValidElement(spec),
-            "ReactClass: You're attempting to use a component as a mixin. Instead, just use a regular object."
-          );
-          var proto = Constructor.prototype;
-          var autoBindPairs = proto.__reactAutoBindPairs;
-          if (spec.hasOwnProperty(MIXINS_KEY)) {
-            RESERVED_SPEC_KEYS.mixins(Constructor, spec.mixins);
-          }
-          for (var name in spec) {
-            if (!spec.hasOwnProperty(name)) {
-              continue;
-            }
-            if (name === MIXINS_KEY) {
-              continue;
-            }
-            var property = spec[name];
-            var isAlreadyDefined = proto.hasOwnProperty(name);
-            validateMethodOverride(isAlreadyDefined, name);
-            if (RESERVED_SPEC_KEYS.hasOwnProperty(name)) {
-              RESERVED_SPEC_KEYS[name](Constructor, property);
-            } else {
-              var isReactClassMethod = ReactClassInterface.hasOwnProperty(name);
-              var isFunction = typeof property === "function";
-              var shouldAutoBind = isFunction && !isReactClassMethod && !isAlreadyDefined && spec.autobind !== false;
-              if (shouldAutoBind) {
-                autoBindPairs.push(name, property);
-                proto[name] = property;
-              } else {
-                if (isAlreadyDefined) {
-                  var specPolicy = ReactClassInterface[name];
-                  _invariant(
-                    isReactClassMethod && (specPolicy === "DEFINE_MANY_MERGED" || specPolicy === "DEFINE_MANY"),
-                    "ReactClass: Unexpected spec policy %s for key %s when mixing in component specs.",
-                    specPolicy,
-                    name
-                  );
-                  if (specPolicy === "DEFINE_MANY_MERGED") {
-                    proto[name] = createMergedResultFunction(proto[name], property);
-                  } else if (specPolicy === "DEFINE_MANY") {
-                    proto[name] = createChainedFunction(proto[name], property);
-                  }
-                } else {
-                  proto[name] = property;
-                  if (true) {
-                    if (typeof property === "function" && spec.displayName) {
-                      proto[name].displayName = spec.displayName + "_" + name;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        function mixStaticSpecIntoComponent(Constructor, statics) {
-          if (!statics) {
-            return;
-          }
-          for (var name in statics) {
-            var property = statics[name];
-            if (!statics.hasOwnProperty(name)) {
-              continue;
-            }
-            var isReserved = name in RESERVED_SPEC_KEYS;
-            _invariant(
-              !isReserved,
-              'ReactClass: You are attempting to define a reserved property, `%s`, that shouldn\'t be on the "statics" key. Define it as an instance property instead; it will still be accessible on the constructor.',
-              name
-            );
-            var isAlreadyDefined = name in Constructor;
-            if (isAlreadyDefined) {
-              var specPolicy = ReactClassStaticInterface.hasOwnProperty(name) ? ReactClassStaticInterface[name] : null;
-              _invariant(
-                specPolicy === "DEFINE_MANY_MERGED",
-                "ReactClass: You are attempting to define `%s` on your component more than once. This conflict may be due to a mixin.",
-                name
-              );
-              Constructor[name] = createMergedResultFunction(Constructor[name], property);
-              return;
-            }
-            Constructor[name] = property;
-          }
-        }
-        function mergeIntoWithNoDuplicateKeys(one, two) {
-          _invariant(
-            one && two && typeof one === "object" && typeof two === "object",
-            "mergeIntoWithNoDuplicateKeys(): Cannot merge non-objects."
-          );
-          for (var key in two) {
-            if (two.hasOwnProperty(key)) {
-              _invariant(
-                one[key] === void 0,
-                "mergeIntoWithNoDuplicateKeys(): Tried to merge two objects with the same key: `%s`. This conflict may be due to a mixin; in particular, this may be caused by two getInitialState() or getDefaultProps() methods returning objects with clashing keys.",
-                key
-              );
-              one[key] = two[key];
-            }
-          }
-          return one;
-        }
-        function createMergedResultFunction(one, two) {
-          return function mergedResult() {
-            var a = one.apply(this, arguments);
-            var b = two.apply(this, arguments);
-            if (a == null) {
-              return b;
-            } else if (b == null) {
-              return a;
-            }
-            var c = {};
-            mergeIntoWithNoDuplicateKeys(c, a);
-            mergeIntoWithNoDuplicateKeys(c, b);
-            return c;
-          };
-        }
-        function createChainedFunction(one, two) {
-          return function chainedFunction() {
-            one.apply(this, arguments);
-            two.apply(this, arguments);
-          };
-        }
-        function bindAutoBindMethod(component, method) {
-          var boundMethod = method.bind(component);
-          if (true) {
-            boundMethod.__reactBoundContext = component;
-            boundMethod.__reactBoundMethod = method;
-            boundMethod.__reactBoundArguments = null;
-            var componentName = component.constructor.displayName;
-            var _bind = boundMethod.bind;
-            boundMethod.bind = function(newThis) {
-              for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-                args[_key - 1] = arguments[_key];
-              }
-              if (newThis !== component && newThis !== null) {
-                if (true) {
-                  warning(
-                    false,
-                    "bind(): React component methods may only be bound to the component instance. See %s",
-                    componentName
-                  );
-                }
-              } else if (!args.length) {
-                if (true) {
-                  warning(
-                    false,
-                    "bind(): You are binding a component method to the component. React does this for you automatically in a high-performance way, so you can safely remove this call. See %s",
-                    componentName
-                  );
-                }
-                return boundMethod;
-              }
-              var reboundMethod = _bind.apply(boundMethod, arguments);
-              reboundMethod.__reactBoundContext = component;
-              reboundMethod.__reactBoundMethod = method;
-              reboundMethod.__reactBoundArguments = args;
-              return reboundMethod;
-            };
-          }
-          return boundMethod;
-        }
-        function bindAutoBindMethods(component) {
-          var pairs = component.__reactAutoBindPairs;
-          for (var i = 0; i < pairs.length; i += 2) {
-            var autoBindKey = pairs[i];
-            var method = pairs[i + 1];
-            component[autoBindKey] = bindAutoBindMethod(component, method);
-          }
-        }
-        var IsMountedPreMixin = {
-          componentDidMount: function() {
-            this.__isMounted = true;
-          }
-        };
-        var IsMountedPostMixin = {
-          componentWillUnmount: function() {
-            this.__isMounted = false;
-          }
-        };
-        var ReactClassMixin = {
-          /**
-           * TODO: This will be deprecated because state should always keep a consistent
-           * type signature and the only use case for this, is to avoid that.
-           */
-          replaceState: function(newState, callback) {
-            this.updater.enqueueReplaceState(this, newState, callback);
-          },
-          /**
-           * Checks whether or not this composite component is mounted.
-           * @return {boolean} True if mounted, false otherwise.
-           * @protected
-           * @final
-           */
-          isMounted: function() {
-            if (true) {
-              warning(
-                this.__didWarnIsMounted,
-                "%s: isMounted is deprecated. Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks.",
-                this.constructor && this.constructor.displayName || this.name || "Component"
-              );
-              this.__didWarnIsMounted = true;
-            }
-            return !!this.__isMounted;
-          }
-        };
-        var ReactClassComponent = function() {
-        };
-        _assign(
-          ReactClassComponent.prototype,
-          ReactComponent.prototype,
-          ReactClassMixin
-        );
-        function createClass(spec) {
-          var Constructor = identity(function(props, context, updater) {
-            if (true) {
-              warning(
-                this instanceof Constructor,
-                "Something is calling a React component directly. Use a factory or JSX instead. See: https://fb.me/react-legacyfactory"
-              );
-            }
-            if (this.__reactAutoBindPairs.length) {
-              bindAutoBindMethods(this);
-            }
-            this.props = props;
-            this.context = context;
-            this.refs = emptyObject;
-            this.updater = updater || ReactNoopUpdateQueue;
-            this.state = null;
-            var initialState = this.getInitialState ? this.getInitialState() : null;
-            if (true) {
-              if (initialState === void 0 && this.getInitialState._isMockFunction) {
-                initialState = null;
-              }
-            }
-            _invariant(
-              typeof initialState === "object" && !Array.isArray(initialState),
-              "%s.getInitialState(): must return an object or null",
-              Constructor.displayName || "ReactCompositeComponent"
-            );
-            this.state = initialState;
-          });
-          Constructor.prototype = new ReactClassComponent();
-          Constructor.prototype.constructor = Constructor;
-          Constructor.prototype.__reactAutoBindPairs = [];
-          injectedMixins.forEach(mixSpecIntoComponent.bind(null, Constructor));
-          mixSpecIntoComponent(Constructor, IsMountedPreMixin);
-          mixSpecIntoComponent(Constructor, spec);
-          mixSpecIntoComponent(Constructor, IsMountedPostMixin);
-          if (Constructor.getDefaultProps) {
-            Constructor.defaultProps = Constructor.getDefaultProps();
-          }
-          if (true) {
-            if (Constructor.getDefaultProps) {
-              Constructor.getDefaultProps.isReactClassApproved = {};
-            }
-            if (Constructor.prototype.getInitialState) {
-              Constructor.prototype.getInitialState.isReactClassApproved = {};
-            }
-          }
-          _invariant(
-            Constructor.prototype.render,
-            "createClass(...): Class specification must implement a `render` method."
-          );
-          if (true) {
-            warning(
-              !Constructor.prototype.componentShouldUpdate,
-              "%s has a method called componentShouldUpdate(). Did you mean shouldComponentUpdate()? The name is phrased as a question because the function is expected to return a value.",
-              spec.displayName || "A component"
-            );
-            warning(
-              !Constructor.prototype.componentWillRecieveProps,
-              "%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?",
-              spec.displayName || "A component"
-            );
-            warning(
-              !Constructor.prototype.UNSAFE_componentWillRecieveProps,
-              "%s has a method called UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?",
-              spec.displayName || "A component"
-            );
-          }
-          for (var methodName in ReactClassInterface) {
-            if (!Constructor.prototype[methodName]) {
-              Constructor.prototype[methodName] = null;
-            }
-          }
-          return Constructor;
-        }
-        return createClass;
-      }
-      module.exports = factory;
-    }
-  });
-
-  // node_modules/react/lib/createClass.js
-  var require_createClass = __commonJS({
-    "node_modules/react/lib/createClass.js"(exports, module) {
-      "use strict";
-      var _require = require_ReactBaseClasses();
-      var Component5 = _require.Component;
-      var _require2 = require_ReactElement();
-      var isValidElement = _require2.isValidElement;
-      var ReactNoopUpdateQueue = require_ReactNoopUpdateQueue();
-      var factory = require_factory2();
-      module.exports = factory(Component5, isValidElement, ReactNoopUpdateQueue);
+      module.exports = "15.4.2";
     }
   });
 
@@ -7197,50 +6539,36 @@
     "node_modules/react/lib/React.js"(exports, module) {
       "use strict";
       var _assign = require_object_assign();
-      var ReactBaseClasses = require_ReactBaseClasses();
       var ReactChildren = require_ReactChildren();
+      var ReactComponent = require_ReactComponent();
+      var ReactPureComponent = require_ReactPureComponent();
+      var ReactClass = require_ReactClass();
       var ReactDOMFactories = require_ReactDOMFactories();
       var ReactElement = require_ReactElement();
       var ReactPropTypes = require_ReactPropTypes();
       var ReactVersion = require_ReactVersion();
-      var createReactClass = require_createClass();
       var onlyChild = require_onlyChild();
+      var warning = require_warning();
       var createElement = ReactElement.createElement;
       var createFactory = ReactElement.createFactory;
       var cloneElement = ReactElement.cloneElement;
       if (true) {
-        lowPriorityWarning = require_lowPriorityWarning();
-        canDefineProperty = require_canDefineProperty();
         ReactElementValidator = require_ReactElementValidator();
-        didWarnPropTypesDeprecated = false;
         createElement = ReactElementValidator.createElement;
         createFactory = ReactElementValidator.createFactory;
         cloneElement = ReactElementValidator.cloneElement;
       }
-      var lowPriorityWarning;
-      var canDefineProperty;
       var ReactElementValidator;
-      var didWarnPropTypesDeprecated;
       var __spread = _assign;
-      var createMixin = function(mixin) {
-        return mixin;
-      };
       if (true) {
-        warnedForSpread = false;
-        warnedForCreateMixin = false;
+        warned = false;
         __spread = function() {
-          lowPriorityWarning(warnedForSpread, "React.__spread is deprecated and should not be used. Use Object.assign directly or another helper function with similar semantics. You may be seeing this warning due to your compiler. See https://fb.me/react-spread-deprecation for more details.");
-          warnedForSpread = true;
+          true ? warning(warned, "React.__spread is deprecated and should not be used. Use Object.assign directly or another helper function with similar semantics. You may be seeing this warning due to your compiler. See https://fb.me/react-spread-deprecation for more details.") : void 0;
+          warned = true;
           return _assign.apply(null, arguments);
         };
-        createMixin = function(mixin) {
-          lowPriorityWarning(warnedForCreateMixin, "React.createMixin is deprecated and should not be used. In React v16.0, it will be removed. You can use this mixin directly instead. See https://fb.me/createmixin-was-never-implemented for more info.");
-          warnedForCreateMixin = true;
-          return mixin;
-        };
       }
-      var warnedForSpread;
-      var warnedForCreateMixin;
+      var warned;
       var React5 = {
         // Modern
         Children: {
@@ -7250,16 +6578,18 @@
           toArray: ReactChildren.toArray,
           only: onlyChild
         },
-        Component: ReactBaseClasses.Component,
-        PureComponent: ReactBaseClasses.PureComponent,
+        Component: ReactComponent,
+        PureComponent: ReactPureComponent,
         createElement,
         cloneElement,
         isValidElement: ReactElement.isValidElement,
         // Classic
         PropTypes: ReactPropTypes,
-        createClass: createReactClass,
+        createClass: ReactClass.createClass,
         createFactory,
-        createMixin,
+        createMixin: function(mixin) {
+          return mixin;
+        },
         // This looks DOM specific but these are actually isomorphic helpers
         // since they are just generating DOM strings.
         DOM: ReactDOMFactories,
@@ -7267,38 +6597,6 @@
         // Deprecated hook for JSX spread, don't use this for anything.
         __spread
       };
-      if (true) {
-        warnedForCreateClass = false;
-        if (canDefineProperty) {
-          Object.defineProperty(React5, "PropTypes", {
-            get: function() {
-              lowPriorityWarning(didWarnPropTypesDeprecated, "Accessing PropTypes via the main React package is deprecated, and will be removed in  React v16.0. Use the latest available v15.* prop-types package from npm instead. For info on usage, compatibility, migration and more, see https://fb.me/prop-types-docs");
-              didWarnPropTypesDeprecated = true;
-              return ReactPropTypes;
-            }
-          });
-          Object.defineProperty(React5, "createClass", {
-            get: function() {
-              lowPriorityWarning(warnedForCreateClass, "Accessing createClass via the main React package is deprecated, and will be removed in React v16.0. Use a plain JavaScript class instead. If you're not yet ready to migrate, create-react-class v15.* is available on npm as a temporary, drop-in replacement. For more info see https://fb.me/react-create-class");
-              warnedForCreateClass = true;
-              return createReactClass;
-            }
-          });
-        }
-        React5.DOM = {};
-        warnedForFactories = false;
-        Object.keys(ReactDOMFactories).forEach(function(factory) {
-          React5.DOM[factory] = function() {
-            if (!warnedForFactories) {
-              lowPriorityWarning(false, "Accessing factories like React.DOM.%s has been deprecated and will be removed in v16.0+. Use the react-dom-factories package instead.  Version 1.0 provides a drop-in replacement. For more info, see https://fb.me/react-dom-factories", factory);
-              warnedForFactories = true;
-            }
-            return ReactDOMFactories[factory].apply(ReactDOMFactories, arguments);
-          };
-        });
-      }
-      var warnedForCreateClass;
-      var warnedForFactories;
       module.exports = React5;
     }
   });
@@ -7918,9 +7216,7 @@
         if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof document !== "undefined" && typeof document.createEvent === "function") {
           fakeNode = document.createElement("react");
           ReactErrorUtils.invokeGuardedCallback = function(name, func, a) {
-            var boundFunc = function() {
-              func(a);
-            };
+            var boundFunc = func.bind(null, a);
             var evtType = "react-" + name;
             fakeNode.addEventListener(evtType, boundFunc, false);
             var evt = document.createEvent("Event");
@@ -8702,19 +7998,6 @@
         }
       });
       SyntheticEvent.Interface = EventInterface;
-      SyntheticEvent.augmentClass = function(Class, Interface) {
-        var Super = this;
-        var E = function() {
-        };
-        E.prototype = Super.prototype;
-        var prototype = new E();
-        _assign(prototype, Class.prototype);
-        Class.prototype = prototype;
-        Class.prototype.constructor = Class;
-        Class.Interface = _assign({}, Super.Interface, Interface);
-        Class.augmentClass = Super.augmentClass;
-        PooledClass.addPoolingTo(Class, PooledClass.fourArgumentPooler);
-      };
       if (true) {
         if (isProxySupported) {
           SyntheticEvent = new Proxy(SyntheticEvent, {
@@ -8736,6 +8019,19 @@
           });
         }
       }
+      SyntheticEvent.augmentClass = function(Class, Interface) {
+        var Super = this;
+        var E = function() {
+        };
+        E.prototype = Super.prototype;
+        var prototype = new E();
+        _assign(prototype, Class.prototype);
+        Class.prototype = prototype;
+        Class.prototype.constructor = Class;
+        Class.Interface = _assign({}, Super.Interface, Interface);
+        Class.augmentClass = Super.augmentClass;
+        PooledClass.addPoolingTo(Class, PooledClass.fourArgumentPooler);
+      };
       PooledClass.addPoolingTo(SyntheticEvent, PooledClass.fourArgumentPooler);
       module.exports = SyntheticEvent;
       function getPooledWarningPropertyDefinition(propName, getVal) {
@@ -9404,7 +8700,10 @@
         currentTimerType = timerType;
       }
       var lastMarkTimeStamp = 0;
-      var canUsePerformanceMeasure = typeof performance !== "undefined" && typeof performance.mark === "function" && typeof performance.clearMarks === "function" && typeof performance.measure === "function" && typeof performance.clearMeasures === "function";
+      var canUsePerformanceMeasure = (
+        // $FlowFixMe https://github.com/facebook/flow/issues/2345
+        typeof performance !== "undefined" && typeof performance.mark === "function" && typeof performance.clearMarks === "function" && typeof performance.measure === "function" && typeof performance.clearMeasures === "function"
+      );
       function shouldMark(debugID) {
         if (!isProfiling || !canUsePerformanceMeasure) {
           return false;
@@ -9439,9 +8738,7 @@
           performance.measure(measurementName, markName);
         }
         performance.clearMarks(markName);
-        if (measurementName) {
-          performance.clearMeasures(measurementName);
-        }
+        performance.clearMeasures(measurementName);
       }
       var ReactDebugTool = {
         addHook: function(hook) {
@@ -9742,7 +9039,6 @@
         isInTransaction: function() {
           return !!this._isInTransaction;
         },
-        /* eslint-disable space-before-function-paren */
         /**
          * Executes the function within a safety window. Use this for the top level
          * methods that result in large amounts of computation/mutations that would
@@ -9969,7 +9265,7 @@
         }
       }
       function asap(callback, context) {
-        invariant(batchingStrategy.isBatchingUpdates, "ReactUpdates.asap: Can't enqueue an asap callback in a context whereupdates are not being batched.");
+        !batchingStrategy.isBatchingUpdates ? true ? invariant(false, "ReactUpdates.asap: Can't enqueue an asap callback in a context whereupdates are not being batched.") : _prodInvariant("125") : void 0;
         asapCallbackQueue.enqueue(callback, context);
         asapEnqueued = true;
       }
@@ -10000,100 +9296,6 @@
         asap
       };
       module.exports = ReactUpdates;
-    }
-  });
-
-  // node_modules/react-dom/lib/inputValueTracking.js
-  var require_inputValueTracking = __commonJS({
-    "node_modules/react-dom/lib/inputValueTracking.js"(exports, module) {
-      "use strict";
-      var ReactDOMComponentTree = require_ReactDOMComponentTree();
-      function isCheckable(elem) {
-        var type = elem.type;
-        var nodeName = elem.nodeName;
-        return nodeName && nodeName.toLowerCase() === "input" && (type === "checkbox" || type === "radio");
-      }
-      function getTracker(inst) {
-        return inst._wrapperState.valueTracker;
-      }
-      function attachTracker(inst, tracker) {
-        inst._wrapperState.valueTracker = tracker;
-      }
-      function detachTracker(inst) {
-        inst._wrapperState.valueTracker = null;
-      }
-      function getValueFromNode(node) {
-        var value;
-        if (node) {
-          value = isCheckable(node) ? "" + node.checked : node.value;
-        }
-        return value;
-      }
-      var inputValueTracking = {
-        // exposed for testing
-        _getTrackerFromNode: function(node) {
-          return getTracker(ReactDOMComponentTree.getInstanceFromNode(node));
-        },
-        track: function(inst) {
-          if (getTracker(inst)) {
-            return;
-          }
-          var node = ReactDOMComponentTree.getNodeFromInstance(inst);
-          var valueField = isCheckable(node) ? "checked" : "value";
-          var descriptor = Object.getOwnPropertyDescriptor(node.constructor.prototype, valueField);
-          var currentValue = "" + node[valueField];
-          if (node.hasOwnProperty(valueField) || typeof descriptor.get !== "function" || typeof descriptor.set !== "function") {
-            return;
-          }
-          Object.defineProperty(node, valueField, {
-            enumerable: descriptor.enumerable,
-            configurable: true,
-            get: function() {
-              return descriptor.get.call(this);
-            },
-            set: function(value) {
-              currentValue = "" + value;
-              descriptor.set.call(this, value);
-            }
-          });
-          attachTracker(inst, {
-            getValue: function() {
-              return currentValue;
-            },
-            setValue: function(value) {
-              currentValue = "" + value;
-            },
-            stopTracking: function() {
-              detachTracker(inst);
-              delete node[valueField];
-            }
-          });
-        },
-        updateValueIfChanged: function(inst) {
-          if (!inst) {
-            return false;
-          }
-          var tracker = getTracker(inst);
-          if (!tracker) {
-            inputValueTracking.track(inst);
-            return true;
-          }
-          var lastValue = tracker.getValue();
-          var nextValue = getValueFromNode(ReactDOMComponentTree.getNodeFromInstance(inst));
-          if (nextValue !== lastValue) {
-            tracker.setValue(nextValue);
-            return true;
-          }
-          return false;
-        },
-        stopTracking: function(inst) {
-          var tracker = getTracker(inst);
-          if (tracker) {
-            tracker.stopTracking();
-          }
-        }
-      };
-      module.exports = inputValueTracking;
     }
   });
 
@@ -10148,21 +9350,21 @@
     "node_modules/react-dom/lib/isTextInputElement.js"(exports, module) {
       "use strict";
       var supportedInputTypes = {
-        color: true,
-        date: true,
-        datetime: true,
+        "color": true,
+        "date": true,
+        "datetime": true,
         "datetime-local": true,
-        email: true,
-        month: true,
-        number: true,
-        password: true,
-        range: true,
-        search: true,
-        tel: true,
-        text: true,
-        time: true,
-        url: true,
-        week: true
+        "email": true,
+        "month": true,
+        "number": true,
+        "password": true,
+        "range": true,
+        "search": true,
+        "tel": true,
+        "text": true,
+        "time": true,
+        "url": true,
+        "week": true
       };
       function isTextInputElement(elem) {
         var nodeName = elem && elem.nodeName && elem.nodeName.toLowerCase();
@@ -10188,7 +9390,6 @@
       var ReactDOMComponentTree = require_ReactDOMComponentTree();
       var ReactUpdates = require_ReactUpdates();
       var SyntheticEvent = require_SyntheticEvent();
-      var inputValueTracking = require_inputValueTracking();
       var getEventTarget = require_getEventTarget();
       var isEventSupported = require_isEventSupported();
       var isTextInputElement = require_isTextInputElement();
@@ -10201,14 +9402,10 @@
           dependencies: ["topBlur", "topChange", "topClick", "topFocus", "topInput", "topKeyDown", "topKeyUp", "topSelectionChange"]
         }
       };
-      function createAndAccumulateChangeEvent(inst, nativeEvent, target) {
-        var event = SyntheticEvent.getPooled(eventTypes.change, inst, nativeEvent, target);
-        event.type = "change";
-        EventPropagators.accumulateTwoPhaseDispatches(event);
-        return event;
-      }
       var activeElement = null;
       var activeElementInst = null;
+      var activeElementValue = null;
+      var activeElementValueProp = null;
       function shouldUseChangeEvent(elem) {
         var nodeName = elem.nodeName && elem.nodeName.toLowerCase();
         return nodeName === "select" || nodeName === "input" && elem.type === "file";
@@ -10218,7 +9415,8 @@
         doesChangeEventBubble = isEventSupported("change") && (!document.documentMode || document.documentMode > 8);
       }
       function manualDispatchChangeEvent(nativeEvent) {
-        var event = createAndAccumulateChangeEvent(activeElementInst, nativeEvent, getEventTarget(nativeEvent));
+        var event = SyntheticEvent.getPooled(eventTypes.change, activeElementInst, nativeEvent, getEventTarget(nativeEvent));
+        EventPropagators.accumulateTwoPhaseDispatches(event);
         ReactUpdates.batchedUpdates(runEventInBatch, event);
       }
       function runEventInBatch(event) {
@@ -10238,13 +9436,6 @@
         activeElement = null;
         activeElementInst = null;
       }
-      function getInstIfValueChanged(targetInst, nativeEvent) {
-        var updated = inputValueTracking.updateValueIfChanged(targetInst);
-        var simulated = nativeEvent.simulated === true && ChangeEventPlugin._allowSimulatedPassThrough;
-        if (updated || simulated) {
-          return targetInst;
-        }
-      }
       function getTargetInstForChangeEvent(topLevelType, targetInst) {
         if (topLevelType === "topChange") {
           return targetInst;
@@ -10260,30 +9451,61 @@
       }
       var isInputEventSupported = false;
       if (ExecutionEnvironment.canUseDOM) {
-        isInputEventSupported = isEventSupported("input") && (!document.documentMode || document.documentMode > 9);
+        isInputEventSupported = isEventSupported("input") && (!document.documentMode || document.documentMode > 11);
       }
+      var newValueProp = {
+        get: function() {
+          return activeElementValueProp.get.call(this);
+        },
+        set: function(val) {
+          activeElementValue = "" + val;
+          activeElementValueProp.set.call(this, val);
+        }
+      };
       function startWatchingForValueChange(target, targetInst) {
         activeElement = target;
         activeElementInst = targetInst;
-        activeElement.attachEvent("onpropertychange", handlePropertyChange);
+        activeElementValue = target.value;
+        activeElementValueProp = Object.getOwnPropertyDescriptor(target.constructor.prototype, "value");
+        Object.defineProperty(activeElement, "value", newValueProp);
+        if (activeElement.attachEvent) {
+          activeElement.attachEvent("onpropertychange", handlePropertyChange);
+        } else {
+          activeElement.addEventListener("propertychange", handlePropertyChange, false);
+        }
       }
       function stopWatchingForValueChange() {
         if (!activeElement) {
           return;
         }
-        activeElement.detachEvent("onpropertychange", handlePropertyChange);
+        delete activeElement.value;
+        if (activeElement.detachEvent) {
+          activeElement.detachEvent("onpropertychange", handlePropertyChange);
+        } else {
+          activeElement.removeEventListener("propertychange", handlePropertyChange, false);
+        }
         activeElement = null;
         activeElementInst = null;
+        activeElementValue = null;
+        activeElementValueProp = null;
       }
       function handlePropertyChange(nativeEvent) {
         if (nativeEvent.propertyName !== "value") {
           return;
         }
-        if (getInstIfValueChanged(activeElementInst, nativeEvent)) {
-          manualDispatchChangeEvent(nativeEvent);
+        var value = nativeEvent.srcElement.value;
+        if (value === activeElementValue) {
+          return;
+        }
+        activeElementValue = value;
+        manualDispatchChangeEvent(nativeEvent);
+      }
+      function getTargetInstForInputEvent(topLevelType, targetInst) {
+        if (topLevelType === "topInput") {
+          return targetInst;
         }
       }
-      function handleEventsForInputEventPolyfill(topLevelType, target, targetInst) {
+      function handleEventsForInputEventIE(topLevelType, target, targetInst) {
         if (topLevelType === "topFocus") {
           stopWatchingForValueChange();
           startWatchingForValueChange(target, targetInst);
@@ -10291,42 +9513,24 @@
           stopWatchingForValueChange();
         }
       }
-      function getTargetInstForInputEventPolyfill(topLevelType, targetInst, nativeEvent) {
+      function getTargetInstForInputEventIE(topLevelType, targetInst) {
         if (topLevelType === "topSelectionChange" || topLevelType === "topKeyUp" || topLevelType === "topKeyDown") {
-          return getInstIfValueChanged(activeElementInst, nativeEvent);
+          if (activeElement && activeElement.value !== activeElementValue) {
+            activeElementValue = activeElement.value;
+            return activeElementInst;
+          }
         }
       }
       function shouldUseClickEvent(elem) {
-        var nodeName = elem.nodeName;
-        return nodeName && nodeName.toLowerCase() === "input" && (elem.type === "checkbox" || elem.type === "radio");
+        return elem.nodeName && elem.nodeName.toLowerCase() === "input" && (elem.type === "checkbox" || elem.type === "radio");
       }
-      function getTargetInstForClickEvent(topLevelType, targetInst, nativeEvent) {
+      function getTargetInstForClickEvent(topLevelType, targetInst) {
         if (topLevelType === "topClick") {
-          return getInstIfValueChanged(targetInst, nativeEvent);
-        }
-      }
-      function getTargetInstForInputOrChangeEvent(topLevelType, targetInst, nativeEvent) {
-        if (topLevelType === "topInput" || topLevelType === "topChange") {
-          return getInstIfValueChanged(targetInst, nativeEvent);
-        }
-      }
-      function handleControlledInputBlur(inst, node) {
-        if (inst == null) {
-          return;
-        }
-        var state = inst._wrapperState || node._wrapperState;
-        if (!state || !state.controlled || node.type !== "number") {
-          return;
-        }
-        var value = "" + node.value;
-        if (node.getAttribute("value") !== value) {
-          node.setAttribute("value", value);
+          return targetInst;
         }
       }
       var ChangeEventPlugin = {
         eventTypes,
-        _allowSimulatedPassThrough: true,
-        _isInputEventSupported: isInputEventSupported,
         extractEvents: function(topLevelType, targetInst, nativeEvent, nativeEventTarget) {
           var targetNode = targetInst ? ReactDOMComponentTree.getNodeFromInstance(targetInst) : window;
           var getTargetInstFunc, handleEventFunc;
@@ -10338,26 +9542,25 @@
             }
           } else if (isTextInputElement(targetNode)) {
             if (isInputEventSupported) {
-              getTargetInstFunc = getTargetInstForInputOrChangeEvent;
+              getTargetInstFunc = getTargetInstForInputEvent;
             } else {
-              getTargetInstFunc = getTargetInstForInputEventPolyfill;
-              handleEventFunc = handleEventsForInputEventPolyfill;
+              getTargetInstFunc = getTargetInstForInputEventIE;
+              handleEventFunc = handleEventsForInputEventIE;
             }
           } else if (shouldUseClickEvent(targetNode)) {
             getTargetInstFunc = getTargetInstForClickEvent;
           }
           if (getTargetInstFunc) {
-            var inst = getTargetInstFunc(topLevelType, targetInst, nativeEvent);
+            var inst = getTargetInstFunc(topLevelType, targetInst);
             if (inst) {
-              var event = createAndAccumulateChangeEvent(inst, nativeEvent, nativeEventTarget);
+              var event = SyntheticEvent.getPooled(eventTypes.change, inst, nativeEvent, nativeEventTarget);
+              event.type = "change";
+              EventPropagators.accumulateTwoPhaseDispatches(event);
               return event;
             }
           }
           if (handleEventFunc) {
             handleEventFunc(topLevelType, targetNode, targetInst);
-          }
-          if (topLevelType === "topBlur") {
-            handleControlledInputBlur(targetInst, targetNode);
           }
         }
       };
@@ -10429,10 +9632,10 @@
     "node_modules/react-dom/lib/getEventModifierState.js"(exports, module) {
       "use strict";
       var modifierKeyToProp = {
-        Alt: "altKey",
-        Control: "ctrlKey",
-        Meta: "metaKey",
-        Shift: "shiftKey"
+        "Alt": "altKey",
+        "Control": "ctrlKey",
+        "Meta": "metaKey",
+        "Shift": "shiftKey"
       };
       function modifierStateGetter(keyArg) {
         var syntheticEvent = this;
@@ -10614,7 +9817,6 @@
           contentEditable: 0,
           contextMenu: 0,
           controls: HAS_BOOLEAN_VALUE,
-          controlsList: 0,
           coords: 0,
           crossOrigin: 0,
           data: 0,
@@ -10766,19 +9968,7 @@
           htmlFor: "for",
           httpEquiv: "http-equiv"
         },
-        DOMPropertyNames: {},
-        DOMMutationMethods: {
-          value: function(node, value) {
-            if (value == null) {
-              return node.removeAttribute("value");
-            }
-            if (node.type !== "number" || node.hasAttribute("value") === false) {
-              node.setAttribute("value", "" + value);
-            } else if (node.validity && !node.validity.badInput && node.ownerDocument.activeElement !== node) {
-              node.setAttribute("value", "" + value);
-            }
-          }
-        }
+        DOMPropertyNames: {}
       };
       module.exports = HTMLDOMPropertyConfig;
     }
@@ -11342,10 +10532,7 @@
                   ReactInstrumentation.debugTool.onHostOperation({
                     instanceID: parentNodeDebugID,
                     type: "insert child",
-                    payload: {
-                      toIndex: update.toIndex,
-                      content: update.content.toString()
-                    }
+                    payload: { toIndex: update.toIndex, content: update.content.toString() }
                   });
                 }
                 break;
@@ -11475,7 +10662,6 @@
         boxFlexGroup: true,
         boxOrdinalGroup: true,
         columnCount: true,
-        columns: true,
         flex: true,
         flexGrow: true,
         flexPositive: true,
@@ -11483,13 +10669,7 @@
         flexNegative: true,
         flexOrder: true,
         gridRow: true,
-        gridRowEnd: true,
-        gridRowSpan: true,
-        gridRowStart: true,
         gridColumn: true,
-        gridColumnEnd: true,
-        gridColumnSpan: true,
-        gridColumnStart: true,
         fontWeight: true,
         lineClamp: true,
         lineHeight: true,
@@ -11614,13 +10794,13 @@
       var warning = require_warning();
       var isUnitlessNumber = CSSProperty.isUnitlessNumber;
       var styleWarnings = {};
-      function dangerousStyleValue(name, value, component, isCustomProperty) {
+      function dangerousStyleValue(name, value, component) {
         var isEmpty = value == null || typeof value === "boolean" || value === "";
         if (isEmpty) {
           return "";
         }
         var isNonNumeric = isNaN(value);
-        if (isCustomProperty || isNonNumeric || value === 0 || isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name]) {
+        if (isNonNumeric || value === 0 || isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name]) {
           return "" + value;
         }
         if (typeof value === "string") {
@@ -11814,16 +10994,13 @@
             if (!styles.hasOwnProperty(styleName)) {
               continue;
             }
-            var isCustomProperty = styleName.indexOf("--") === 0;
             var styleValue = styles[styleName];
             if (true) {
-              if (!isCustomProperty) {
-                warnValidStyle(styleName, styleValue, component);
-              }
+              warnValidStyle(styleName, styleValue, component);
             }
             if (styleValue != null) {
               serialized += processStyleName(styleName) + ":";
-              serialized += dangerousStyleValue(styleName, styleValue, component, isCustomProperty) + ";";
+              serialized += dangerousStyleValue(styleName, styleValue, component) + ";";
             }
           }
           return serialized || null;
@@ -11849,19 +11026,14 @@
             if (!styles.hasOwnProperty(styleName)) {
               continue;
             }
-            var isCustomProperty = styleName.indexOf("--") === 0;
             if (true) {
-              if (!isCustomProperty) {
-                warnValidStyle(styleName, styles[styleName], component);
-              }
+              warnValidStyle(styleName, styles[styleName], component);
             }
-            var styleValue = dangerousStyleValue(styleName, styles[styleName], component, isCustomProperty);
+            var styleValue = dangerousStyleValue(styleName, styles[styleName], component);
             if (styleName === "float" || styleName === "cssFloat") {
               styleName = styleFloatAccessor;
             }
-            if (isCustomProperty) {
-              style.setProperty(styleName, styleValue);
-            } else if (styleValue) {
+            if (styleValue) {
               style[styleName] = styleValue;
             } else {
               var expansion = hasShorthandPropertyBug && CSSProperty.shorthandPropertyExpansions[styleName];
@@ -12392,7 +11564,7 @@
   });
 
   // node_modules/react-dom/lib/ReactPropTypesSecret.js
-  var require_ReactPropTypesSecret3 = __commonJS({
+  var require_ReactPropTypesSecret2 = __commonJS({
     "node_modules/react-dom/lib/ReactPropTypesSecret.js"(exports, module) {
       "use strict";
       var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
@@ -12405,20 +11577,18 @@
     "node_modules/react-dom/lib/LinkedValueUtils.js"(exports, module) {
       "use strict";
       var _prodInvariant = require_reactProdInvariant2();
-      var ReactPropTypesSecret = require_ReactPropTypesSecret3();
-      var propTypesFactory = require_factory();
       var React5 = require_React();
-      var PropTypes5 = propTypesFactory(React5.isValidElement);
+      var ReactPropTypesSecret = require_ReactPropTypesSecret2();
       var invariant = require_invariant();
       var warning = require_warning();
       var hasReadOnlyValue = {
-        button: true,
-        checkbox: true,
-        image: true,
-        hidden: true,
-        radio: true,
-        reset: true,
-        submit: true
+        "button": true,
+        "checkbox": true,
+        "image": true,
+        "hidden": true,
+        "radio": true,
+        "reset": true,
+        "submit": true
       };
       function _assertSingleLink(inputProps) {
         !(inputProps.checkedLink == null || inputProps.valueLink == null) ? true ? invariant(false, "Cannot provide a checkedLink and a valueLink. If you want to use checkedLink, you probably don't want to use valueLink and vice versa.") : _prodInvariant("87") : void 0;
@@ -12444,7 +11614,7 @@
           }
           return new Error("You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.");
         },
-        onChange: PropTypes5.func
+        onChange: React5.PropTypes.func
       };
       var loggedTypeFailures = {};
       function getDeclarationErrorAddendum(owner) {
@@ -12589,9 +11759,11 @@
             initialChecked: props.checked != null ? props.checked : props.defaultChecked,
             initialValue: props.value != null ? props.value : defaultValue,
             listeners: null,
-            onChange: _handleChange.bind(inst),
-            controlled: isControlled(props)
+            onChange: _handleChange.bind(inst)
           };
+          if (true) {
+            inst._wrapperState.controlled = isControlled(props);
+          }
         },
         updateWrapper: function(inst) {
           var props = inst._currentElement.props;
@@ -12614,19 +11786,9 @@
           var node = ReactDOMComponentTree.getNodeFromInstance(inst);
           var value = LinkedValueUtils.getValue(props);
           if (value != null) {
-            if (value === 0 && node.value === "") {
-              node.value = "0";
-            } else if (props.type === "number") {
-              var valueAsNumber = parseFloat(node.value, 10) || 0;
-              if (
-                // eslint-disable-next-line
-                value != valueAsNumber || // eslint-disable-next-line
-                value == valueAsNumber && node.value != value
-              ) {
-                node.value = "" + value;
-              }
-            } else if (node.value !== "" + value) {
-              node.value = "" + value;
+            var newValue = "" + value;
+            if (newValue !== node.value) {
+              node.value = newValue;
             }
           } else {
             if (props.value == null && props.defaultValue != null) {
@@ -13131,7 +12293,7 @@
       "use strict";
       var _prodInvariant = require_reactProdInvariant2();
       var ReactPropTypeLocationNames = require_ReactPropTypeLocationNames2();
-      var ReactPropTypesSecret = require_ReactPropTypesSecret3();
+      var ReactPropTypesSecret = require_ReactPropTypesSecret2();
       var invariant = require_invariant();
       var warning = require_warning();
       var ReactComponentTreeHook;
@@ -13408,7 +12570,7 @@
           return markup;
         },
         _constructComponent: function(doConstruct, publicProps, publicContext, updateQueue) {
-          if (!doConstruct) {
+          if (true) {
             ReactCurrentOwner.current = this;
             try {
               return this._constructComponentWithoutOwner(doConstruct, publicProps, publicContext, updateQueue);
@@ -13601,7 +12763,7 @@
           if (childContext) {
             !(typeof Component5.childContextTypes === "object") ? true ? invariant(false, "%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().", this.getName() || "ReactCompositeComponent") : _prodInvariant("107", this.getName() || "ReactCompositeComponent") : void 0;
             if (true) {
-              this._checkContextTypes(Component5.childContextTypes, childContext, "child context");
+              this._checkContextTypes(Component5.childContextTypes, childContext, "childContext");
             }
             for (var name in childContext) {
               !(name in Component5.childContextTypes) ? true ? invariant(false, '%s.getChildContext(): key "%s" is not defined in childContextTypes.', this.getName() || "ReactCompositeComponent", name) : _prodInvariant("108", this.getName() || "ReactCompositeComponent", name) : void 0;
@@ -13992,9 +13154,9 @@
     }
   });
 
-  // node_modules/react/lib/getNextDebugID.js
+  // node_modules/react-dom/lib/getNextDebugID.js
   var require_getNextDebugID = __commonJS({
-    "node_modules/react/lib/getNextDebugID.js"(exports, module) {
+    "node_modules/react-dom/lib/getNextDebugID.js"(exports, module) {
       "use strict";
       var nextDebugID = 1;
       function getNextDebugID() {
@@ -14019,6 +13181,9 @@
       var ReactCompositeComponentWrapper = function(element) {
         this.construct(element);
       };
+      _assign(ReactCompositeComponentWrapper.prototype, ReactCompositeComponent, {
+        _instantiateReactComponent: instantiateReactComponent
+      });
       function getDeclarationErrorAddendum(owner) {
         if (owner) {
           var name = owner.getName();
@@ -14078,9 +13243,6 @@
         }
         return instance;
       }
-      _assign(ReactCompositeComponentWrapper.prototype, ReactCompositeComponent, {
-        _instantiateReactComponent: instantiateReactComponent
-      });
       module.exports = instantiateReactComponent;
     }
   });
@@ -14884,21 +14046,13 @@
          * @param {object} completeState Next state.
          * @internal
          */
-        enqueueReplaceState: function(publicInstance, completeState, callback) {
+        enqueueReplaceState: function(publicInstance, completeState) {
           var internalInstance = getInternalInstanceReadyForUpdate(publicInstance, "replaceState");
           if (!internalInstance) {
             return;
           }
           internalInstance._pendingStateQueue = [completeState];
           internalInstance._pendingReplaceState = true;
-          if (callback !== void 0 && callback !== null) {
-            ReactUpdateQueue.validateCallback(callback, "replaceState");
-            if (internalInstance._pendingCallbacks) {
-              internalInstance._pendingCallbacks.push(callback);
-            } else {
-              internalInstance._pendingCallbacks = [callback];
-            }
-          }
           enqueueUpdate(internalInstance);
         },
         /**
@@ -15394,7 +14548,6 @@
       var invariant = require_invariant();
       var isEventSupported = require_isEventSupported();
       var shallowEqual = require_shallowEqual();
-      var inputValueTracking = require_inputValueTracking();
       var validateDOMNesting = require_validateDOMNesting();
       var warning = require_warning();
       var Flags = ReactDOMComponentFlags;
@@ -15402,7 +14555,7 @@
       var getNode = ReactDOMComponentTree.getNodeFromInstance;
       var listenTo = ReactBrowserEventEmitter.listenTo;
       var registrationNameModules = EventPluginRegistry.registrationNameModules;
-      var CONTENT_TYPES = { string: true, number: true };
+      var CONTENT_TYPES = { "string": true, "number": true };
       var STYLE = "style";
       var HTML = "__html";
       var RESERVED_PROPS = {
@@ -15566,9 +14719,6 @@
         topVolumeChange: "volumechange",
         topWaiting: "waiting"
       };
-      function trackInputValue() {
-        inputValueTracking.track(this);
-      }
       function trapBubbledEventsLocal() {
         var inst = this;
         !inst._rootNodeID ? true ? invariant(false, "Must be mounted to trap events") : _prodInvariant("63") : void 0;
@@ -15608,30 +14758,29 @@
         ReactDOMSelect.postUpdateWrapper(this);
       }
       var omittedCloseTags = {
-        area: true,
-        base: true,
-        br: true,
-        col: true,
-        embed: true,
-        hr: true,
-        img: true,
-        input: true,
-        keygen: true,
-        link: true,
-        meta: true,
-        param: true,
-        source: true,
-        track: true,
-        wbr: true
-        // NOTE: menuitem's close tag should be omitted, but that causes problems.
+        "area": true,
+        "base": true,
+        "br": true,
+        "col": true,
+        "embed": true,
+        "hr": true,
+        "img": true,
+        "input": true,
+        "keygen": true,
+        "link": true,
+        "meta": true,
+        "param": true,
+        "source": true,
+        "track": true,
+        "wbr": true
       };
       var newlineEatingTags = {
-        listing: true,
-        pre: true,
-        textarea: true
+        "listing": true,
+        "pre": true,
+        "textarea": true
       };
       var voidElementTags = _assign({
-        menuitem: true
+        "menuitem": true
       }, omittedCloseTags);
       var VALID_TAG_REGEX = /^[a-zA-Z][a-zA-Z:_\.\-\d]*$/;
       var validatedTagCache = {};
@@ -15704,7 +14853,6 @@
             case "input":
               ReactDOMInput.mountWrapper(this, props, hostParent);
               props = ReactDOMInput.getHostProps(this, props);
-              transaction.getReactMountReady().enqueue(trackInputValue, this);
               transaction.getReactMountReady().enqueue(trapBubbledEventsLocal, this);
               break;
             case "option":
@@ -15719,7 +14867,6 @@
             case "textarea":
               ReactDOMTextarea.mountWrapper(this, props, hostParent);
               props = ReactDOMTextarea.getHostProps(this, props);
-              transaction.getReactMountReady().enqueue(trackInputValue, this);
               transaction.getReactMountReady().enqueue(trapBubbledEventsLocal, this);
               break;
           }
@@ -15989,7 +15136,6 @@
           switch (this._tag) {
             case "input":
               ReactDOMInput.updateWrapper(this);
-              inputValueTracking.updateValueIfChanged(this);
               break;
             case "textarea":
               ReactDOMTextarea.updateWrapper(this);
@@ -16171,10 +15317,6 @@
                   listeners[i].remove();
                 }
               }
-              break;
-            case "input":
-            case "textarea":
-              inputValueTracking.stopTracking(this);
               break;
             case "html":
             case "head":
@@ -17655,18 +16797,18 @@
       "use strict";
       var getEventCharCode = require_getEventCharCode();
       var normalizeKey = {
-        Esc: "Escape",
-        Spacebar: " ",
-        Left: "ArrowLeft",
-        Up: "ArrowUp",
-        Right: "ArrowRight",
-        Down: "ArrowDown",
-        Del: "Delete",
-        Win: "OS",
-        Menu: "ContextMenu",
-        Apps: "ContextMenu",
-        Scroll: "ScrollLock",
-        MozPrintableKey: "Unidentified"
+        "Esc": "Escape",
+        "Spacebar": " ",
+        "Left": "ArrowLeft",
+        "Up": "ArrowUp",
+        "Right": "ArrowRight",
+        "Down": "ArrowDown",
+        "Del": "Delete",
+        "Win": "OS",
+        "Menu": "ContextMenu",
+        "Apps": "ContextMenu",
+        "Scroll": "ScrollLock",
+        "MozPrintableKey": "Unidentified"
       };
       var translateToKey = {
         8: "Backspace",
@@ -18418,9 +17560,7 @@
             nextElement != null && nextElement.props !== void 0 ? " This may be caused by unintentionally loading two independent copies of React." : ""
           )) : _prodInvariant("39", typeof nextElement === "string" ? " Instead of passing a string like 'div', pass React.createElement('div') or <div />." : typeof nextElement === "function" ? " Instead of passing a class like Foo, pass React.createElement(Foo) or <Foo />." : nextElement != null && nextElement.props !== void 0 ? " This may be caused by unintentionally loading two independent copies of React." : "") : void 0;
           true ? warning(!container || !container.tagName || container.tagName.toUpperCase() !== "BODY", "render(): Rendering components directly into document.body is discouraged, since its children are often manipulated by third-party scripts and browser extensions. This may lead to subtle reconciliation issues. Try rendering into a container element created for your app.") : void 0;
-          var nextWrappedElement = React5.createElement(TopLevelWrapper, {
-            child: nextElement
-          });
+          var nextWrappedElement = React5.createElement(TopLevelWrapper, { child: nextElement });
           var nextContext;
           if (parentComponent) {
             var parentInst = ReactInstanceMap.get(parentComponent);
@@ -18574,7 +17714,7 @@
   var require_ReactVersion2 = __commonJS({
     "node_modules/react-dom/lib/ReactVersion.js"(exports, module) {
       "use strict";
-      module.exports = "15.6.2";
+      module.exports = "15.4.2";
     }
   });
 
@@ -18862,7 +18002,6 @@
         /* eslint-disable camelcase */
         unstable_batchedUpdates: ReactUpdates.batchedUpdates,
         unstable_renderSubtreeIntoContainer: renderSubtreeIntoContainer
-        /* eslint-enable camelcase */
       };
       if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.inject === "function") {
         __REACT_DEVTOOLS_GLOBAL_HOOK__.inject({
@@ -23923,6 +23062,698 @@
     }
   });
 
+  // node_modules/react-is/cjs/react-is.development.js
+  var require_react_is_development = __commonJS({
+    "node_modules/react-is/cjs/react-is.development.js"(exports) {
+      "use strict";
+      if (true) {
+        (function() {
+          "use strict";
+          var hasSymbol = typeof Symbol === "function" && Symbol.for;
+          var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103;
+          var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106;
+          var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107;
+          var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108;
+          var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114;
+          var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109;
+          var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110;
+          var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111;
+          var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111;
+          var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112;
+          var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113;
+          var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120;
+          var REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115;
+          var REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116;
+          var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121;
+          var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117;
+          var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118;
+          var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
+          function isValidElementType(type) {
+            return typeof type === "string" || typeof type === "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+            type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+          }
+          function typeOf(object) {
+            if (typeof object === "object" && object !== null) {
+              var $$typeof = object.$$typeof;
+              switch ($$typeof) {
+                case REACT_ELEMENT_TYPE:
+                  var type = object.type;
+                  switch (type) {
+                    case REACT_ASYNC_MODE_TYPE:
+                    case REACT_CONCURRENT_MODE_TYPE:
+                    case REACT_FRAGMENT_TYPE:
+                    case REACT_PROFILER_TYPE:
+                    case REACT_STRICT_MODE_TYPE:
+                    case REACT_SUSPENSE_TYPE:
+                      return type;
+                    default:
+                      var $$typeofType = type && type.$$typeof;
+                      switch ($$typeofType) {
+                        case REACT_CONTEXT_TYPE:
+                        case REACT_FORWARD_REF_TYPE:
+                        case REACT_LAZY_TYPE:
+                        case REACT_MEMO_TYPE:
+                        case REACT_PROVIDER_TYPE:
+                          return $$typeofType;
+                        default:
+                          return $$typeof;
+                      }
+                  }
+                case REACT_PORTAL_TYPE:
+                  return $$typeof;
+              }
+            }
+            return void 0;
+          }
+          var AsyncMode = REACT_ASYNC_MODE_TYPE;
+          var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+          var ContextConsumer = REACT_CONTEXT_TYPE;
+          var ContextProvider = REACT_PROVIDER_TYPE;
+          var Element = REACT_ELEMENT_TYPE;
+          var ForwardRef = REACT_FORWARD_REF_TYPE;
+          var Fragment = REACT_FRAGMENT_TYPE;
+          var Lazy = REACT_LAZY_TYPE;
+          var Memo = REACT_MEMO_TYPE;
+          var Portal2 = REACT_PORTAL_TYPE;
+          var Profiler = REACT_PROFILER_TYPE;
+          var StrictMode = REACT_STRICT_MODE_TYPE;
+          var Suspense = REACT_SUSPENSE_TYPE;
+          var hasWarnedAboutDeprecatedIsAsyncMode = false;
+          function isAsyncMode(object) {
+            {
+              if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+                hasWarnedAboutDeprecatedIsAsyncMode = true;
+                console["warn"]("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.");
+              }
+            }
+            return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+          }
+          function isConcurrentMode(object) {
+            return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+          }
+          function isContextConsumer(object) {
+            return typeOf(object) === REACT_CONTEXT_TYPE;
+          }
+          function isContextProvider(object) {
+            return typeOf(object) === REACT_PROVIDER_TYPE;
+          }
+          function isElement(object) {
+            return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+          }
+          function isForwardRef(object) {
+            return typeOf(object) === REACT_FORWARD_REF_TYPE;
+          }
+          function isFragment(object) {
+            return typeOf(object) === REACT_FRAGMENT_TYPE;
+          }
+          function isLazy(object) {
+            return typeOf(object) === REACT_LAZY_TYPE;
+          }
+          function isMemo(object) {
+            return typeOf(object) === REACT_MEMO_TYPE;
+          }
+          function isPortal(object) {
+            return typeOf(object) === REACT_PORTAL_TYPE;
+          }
+          function isProfiler(object) {
+            return typeOf(object) === REACT_PROFILER_TYPE;
+          }
+          function isStrictMode(object) {
+            return typeOf(object) === REACT_STRICT_MODE_TYPE;
+          }
+          function isSuspense(object) {
+            return typeOf(object) === REACT_SUSPENSE_TYPE;
+          }
+          exports.AsyncMode = AsyncMode;
+          exports.ConcurrentMode = ConcurrentMode;
+          exports.ContextConsumer = ContextConsumer;
+          exports.ContextProvider = ContextProvider;
+          exports.Element = Element;
+          exports.ForwardRef = ForwardRef;
+          exports.Fragment = Fragment;
+          exports.Lazy = Lazy;
+          exports.Memo = Memo;
+          exports.Portal = Portal2;
+          exports.Profiler = Profiler;
+          exports.StrictMode = StrictMode;
+          exports.Suspense = Suspense;
+          exports.isAsyncMode = isAsyncMode;
+          exports.isConcurrentMode = isConcurrentMode;
+          exports.isContextConsumer = isContextConsumer;
+          exports.isContextProvider = isContextProvider;
+          exports.isElement = isElement;
+          exports.isForwardRef = isForwardRef;
+          exports.isFragment = isFragment;
+          exports.isLazy = isLazy;
+          exports.isMemo = isMemo;
+          exports.isPortal = isPortal;
+          exports.isProfiler = isProfiler;
+          exports.isStrictMode = isStrictMode;
+          exports.isSuspense = isSuspense;
+          exports.isValidElementType = isValidElementType;
+          exports.typeOf = typeOf;
+        })();
+      }
+    }
+  });
+
+  // node_modules/react-is/index.js
+  var require_react_is = __commonJS({
+    "node_modules/react-is/index.js"(exports, module) {
+      "use strict";
+      if (false) {
+        module.exports = null;
+      } else {
+        module.exports = require_react_is_development();
+      }
+    }
+  });
+
+  // node_modules/prop-types/lib/ReactPropTypesSecret.js
+  var require_ReactPropTypesSecret3 = __commonJS({
+    "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+      "use strict";
+      var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
+      module.exports = ReactPropTypesSecret;
+    }
+  });
+
+  // node_modules/prop-types/lib/has.js
+  var require_has = __commonJS({
+    "node_modules/prop-types/lib/has.js"(exports, module) {
+      module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
+    }
+  });
+
+  // node_modules/prop-types/checkPropTypes.js
+  var require_checkPropTypes = __commonJS({
+    "node_modules/prop-types/checkPropTypes.js"(exports, module) {
+      "use strict";
+      var printWarning = function() {
+      };
+      if (true) {
+        ReactPropTypesSecret = require_ReactPropTypesSecret3();
+        loggedTypeFailures = {};
+        has = require_has();
+        printWarning = function(text) {
+          var message = "Warning: " + text;
+          if (typeof console !== "undefined") {
+            console.error(message);
+          }
+          try {
+            throw new Error(message);
+          } catch (x) {
+          }
+        };
+      }
+      var ReactPropTypesSecret;
+      var loggedTypeFailures;
+      var has;
+      function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+        if (true) {
+          for (var typeSpecName in typeSpecs) {
+            if (has(typeSpecs, typeSpecName)) {
+              var error;
+              try {
+                if (typeof typeSpecs[typeSpecName] !== "function") {
+                  var err = Error(
+                    (componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."
+                  );
+                  err.name = "Invariant Violation";
+                  throw err;
+                }
+                error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+              } catch (ex) {
+                error = ex;
+              }
+              if (error && !(error instanceof Error)) {
+                printWarning(
+                  (componentName || "React class") + ": type specification of " + location + " `" + typeSpecName + "` is invalid; the type checker function must return `null` or an `Error` but returned a " + typeof error + ". You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."
+                );
+              }
+              if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+                loggedTypeFailures[error.message] = true;
+                var stack = getStack ? getStack() : "";
+                printWarning(
+                  "Failed " + location + " type: " + error.message + (stack != null ? stack : "")
+                );
+              }
+            }
+          }
+        }
+      }
+      checkPropTypes.resetWarningCache = function() {
+        if (true) {
+          loggedTypeFailures = {};
+        }
+      };
+      module.exports = checkPropTypes;
+    }
+  });
+
+  // node_modules/prop-types/factoryWithTypeCheckers.js
+  var require_factoryWithTypeCheckers = __commonJS({
+    "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
+      "use strict";
+      var ReactIs = require_react_is();
+      var assign = require_object_assign();
+      var ReactPropTypesSecret = require_ReactPropTypesSecret3();
+      var has = require_has();
+      var checkPropTypes = require_checkPropTypes();
+      var printWarning = function() {
+      };
+      if (true) {
+        printWarning = function(text) {
+          var message = "Warning: " + text;
+          if (typeof console !== "undefined") {
+            console.error(message);
+          }
+          try {
+            throw new Error(message);
+          } catch (x) {
+          }
+        };
+      }
+      function emptyFunctionThatReturnsNull() {
+        return null;
+      }
+      module.exports = function(isValidElement, throwOnDirectAccess) {
+        var ITERATOR_SYMBOL = typeof Symbol === "function" && Symbol.iterator;
+        var FAUX_ITERATOR_SYMBOL = "@@iterator";
+        function getIteratorFn(maybeIterable) {
+          var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+          if (typeof iteratorFn === "function") {
+            return iteratorFn;
+          }
+        }
+        var ANONYMOUS = "<<anonymous>>";
+        var ReactPropTypes = {
+          array: createPrimitiveTypeChecker("array"),
+          bigint: createPrimitiveTypeChecker("bigint"),
+          bool: createPrimitiveTypeChecker("boolean"),
+          func: createPrimitiveTypeChecker("function"),
+          number: createPrimitiveTypeChecker("number"),
+          object: createPrimitiveTypeChecker("object"),
+          string: createPrimitiveTypeChecker("string"),
+          symbol: createPrimitiveTypeChecker("symbol"),
+          any: createAnyTypeChecker(),
+          arrayOf: createArrayOfTypeChecker,
+          element: createElementTypeChecker(),
+          elementType: createElementTypeTypeChecker(),
+          instanceOf: createInstanceTypeChecker,
+          node: createNodeChecker(),
+          objectOf: createObjectOfTypeChecker,
+          oneOf: createEnumTypeChecker,
+          oneOfType: createUnionTypeChecker,
+          shape: createShapeTypeChecker,
+          exact: createStrictShapeTypeChecker
+        };
+        function is(x, y) {
+          if (x === y) {
+            return x !== 0 || 1 / x === 1 / y;
+          } else {
+            return x !== x && y !== y;
+          }
+        }
+        function PropTypeError(message, data) {
+          this.message = message;
+          this.data = data && typeof data === "object" ? data : {};
+          this.stack = "";
+        }
+        PropTypeError.prototype = Error.prototype;
+        function createChainableTypeChecker(validate) {
+          if (true) {
+            var manualPropTypeCallCache = {};
+            var manualPropTypeWarningCount = 0;
+          }
+          function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+            componentName = componentName || ANONYMOUS;
+            propFullName = propFullName || propName;
+            if (secret !== ReactPropTypesSecret) {
+              if (throwOnDirectAccess) {
+                var err = new Error(
+                  "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"
+                );
+                err.name = "Invariant Violation";
+                throw err;
+              } else if (typeof console !== "undefined") {
+                var cacheKey = componentName + ":" + propName;
+                if (!manualPropTypeCallCache[cacheKey] && // Avoid spamming the console because they are often not actionable except for lib authors
+                manualPropTypeWarningCount < 3) {
+                  printWarning(
+                    "You are manually calling a React.PropTypes validation function for the `" + propFullName + "` prop on `" + componentName + "`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details."
+                  );
+                  manualPropTypeCallCache[cacheKey] = true;
+                  manualPropTypeWarningCount++;
+                }
+              }
+            }
+            if (props[propName] == null) {
+              if (isRequired) {
+                if (props[propName] === null) {
+                  return new PropTypeError("The " + location + " `" + propFullName + "` is marked as required " + ("in `" + componentName + "`, but its value is `null`."));
+                }
+                return new PropTypeError("The " + location + " `" + propFullName + "` is marked as required in " + ("`" + componentName + "`, but its value is `undefined`."));
+              }
+              return null;
+            } else {
+              return validate(props, propName, componentName, location, propFullName);
+            }
+          }
+          var chainedCheckType = checkType.bind(null, false);
+          chainedCheckType.isRequired = checkType.bind(null, true);
+          return chainedCheckType;
+        }
+        function createPrimitiveTypeChecker(expectedType) {
+          function validate(props, propName, componentName, location, propFullName, secret) {
+            var propValue = props[propName];
+            var propType = getPropType(propValue);
+            if (propType !== expectedType) {
+              var preciseType = getPreciseType(propValue);
+              return new PropTypeError(
+                "Invalid " + location + " `" + propFullName + "` of type " + ("`" + preciseType + "` supplied to `" + componentName + "`, expected ") + ("`" + expectedType + "`."),
+                { expectedType }
+              );
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createAnyTypeChecker() {
+          return createChainableTypeChecker(emptyFunctionThatReturnsNull);
+        }
+        function createArrayOfTypeChecker(typeChecker) {
+          function validate(props, propName, componentName, location, propFullName) {
+            if (typeof typeChecker !== "function") {
+              return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside arrayOf.");
+            }
+            var propValue = props[propName];
+            if (!Array.isArray(propValue)) {
+              var propType = getPropType(propValue);
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an array."));
+            }
+            for (var i = 0; i < propValue.length; i++) {
+              var error = typeChecker(propValue, i, componentName, location, propFullName + "[" + i + "]", ReactPropTypesSecret);
+              if (error instanceof Error) {
+                return error;
+              }
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createElementTypeChecker() {
+          function validate(props, propName, componentName, location, propFullName) {
+            var propValue = props[propName];
+            if (!isValidElement(propValue)) {
+              var propType = getPropType(propValue);
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement."));
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createElementTypeTypeChecker() {
+          function validate(props, propName, componentName, location, propFullName) {
+            var propValue = props[propName];
+            if (!ReactIs.isValidElementType(propValue)) {
+              var propType = getPropType(propValue);
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected a single ReactElement type."));
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createInstanceTypeChecker(expectedClass) {
+          function validate(props, propName, componentName, location, propFullName) {
+            if (!(props[propName] instanceof expectedClass)) {
+              var expectedClassName = expectedClass.name || ANONYMOUS;
+              var actualClassName = getClassName(props[propName]);
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + actualClassName + "` supplied to `" + componentName + "`, expected ") + ("instance of `" + expectedClassName + "`."));
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createEnumTypeChecker(expectedValues) {
+          if (!Array.isArray(expectedValues)) {
+            if (true) {
+              if (arguments.length > 1) {
+                printWarning(
+                  "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])."
+                );
+              } else {
+                printWarning("Invalid argument supplied to oneOf, expected an array.");
+              }
+            }
+            return emptyFunctionThatReturnsNull;
+          }
+          function validate(props, propName, componentName, location, propFullName) {
+            var propValue = props[propName];
+            for (var i = 0; i < expectedValues.length; i++) {
+              if (is(propValue, expectedValues[i])) {
+                return null;
+              }
+            }
+            var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
+              var type = getPreciseType(value);
+              if (type === "symbol") {
+                return String(value);
+              }
+              return value;
+            });
+            return new PropTypeError("Invalid " + location + " `" + propFullName + "` of value `" + String(propValue) + "` " + ("supplied to `" + componentName + "`, expected one of " + valuesString + "."));
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createObjectOfTypeChecker(typeChecker) {
+          function validate(props, propName, componentName, location, propFullName) {
+            if (typeof typeChecker !== "function") {
+              return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
+            }
+            var propValue = props[propName];
+            var propType = getPropType(propValue);
+            if (propType !== "object") {
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type " + ("`" + propType + "` supplied to `" + componentName + "`, expected an object."));
+            }
+            for (var key in propValue) {
+              if (has(propValue, key)) {
+                var error = typeChecker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
+                if (error instanceof Error) {
+                  return error;
+                }
+              }
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createUnionTypeChecker(arrayOfTypeCheckers) {
+          if (!Array.isArray(arrayOfTypeCheckers)) {
+            true ? printWarning("Invalid argument supplied to oneOfType, expected an instance of array.") : void 0;
+            return emptyFunctionThatReturnsNull;
+          }
+          for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+            var checker = arrayOfTypeCheckers[i];
+            if (typeof checker !== "function") {
+              printWarning(
+                "Invalid argument supplied to oneOfType. Expected an array of check functions, but received " + getPostfixForTypeWarning(checker) + " at index " + i + "."
+              );
+              return emptyFunctionThatReturnsNull;
+            }
+          }
+          function validate(props, propName, componentName, location, propFullName) {
+            var expectedTypes = [];
+            for (var i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
+              var checker2 = arrayOfTypeCheckers[i2];
+              var checkerResult = checker2(props, propName, componentName, location, propFullName, ReactPropTypesSecret);
+              if (checkerResult == null) {
+                return null;
+              }
+              if (checkerResult.data && has(checkerResult.data, "expectedType")) {
+                expectedTypes.push(checkerResult.data.expectedType);
+              }
+            }
+            var expectedTypesMessage = expectedTypes.length > 0 ? ", expected one of type [" + expectedTypes.join(", ") + "]" : "";
+            return new PropTypeError("Invalid " + location + " `" + propFullName + "` supplied to " + ("`" + componentName + "`" + expectedTypesMessage + "."));
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createNodeChecker() {
+          function validate(props, propName, componentName, location, propFullName) {
+            if (!isNode(props[propName])) {
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` supplied to " + ("`" + componentName + "`, expected a ReactNode."));
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function invalidValidatorError(componentName, location, propFullName, key, type) {
+          return new PropTypeError(
+            (componentName || "React class") + ": " + location + " type `" + propFullName + "." + key + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + type + "`."
+          );
+        }
+        function createShapeTypeChecker(shapeTypes) {
+          function validate(props, propName, componentName, location, propFullName) {
+            var propValue = props[propName];
+            var propType = getPropType(propValue);
+            if (propType !== "object") {
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
+            }
+            for (var key in shapeTypes) {
+              var checker = shapeTypes[key];
+              if (typeof checker !== "function") {
+                return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+              }
+              var error = checker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
+              if (error) {
+                return error;
+              }
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function createStrictShapeTypeChecker(shapeTypes) {
+          function validate(props, propName, componentName, location, propFullName) {
+            var propValue = props[propName];
+            var propType = getPropType(propValue);
+            if (propType !== "object") {
+              return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type `" + propType + "` " + ("supplied to `" + componentName + "`, expected `object`."));
+            }
+            var allKeys = assign({}, props[propName], shapeTypes);
+            for (var key in allKeys) {
+              var checker = shapeTypes[key];
+              if (has(shapeTypes, key) && typeof checker !== "function") {
+                return invalidValidatorError(componentName, location, propFullName, key, getPreciseType(checker));
+              }
+              if (!checker) {
+                return new PropTypeError(
+                  "Invalid " + location + " `" + propFullName + "` key `" + key + "` supplied to `" + componentName + "`.\nBad object: " + JSON.stringify(props[propName], null, "  ") + "\nValid keys: " + JSON.stringify(Object.keys(shapeTypes), null, "  ")
+                );
+              }
+              var error = checker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
+              if (error) {
+                return error;
+              }
+            }
+            return null;
+          }
+          return createChainableTypeChecker(validate);
+        }
+        function isNode(propValue) {
+          switch (typeof propValue) {
+            case "number":
+            case "string":
+            case "undefined":
+              return true;
+            case "boolean":
+              return !propValue;
+            case "object":
+              if (Array.isArray(propValue)) {
+                return propValue.every(isNode);
+              }
+              if (propValue === null || isValidElement(propValue)) {
+                return true;
+              }
+              var iteratorFn = getIteratorFn(propValue);
+              if (iteratorFn) {
+                var iterator = iteratorFn.call(propValue);
+                var step;
+                if (iteratorFn !== propValue.entries) {
+                  while (!(step = iterator.next()).done) {
+                    if (!isNode(step.value)) {
+                      return false;
+                    }
+                  }
+                } else {
+                  while (!(step = iterator.next()).done) {
+                    var entry = step.value;
+                    if (entry) {
+                      if (!isNode(entry[1])) {
+                        return false;
+                      }
+                    }
+                  }
+                }
+              } else {
+                return false;
+              }
+              return true;
+            default:
+              return false;
+          }
+        }
+        function isSymbol(propType, propValue) {
+          if (propType === "symbol") {
+            return true;
+          }
+          if (!propValue) {
+            return false;
+          }
+          if (propValue["@@toStringTag"] === "Symbol") {
+            return true;
+          }
+          if (typeof Symbol === "function" && propValue instanceof Symbol) {
+            return true;
+          }
+          return false;
+        }
+        function getPropType(propValue) {
+          var propType = typeof propValue;
+          if (Array.isArray(propValue)) {
+            return "array";
+          }
+          if (propValue instanceof RegExp) {
+            return "object";
+          }
+          if (isSymbol(propType, propValue)) {
+            return "symbol";
+          }
+          return propType;
+        }
+        function getPreciseType(propValue) {
+          if (typeof propValue === "undefined" || propValue === null) {
+            return "" + propValue;
+          }
+          var propType = getPropType(propValue);
+          if (propType === "object") {
+            if (propValue instanceof Date) {
+              return "date";
+            } else if (propValue instanceof RegExp) {
+              return "regexp";
+            }
+          }
+          return propType;
+        }
+        function getPostfixForTypeWarning(value) {
+          var type = getPreciseType(value);
+          switch (type) {
+            case "array":
+            case "object":
+              return "an " + type;
+            case "boolean":
+            case "date":
+            case "regexp":
+              return "a " + type;
+            default:
+              return type;
+          }
+        }
+        function getClassName(propValue) {
+          if (!propValue.constructor || !propValue.constructor.name) {
+            return ANONYMOUS;
+          }
+          return propValue.constructor.name;
+        }
+        ReactPropTypes.checkPropTypes = checkPropTypes;
+        ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
+        ReactPropTypes.PropTypes = ReactPropTypes;
+        return ReactPropTypes;
+      };
+    }
+  });
+
   // node_modules/prop-types/index.js
   var require_prop_types = __commonJS({
     "node_modules/prop-types/index.js"(exports, module) {
@@ -25878,16 +25709,6 @@ object-assign/index.js:
   @license MIT
   *)
 
-react-is/cjs/react-is.development.js:
-  (** @license React v16.13.1
-   * react-is.development.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *)
-
 react-dom/lib/isEventSupported.js:
   (**
    * Checks if an event is supported in the current execution environment.
@@ -25910,5 +25731,15 @@ classnames/index.js:
   	Licensed under the MIT License (MIT), see
   	http://jedwatson.github.io/classnames
   *)
+
+react-is/cjs/react-is.development.js:
+  (** @license React v16.13.1
+   * react-is.development.js
+   *
+   * Copyright (c) Facebook, Inc. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
 */
 //# sourceMappingURL=index.js.map

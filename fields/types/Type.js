@@ -153,7 +153,7 @@ Field.prototype.getData = function (item) {
 /**
  * Field watching implementation
  */
-Field.prototype.getPreSaveWatcher = function () {
+Field.prototype.getPreSaveWatcher = async function () {
 	var field = this;
 	var applyValue;
 
@@ -198,19 +198,27 @@ Field.prototype.getPreSaveWatcher = function () {
 		process.exit(1);
 	}
 
-	return function (next) {
+	function runValueMethod(ctx) {
+		return new Promise(function (resolve, reject) {
+			di(field.options.value).call(ctx, function (err, val) {
+				if (err) return reject(err);
+				resolve(val);
+			});
+		});
+	}
+
+	return async function () {
 		if (!applyValue(this)) {
-			return next();
+			return;
 		}
-		di(field.options.value).call(this, function (err, val) {
-			if (err) {
-				console.error('\nError: '
+
+		try {
+			var val = await runValueMethod(this);
+			this.set(field.path, val);
+		} catch (err) {
+			console.error('\nError: '
 				+ 'Watch set with value method for ' + field.list.key + '.' + field.path + ' (' + field.type + ') throws error:' + err);
-			} else {
-				this.set(field.path, val);
-			}
-			next();
-		}.bind(this));
+		}
 	};
 
 };

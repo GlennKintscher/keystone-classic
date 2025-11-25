@@ -5,7 +5,6 @@ import { findDOMNode } from 'react-dom';
 import { FormInput } from '../../../admin/client/App/elemental';
 import classnames from 'classnames';
 
-const CodeMirror = window.codemirror;
 /**
  * TODO:
  * - Remove dependency on lodash
@@ -35,7 +34,7 @@ module.exports = Field.create({
 			readOnly: this.shouldRenderField() ? false : true,
 		});
 
-		this.codeMirror = CodeMirror.fromTextArea(findDOMNode(this.refs.codemirror), options);
+		this.codeMirror = window.CodeMirror.fromTextArea(findDOMNode(this.refs.codemirror), options);
 		this.codeMirror.setSize(null, this.props.height);
 		this.codeMirror.on('change', this.codemirrorValueChanged);
 		this.codeMirror.on('focus', this.focusChanged.bind(this, true));

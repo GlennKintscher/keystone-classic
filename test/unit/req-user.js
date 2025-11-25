@@ -18,9 +18,8 @@ describe('List schema pre/post save hooks', function () {
 		// create test model
 		Test = keystone.List('Test'),
 		Test.add({ name: { type: String } });
-		Test.schema.pre('save', function (next, done) {
+		Test.schema.pre('save', function () {
 			pre = this._req_user;
-			next();
 		});
 
 		Test.schema.post('save', function () {
@@ -76,13 +75,9 @@ describe('List schema pre/post save hooks', function () {
 			app.post('/using-save', function (req, res) {
 				req.user = dummyUser;
 				var item = new Test.model(req.body);
-				item.save(function (err, data) {
-					if (err) {
-						res.send('BAD');
-					} else {
-						res.send('GOOD');
-					}
-				});
+				item.save()
+					.then(function () { res.send('GOOD'); })
+					.catch(function () { res.send('BAD'); });
 			});
 
 			request(app)

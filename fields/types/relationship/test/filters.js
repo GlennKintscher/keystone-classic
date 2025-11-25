@@ -15,10 +15,11 @@ exports.getTestItems = function (List, callback) {
 		jed: new List.model({ name: 'Jed' }),
 		max: new List.model({ name: 'Max' }),
 	}, function (item, key, done) {
-		item.save(function (err, doc) {
-			if (err) return done(err);
-			return done(null, String(doc.id));
-		});
+		item.save()
+			.then(function (doc) {
+				return done(null, String(doc.id));
+			})
+			.catch(done);
 	}, function (err, results) {
 		if (err) return callback(err);
 		items = results;

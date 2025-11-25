@@ -1,10 +1,14 @@
 diff --git a/node_modules/keystone-nightwatch-e2e/index.js b/node_modules/keystone-nightwatch-e2e/index.js
-index 617f313..c90fcf7 100644
+index 617f313..a5cd8e5 100644
 --- a/node_modules/keystone-nightwatch-e2e/index.js
 +++ b/node_modules/keystone-nightwatch-e2e/index.js
-@@ -102,11 +102,7 @@ function runNightwatch (done) {
+@@ -99,14 +99,10 @@ function runNightwatch (done) {
+ 				 * If the user wants us to start selenium manually then do so
+ 				 */
+ 				function (cb) {
++					process.env.KNE_SELENIUM_START_PROCESS = false;
  					if (argv.env === 'default' && argv['selenium-in-background']) {
- 						process.env.KNE_SELENIUM_START_PROCESS = false;
+-						process.env.KNE_SELENIUM_START_PROCESS = false;
  						runSeleniumInBackground(cb);
 -					} else if (argv.env === 'default') {
 -						process.env.KNE_SELENIUM_START_PROCESS = true;
@@ -14,3 +18,16 @@ index 617f313..c90fcf7 100644
  						cb();
  					}
  				},
+diff --git a/node_modules/keystone-nightwatch-e2e/nightwatch.json b/node_modules/keystone-nightwatch-e2e/nightwatch.json
+index 5025629..e53cfe1 100644
+--- a/node_modules/keystone-nightwatch-e2e/nightwatch.json
++++ b/node_modules/keystone-nightwatch-e2e/nightwatch.json
+@@ -30,7 +30,7 @@
+         "marionette": true
+       },
+       "selenium": {
+-        "start_process": "${KNE_SELENIUM_START_PROCESS}"
++        "start_process": false
+       }
+     },
+     "saucelabs-travis": {

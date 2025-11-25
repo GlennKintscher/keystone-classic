@@ -83,33 +83,23 @@ password.prototype.addToSchema = function (schema) {
 		this[needs_hashing] = false;
 	});
 
-	schema.pre('save', function (next) {
+	schema.pre('save', async function () {
 		if (!this.isModified(field.path) || !this[needs_hashing]) {
-			return next();
+			return;
 		}
 		if (!this.get(field.path)) {
 			this.set(field.path, undefined);
 			this[needs_hashing] = false;
-			return next();
+			return;
 		}
-		var item = this;
-		bcrypt.genSalt(field.options.workFactor, function (err, salt) {
-			if (err) {
-				return next(err);
-			}
-			bcrypt.hash(item.get(field.path), salt, function (err, hash) {
-				if (err) {
-					return next(err);
-				}
-				// override the cleartext password with the hashed one
-				item.set(field.path, hash);
-				// reset [needs_hashing] so that new values can't be hashed more than once
-				// (inherited models double up on pre save handlers for password fields)
-				item[needs_hashing] = false;
-				next();
-			});
-		});
+
+		const salt = await bcrypt.genSalt(field.options.workFactor);
+		const hash = await bcrypt.hash(this.get(field.path), salt);
+
+		this.set(field.path, hash);
+		this[needs_hashing] = false;
 	});
+
 	this.bindUnderscoreMethods();
 };
 

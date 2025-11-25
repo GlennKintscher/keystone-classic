@@ -37,26 +37,31 @@ describe('When paginating results', function () {
 
 	beforeEach(function (done) {
 		// remove any Post documents
-		Post.model.find({}).remove(function (error) {
-			if (error) {
-				done(error);
-			}
+		Post.model.find({}).deleteMany().exec()
+			.then(function () {
+				// Add the test Post data
+				async.forEach(testData.posts, function (post, callback) {
+					var newPost = new Post.model(post);
+					newPost.save().then(function (item) { callback(null, item); }).catch(callback);
+				}, function (error) {
+					done(error);
+				});
 
-			// Add the test Post data
-			async.forEach(testData.posts, function (post, callback) {
-				var newPost = new Post.model(post);
-				newPost.save(callback);
-			}, function (error) {
+			})
+			.catch(function (error) {
 				done(error);
 			});
-		});
 	});
 
 	after(function (done) {
 		// remove any remaining test data
-		Post.model.find({}).remove(function (error) {
-			done(error);
-		});
+		Post.model.find({}).deleteMany().exec()
+			.then(function () {
+				done();
+			})
+			.catch(function (error) {
+				done(error);
+			});
 	});
 
 	// regression test for pagination after adding `options.optionalExpression`

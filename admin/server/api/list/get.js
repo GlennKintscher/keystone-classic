@@ -43,21 +43,39 @@ module.exports = function (req, res) {
 			if (!includeCount) {
 				return next(null, 0);
 			}
-			query.count(next);
+			req.list.model.countDocuments(where).exec()
+				.then(function (count) {
+					return next(null, count);
+				})
+				.catch(function (err) {
+					return next(err);
+				});
 		},
 		function (count, next) {
 			if (!includeResults) {
 				return next(null, count, []);
 			}
-			query.find();
-			query.limit(Number(req.query.limit) || 100);
-			query.skip(Number(req.query.skip) || 0);
-			if (sort.string) {
-				query.sort(sort.string);
+			var resultsQuery = req.list.model.find(where);
+			if (req.query.populate) {
+				resultsQuery.populate(req.query.populate);
 			}
-			query.exec(function (err, items) {
-				next(err, count, items);
-			});
+			if (req.query.expandRelationshipFields && req.query.expandRelationshipFields !== 'false') {
+				req.list.relationshipFields.forEach(function (i) {
+					resultsQuery.populate(i.path);
+				});
+			}
+			resultsQuery.limit(Number(req.query.limit) || 100);
+			resultsQuery.skip(Number(req.query.skip) || 0);
+			if (sort.string) {
+				resultsQuery.sort(sort.string);
+			}
+			resultsQuery.exec()
+				.then(function (items) {
+					return next(null, count, items);
+				})
+				.catch(function (err) {
+					return next(err);
+				});
 		},
 	], function (err, count, items) {
 		if (err) {

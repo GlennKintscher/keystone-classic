@@ -21,21 +21,26 @@ var mongoUri = 'mongodb://' + (process.env.KEYSTONEJS_HOST || 'localhost') + dbN
 function dropTestDatabase(done) {
 	console.log([moment().format('HH:mm:ss:SSS')] + ' e2e: dropping test database: ' + mongoUri);
 
-	mongoose.connect(mongoUri,function(err){
-		if (!err) {
-			mongoose.connection.db.dropDatabase(function (err) {
-				if (!err) {
+	mongoose.connect(mongoUri)
+		.then(function(){
+			mongoose.connection.db.dropDatabase()
+				.then(function () {
 					console.log([moment().format('HH:mm:ss:SSS')] + ' e2e: dropped test database: ' + mongoUri);
-				}
-				mongoose.connection.close(function(err) {
-					done(err);
 				})
-			});
-		} else {
+				.finally(function() {
+					mongoose.connection.close()
+						.then(function() {
+							done();
+						})
+						.catch(function(err) {
+							done(err);
+						})
+				});
+		})
+		.catch(function(err) {
 			console.error([moment().format('HH:mm:ss:SSS')] + ' e2e: failed to connect to mongo: ' + err);
 			done(err);
-		}
-	});
+		});
 }
 
 // Function that checks if keystone is ready before starting testing
