@@ -1,6 +1,5 @@
 import Field from '../Field';
 import React from 'react';
-import tinymce from 'tinymce';
 import { FormInput } from '../../../admin/client/App/elemental';
 import evalDependsOn from '../../utils/evalDependsOn';
 
@@ -17,10 +16,10 @@ function getId () {
 
 // Workaround for #2834 found here https://github.com/tinymce/tinymce/issues/794#issuecomment-203701329
 function removeTinyMCEInstance (editor) {
-	var oldLength = tinymce.editors.length;
-	tinymce.remove(editor);
-	if (oldLength === tinymce.editors.length) {
-		tinymce.editors.remove(editor);
+	var oldLength = window.tinymce.editors.length;
+	window.tinymce.remove(editor);
+	if (oldLength === window.tinymce.editors.length) {
+		window.tinymce.editors.remove(editor);
 	}
 }
 
@@ -53,14 +52,14 @@ module.exports = Field.create({
 		};
 
 		this._currentValue = this.props.value;
-		tinymce.init(opts);
+		window.tinymce.init(opts);
 		if (evalDependsOn(this.props.dependsOn, this.props.values)) {
 			this.setState({ wysiwygActive: true });
 		}
 	},
 
 	removeWysiwyg (state) {
-		removeTinyMCEInstance(tinymce.get(state.id));
+		removeTinyMCEInstance(window.tinymce.get(state.id));
 		this.setState({ wysiwygActive: false });
 	},
 
@@ -163,7 +162,7 @@ module.exports = Field.create({
 			toolbar: toolbar,
 			plugins: plugins,
 			menubar: options.menubar || false,
-			skin: options.skin || 'keystone',
+			//skin: options.skin || 'keystone',
 			branding: false,
 		};
 

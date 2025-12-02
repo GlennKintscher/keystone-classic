@@ -20,6 +20,7 @@ Html.add({
 	fieldA: {
 		type: Types.Html,
 		initial: true,
+		wysiwyg: true,
 	},
 	fieldB: {
 		type: Types.Html,
