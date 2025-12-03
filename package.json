@@ -137,7 +137,6 @@
     "url": "https://github.com/keystonejs/keystone/issues"
   },
   "scripts": {
-    "postinstall": "patch-package",
     "build": "cross-env NODE_ENV=production node build.mjs",
     "build-dev": "node build.mjs",
     "build-css": "lessc --js --source-map admin/public/styles/keystone.less admin/public/styles/keystone.css",
